@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import Login from "./auth/Login"
 import Register from "./auth/Register"
+import Home from "./home/Home"
 
 const AppViews = (props) => {
 const setUser = props.setUser
@@ -20,15 +21,14 @@ const hasUser = props.hasUser
       exact
       path="/register"
       render={props=> {
-        return <Register />
+        return <Register setUser={setUser} hasUser={hasUser} {...props}/>
       }}
       />
       <Route
       exact
       path="/"
       render={props=> {
-        hasUser ? 
-        return 
+      if (hasUser) {return <Home /> } else {return <Redirect to="/login"/>}
       }}
       />
     </React.Fragment>

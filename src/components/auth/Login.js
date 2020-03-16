@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Route, Link } from "react-router-dom"
-import jAPI from "../../modules/ApiManager"
+import jAPI from "../../modules/apiManager"
 
 const Login = props => {
   const [credentials, setCredentials] = useState({ email: ""}); 
