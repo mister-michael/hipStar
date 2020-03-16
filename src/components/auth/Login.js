@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import API from "../../modules/ApiManager"
 import { Route, Link } from "react-router-dom"
+import jAPI from "../../modules/ApiManager"
 
 const Login = props => {
   const [credentials, setCredentials] = useState({ email: ""}); 
@@ -12,17 +12,17 @@ const Login = props => {
     setCredentials(stateToChange);
   };
   const handleLogin = (evt) => {
-    // API.get("users")
-    //   .then(users => {
-    //     const user = users.find(user => user.email === credentials.email)
-    //     if (user !== undefined) {
-    //       sessionStorage.setItem("userId", user.id)
-    //       props.setUser(credentials)
-    //       props.history.push("/home")
-    //     } else {
-    //       window.alert("try again")
-    //     }
-    //   })
+    jAPI.get("users")
+      .then(users => {
+        const user = users.find(user => user.email === credentials.email.toLowerCase())
+        if (user !== undefined) {
+          sessionStorage.setItem("userId", user.id)
+          props.setUser(credentials)
+          props.history.push("/")
+        } else {
+          window.alert("try again")
+        }
+      })
   };
 
   return (
@@ -38,13 +38,13 @@ const Login = props => {
             placeholder="email address"
           ></input>
 
-          <label htmlFor="inputPassword">Password:</label>
+          {/* <label htmlFor="inputPassword">Password:</label>
           <input
             onChange={handleFieldChange}
             type="password"
             id="password"
             placeholder="password"
-          ></input>
+          ></input> */}
 
           <button
             type="submit"
