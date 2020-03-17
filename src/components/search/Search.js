@@ -6,14 +6,14 @@ import SearchCard from "./SearchCard"
 const Search = (props) => {
 
   const [keyword, setKeyword] = useState({ searchInput: "" });
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState();
 
   const handleFieldChange = evt => {
     const stateToChange = { ...keyword };
     stateToChange[evt.target.id] = evt.target.value;
     setKeyword(stateToChange);
   };
-  
+
 
   // const handleSearch = () => {
   //   return mAPI.search(keyword.searchInput)
@@ -50,13 +50,15 @@ const Search = (props) => {
 
     mAPI.search(string)
       .then(searchResults => {
-        setResults(searchResults)
-        console.log(results)
-        console.log(searchResults)
+        let emptyArr = []
+        searchResults.results.forEach(movie => emptyArr.push(movie))
+        console.log(emptyArr)
+        console.log(searchResults.results)
       })
 
 
   }
+
 
   return (
     <>
@@ -71,10 +73,8 @@ const Search = (props) => {
         type="button"
         onClick={handleSearch}>
         Submit</button>
-      <div
-        id="results"
-      >
-        {results.map(el => <SearchCard key={`${el.id}`} result={el} {...props} />)}
+      <div>
+        {/* {results.map(el => <SearchCard key={el.id} result={el} {...props} />)} */}
       </div>
 
     </>
