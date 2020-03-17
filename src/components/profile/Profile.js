@@ -7,8 +7,14 @@ const Profile = props => {
 
   const [userObject, setUserObject] = useState([])
 
+  const getUser = () => {
     jAPI.getWithId("users", userId)
       .then(user => setUserObject(user))
+  }
+
+  useEffect(() => {
+    getUser()
+  }, [])
 
   return (
     <>
