@@ -10,6 +10,7 @@ const RegisterForm = props => {
     logoutTime: ""
   });
 
+
   const handleFieldChange = evt => {
     const stateToChange = { ...credentials };
     stateToChange[evt.target.id] = evt.target.value;
@@ -18,21 +19,43 @@ const RegisterForm = props => {
 
   const handleRegister = evt => {
     evt.preventDefault();
-    jAPI.get("users").then(users => {
-      const user = users.find(user => user.email.toLowerCase() === credentials.email.toLowerCase());
-      if (user === undefined) {
-        setCredentials("credentials");
-        jAPI.save(credentials, "users");
-        jAPI.get("users").then(users => {
-          const newUser = users.find(newUser => newUser.email === credentials.email);
-          sessionStorage.setItem("userId", newUser.id);
-          props.setUser(credentials);
-          props.history.push("/home");
-        });
-      } else {
-        window.alert("email already exists");
-      }
-    });
+    setCredentials("credentials")
+
+    const nameArr = credentials.username.split("")
+    const nameArrFind = nameArr.find(char => char === " ")
+
+    if (nameArrFind !== undefined) {
+      window.alert("username can not contain spaces")
+
+    } else if (nameArr.length > 16) {
+      window.alert("username can not be more than 16 characters")
+
+    } else {
+
+      jAPI.get("users").then(users => {
+
+        const email = users.find(user => user.email.toLowerCase() === credentials.email.toLowerCase());
+        const name = users.find(user => user.username.toLowerCase() === credentials.username.toLowerCase());
+
+        if (email === undefined && name === undefined) {
+
+          setCredentials("credentials");
+          jAPI.save(credentials, "users");
+          jAPI.get("users").then(users => {
+            const newUser = users.find(newUser => newUser.email === credentials.email);
+            sessionStorage.setItem("userId", newUser.id);
+            props.setUser(credentials);
+            props.history.push("/home");
+          });
+        }
+        else if (email !== undefined) {
+          window.alert("email already exists");
+        }
+        else if (name !== undefined) {
+          window.alert("username already exists")
+        }
+      });
+    }
   };
 
   return (

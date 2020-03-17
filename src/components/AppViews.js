@@ -4,6 +4,7 @@ import Login from "./auth/Login"
 import Register from "./auth/Register"
 import Home from "./home/Home"
 import Profile from "./profile/Profile"
+import Search from "./search/Search"
 
 const AppViews = (props) => {
 const setUser = props.setUser
@@ -30,6 +31,13 @@ const hasUser = props.hasUser
       path="/"
       render={props=> {
       if (hasUser) {return <Profile /> } else {return <Redirect to="/login"/>}
+      }}
+      />
+      <Route
+      exact
+      path="/search"
+      render={props=> {
+        if (hasUser) {return <Search {...props}/>} else {return <Redirect to="/login" />}
       }}
       />
     </React.Fragment>
