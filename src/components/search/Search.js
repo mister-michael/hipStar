@@ -6,7 +6,9 @@ import SearchCard from "./SearchCard"
 const Search = (props) => {
 
   const [keyword, setKeyword] = useState({ searchInput: "" });
-  const [results, setResults] = useState();
+  const [results, setResults] = useState([]);
+
+  const searchInput = document.getElementById("searchInput")
 
   const handleFieldChange = evt => {
     const stateToChange = { ...keyword };
@@ -14,52 +16,27 @@ const Search = (props) => {
     setKeyword(stateToChange);
   };
 
-
-  // const handleSearch = () => {
-  //   return mAPI.search(keyword.searchInput)
-  //     .then(movies => {
-  //       const dbid = `${movies.results[0].id}`
-  //       mAPI.searchWithId(dbid)
-  //         .then(movieById => {
-  //           console.log(movieById)
-  //           const movieObject = {
-  //             dbid: `${movieById.id}`,
-  //             imdb_Id: `${movieById.imdb_Id}`,
-  //             title: movieById.title,
-  //             release_date: movieById.release_date,
-  //             poster_path: movieById.poster_path,
-  //             revenue: movieById.revenue,
-  //             overview: movieById.overview,
-  //             tagline: movieById.tagline
-  //           }
-  //           jAPI.save(movieObject, "movies")
-  //         })
-  //     })
-  // }
-
   const handleSearch = () => {
 
     let string = ""
 
     const stringArr = keyword.searchInput.split(" ");
 
-    for (let i = 0; i < stringArr.length; i++)
-      (i < stringArr.length - 1) ? string += stringArr[i] + `+` : string += stringArr[i]
-
-    console.log('string', string)
+    for (let i = 0; i < stringArr.length; i++) {
+      string += (i < stringArr.length - 1) ? stringArr[i] + `+` : stringArr[i]
+    }
 
     mAPI.search(string)
       .then(searchResults => {
-        let emptyArr = []
-        searchResults.results.forEach(movie => emptyArr.push(movie))
-        console.log(emptyArr)
-        console.log(searchResults.results)
+        setResults(searchResults.results)
+        console.log(searchResults)
       })
-
-
   }
 
-
+//after movie is added i'll want to
+//    remove the card from the list?
+//    push to /profile?
+//    clear the search field
   return (
     <>
       <label htmlFor="searchInput">Search</label>
@@ -74,7 +51,7 @@ const Search = (props) => {
         onClick={handleSearch}>
         Submit</button>
       <div>
-        {/* {results.map(el => <SearchCard key={el.id} result={el} {...props} />)} */}
+        {results.map(el => <SearchCard key={el.id} result={el} searchInput={searchInput} {...props} />)}
       </div>
 
     </>
