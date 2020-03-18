@@ -7,6 +7,9 @@ const jAPI = {
     get(str) {
         return fetch(apiURL + str).then(entries => entries.json());
     },
+    getLoveHate(movieId, userId) {
+
+    },
     save(objToSave, str) {
         return fetch(apiURL + str, {
             method: "POST",

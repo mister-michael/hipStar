@@ -5,9 +5,8 @@ import jAPI from "../../modules/apiManager";
 
 const SearchCard = (props) => {
 
-
-
-  const movieId = props.result.id
+  const mdbId = props.result.id
+  const activeUserId = props.activeUserId
 
   let poster = "https://harperlibrary.typepad.com/.a/6a0105368f4fef970b01b8d23c71b5970c-800wi"
 
@@ -21,8 +20,7 @@ const SearchCard = (props) => {
 
   const handleAdd = () => {
 
-
-    mAPI.searchWithId(movieId)
+    mAPI.searchWithId(mdbId)
       .then(movieById => {
         console.log(movieById)
         const movieObject = {
@@ -34,18 +32,45 @@ const SearchCard = (props) => {
           overview: movieById.overview,
           tagline: movieById.tagline
         }
-        jAPI.save(movieObject, "movies")
+
         jAPI.get("movies")
-        .then(movies => {
-          const movieInJson = movies.find(movie => movie.dbid == movieById.id)
-          const loveHateObject = {
-            userId: props.activeUserId,
-            movieId: movieInJson.id,
-            isHated: true
-          }
-          jAPI.save(loveHateObject, "loveHates")
-        })
-        
+          .then(movies => {
+            const movieInJson = movies.find(movie => movie.dbid == movieById.id)
+
+
+
+            const isMovieId = () => {
+              if (movieInJson !== undefined) {
+                return movieInJson.id
+              } else {
+                jAPI.save(movieObject, "movies");
+                return "placeholderId"
+                // jAPI.get("movies")
+                //   .then(movies => {
+                //     const movieInDb = movies.find(movie => movie.dbid === movieById.id);
+                //     return movieInDb.id
+                //   })
+              }
+            }
+             
+            const loveHateObject = {
+              userId: props.activeUserId,
+              movieId: isMovieId(),
+              isHated: true
+            }
+
+            if (movieInJson !== undefined) {
+
+              jAPI.save(loveHateObject, "loveHates")
+
+            } else {
+
+              jAPI.save(movieObject, "movies")
+              jAPI.save(loveHateObject, "loveHates")
+
+            }
+          })
+
         props.searchInput.value = ""
       })
   };

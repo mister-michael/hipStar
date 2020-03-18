@@ -41,13 +41,13 @@ const Search = (props) => {
         onChange={handleFieldChange}
         onKeyUp={evt => evt.key === "Enter" ? handleSearch(evt) : null}
       />
-      <button
+      {/* <button
         id="searchBtn"
         type="button"
         onClick={handleSearch}>
-        Submit</button>
+        Submit</button> */}
       <div>
-        {results.map(el => <SearchCard key={el.id} result={el} searchInput={searchInput} {...props} />)}
+        {results.map(res => <SearchCard key={res.id} result={res} searchInput={searchInput} userId={props.activeUserId} {...props} />)}
       </div>
 
     </>
