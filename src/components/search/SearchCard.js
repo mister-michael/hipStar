@@ -5,13 +5,7 @@ import jAPI from "../../modules/apiManager";
 
 const SearchCard = (props) => {
 
-  const releaseDate = "release_date"
 
-  const release = () => {
-    if (props.result[releaseDate] !== undefined) {
-      return props.result[releaseDate].split("-")[0]
-    }
-  }
 
   const movieId = props.result.id
 
@@ -27,12 +21,12 @@ const SearchCard = (props) => {
 
   const handleAdd = () => {
 
+
     mAPI.searchWithId(movieId)
       .then(movieById => {
         console.log(movieById)
         const movieObject = {
-          dbid: `${movieById.id}`,
-          imdb_Id: `${movieById.imdb_Id}`,
+          dbid: movieById.id,
           title: movieById.title,
           release_date: movieById.release_date,
           poster_path: imageHandler(),
@@ -41,8 +35,26 @@ const SearchCard = (props) => {
           tagline: movieById.tagline
         }
         jAPI.save(movieObject, "movies")
+        jAPI.get("movies")
+        .then(movies => {
+          const movieInJson = movies.find(movie => movie.dbid == movieById.id)
+          const loveHateObject = {
+            userId: props.activeUserId,
+            movieId: movieInJson.id,
+            isHated: true
+          }
+          jAPI.save(loveHateObject, "loveHates")
+        })
+        
         props.searchInput.value = ""
       })
+  };
+
+  const release = () => {
+    const releaseDate = "release_date";
+    if (props.result[releaseDate] !== undefined) {
+      return props.result[releaseDate].split("-")[0]
+    }
   }
 
   return (

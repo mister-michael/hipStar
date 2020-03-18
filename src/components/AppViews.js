@@ -7,8 +7,9 @@ import Profile from "./profile/Profile"
 import Search from "./search/Search"
 
 const AppViews = (props) => {
-const setUser = props.setUser
-const hasUser = props.hasUser
+  const activeUserId = parseInt(sessionStorage.getItem("userId"))
+  const setUser = props.setUser
+  const hasUser = props.hasUser
 
   return (
     <React.Fragment>
@@ -16,29 +17,29 @@ const hasUser = props.hasUser
         exact
         path="/login"
         render={props => {
-          return <Login setUser={setUser} hasUser={hasUser} {...props}/>;
+          return <Login setUser={setUser} hasUser={hasUser} {...props} />;
         }}
       />
       <Route
-      exact
-      path="/register"
-      render={props=> {
-        return <Register setUser={setUser} hasUser={hasUser} {...props}/>
-      }}
+        exact
+        path="/register"
+        render={props => {
+          return <Register setUser={setUser} hasUser={hasUser} {...props} />
+        }}
       />
       <Route
-      exact
-      path="/"
-      render={props=> {
-      if (hasUser) {return <Profile /> } else {return <Redirect to="/login"/>}
-      }}
+        exact
+        path="/"
+        render={props => {
+          if (hasUser) { return <Profile activeUserId={activeUserId}/> } else { return <Redirect to="/login" /> }
+        }}
       />
       <Route
-      exact
-      path="/search"
-      render={props=> {
-        if (hasUser) {return <Search {...props}/>} else {return <Redirect to="/login" />}
-      }}
+        exact
+        path="/search"
+        render={props => {
+          if (hasUser) { return <Search activeUserId={activeUserId} {...props} /> } else { return <Redirect to="/login" /> }
+        }}
       />
     </React.Fragment>
   )
