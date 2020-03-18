@@ -22,10 +22,6 @@ const Search = (props) => {
 
     const stringArr = keyword.searchInput.split(" ").join("+");
 
-    // for (let i = 0; i < stringArr.length; i++) {
-    //   string += (i < stringArr.length - 1) ? stringArr[i] + `+` : stringArr[i]
-    // }
-
     mAPI.search(stringArr)
       .then(searchResults => {
         setResults(searchResults.results)
@@ -33,10 +29,9 @@ const Search = (props) => {
       })
   }
 
-//after movie is added i'll want to
-//    remove the card from the list?
-//    push to /profile?
-//    clear the search field
+  useEffect(() => {
+  }, [])
+
   return (
     <>
       <label htmlFor="searchInput">Search</label>

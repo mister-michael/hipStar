@@ -6,7 +6,7 @@ import jAPI from "../../modules/apiManager";
 const SearchCard = (props) => {
 
   const releaseDate = "release_date"
-  
+
   const release = () => {
     if (props.result[releaseDate] !== undefined) {
       return props.result[releaseDate].split("-")[0]
@@ -25,13 +25,11 @@ const SearchCard = (props) => {
     }
   }
 
-  console.log("release", release())
   const handleAdd = () => {
 
     mAPI.searchWithId(movieId)
       .then(movieById => {
         console.log(movieById)
-
         const movieObject = {
           dbid: `${movieById.id}`,
           imdb_Id: `${movieById.imdb_Id}`,
@@ -58,7 +56,6 @@ const SearchCard = (props) => {
           name="button"
           type="button"
           onClick={handleAdd}>Add</button>
-
       </div>
     </>
   )
