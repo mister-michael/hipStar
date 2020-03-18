@@ -20,13 +20,13 @@ const Search = (props) => {
 
     let string = ""
 
-    const stringArr = keyword.searchInput.split(" ");
+    const stringArr = keyword.searchInput.split(" ").join("+");
 
-    for (let i = 0; i < stringArr.length; i++) {
-      string += (i < stringArr.length - 1) ? stringArr[i] + `+` : stringArr[i]
-    }
+    // for (let i = 0; i < stringArr.length; i++) {
+    //   string += (i < stringArr.length - 1) ? stringArr[i] + `+` : stringArr[i]
+    // }
 
-    mAPI.search(string)
+    mAPI.search(stringArr)
       .then(searchResults => {
         setResults(searchResults.results)
         console.log(searchResults)
@@ -44,6 +44,7 @@ const Search = (props) => {
         id="searchInput"
         type="text"
         onChange={handleFieldChange}
+        onKeyUp={evt => evt.key === "Enter" ? handleSearch(evt) : null}
       />
       <button
         id="searchBtn"
