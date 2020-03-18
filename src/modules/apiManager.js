@@ -18,6 +18,7 @@ const jAPI = {
             },
             body: JSON.stringify(objToSave)
         })
+            .then(savedObj => savedObj.json())
     },
     delete(objToDeleteId, str) {
         return fetch(`${apiURL}${str}/${objToDeleteId}`, {
@@ -35,18 +36,18 @@ const jAPI = {
             },
             body: JSON.stringify(objToEdit)
         });
-    }, 
+    },
     expand(str, toExpand) {
         return fetch(`${apiURL}${str}/?_expand=${toExpand}`).then(entries => entries.json());
-      },
-      getFriendList: (userId) => {
-        return fetch (`${apiURL}friendships/?_expand=user&activeId=${userId}`)
-        .then(r=>r.json());
-      },
+    },
+    getFriendList: (userId) => {
+        return fetch(`${apiURL}friendships/?_expand=user&activeId=${userId}`)
+            .then(r => r.json());
+    },
     embedWithId(str, id, toEmbed) {
         return fetch(`${apiURL}${str}/${id}?_embed=${toEmbed}`).then(entries => entries.json());
-      },
-      patch(objToEdit, str, id) {
+    },
+    patch(objToEdit, str, id) {
         return fetch(`${apiURL}${str}/${id}`, {
             method: "PATCH",
             headers: {
@@ -54,7 +55,7 @@ const jAPI = {
             },
             body: JSON.stringify(objToEdit)
         });
-    }, 
+    },
 }
 export default jAPI;
 

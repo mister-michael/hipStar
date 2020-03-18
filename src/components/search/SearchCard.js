@@ -37,37 +37,44 @@ const SearchCard = (props) => {
           .then(movies => {
             const movieInJson = movies.find(movie => movie.dbid == movieById.id)
 
-
-
-            const isMovieId = () => {
-              if (movieInJson !== undefined) {
-                return movieInJson.id
-              } else {
-                jAPI.save(movieObject, "movies");
-                return "placeholderId"
-                // jAPI.get("movies")
-                //   .then(movies => {
-                //     const movieInDb = movies.find(movie => movie.dbid === movieById.id);
-                //     return movieInDb.id
-                //   })
-              }
-            }
-             
-            const loveHateObject = {
-              userId: props.activeUserId,
-              movieId: isMovieId(),
-              isHated: true
-            }
-
             if (movieInJson !== undefined) {
 
-              jAPI.save(loveHateObject, "loveHates")
+              const loveHateObject = {
+                userId: props.activeUserId,
+                movieId: movieInJson.id,
+                isHated: true
+              }
 
+              jAPI.get("loveHates")
+                    .then(loveHatesFetch => {
+                      const loveHateFound = loveHatesFetch.find(object => object.userId === activeUserId && object.movieId === movieInJson.id)
+                      console.log(loveHateFound)
+
+                      if (loveHateFound === undefined) {
+                        console.log("undefined conditional loveHateFound")
+                        jAPI.save(loveHateObject, "loveHates")
+                      } else {
+                        console.log("else conditonal loveHateFound")
+                        window.alert("already on your list")
+                      }
+                    })
+              
+              
             } else {
 
               jAPI.save(movieObject, "movies")
-              jAPI.save(loveHateObject, "loveHates")
+                .then(movieObj => {
+                  
+                  const loveHateObject2 = {
+                    userId: props.activeUserId,
+                    movieId: movieObj.id,
+                    isHated: true
+                  }
 
+                  jAPI.save(loveHateObject2, "loveHates")
+
+                  
+                })
             }
           })
 
