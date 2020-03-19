@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import jAPI from "../../modules/apiManager"
+// import jAPI from "../../modules/apiManager"
 import mAPI from "../../modules/movieManager"
 import SearchCard from "./SearchCard"
 
@@ -17,8 +17,6 @@ const Search = (props) => {
   };
 
   const handleSearch = () => {
-
-    let string = ""
 
     const stringArr = keyword.searchInput.split(" ").join("+");
 

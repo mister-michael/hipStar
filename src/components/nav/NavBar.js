@@ -2,12 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom"
 import { withRouter } from "react-router-dom"
 // import "./NavBar.css"
-import API from "../../modules/apiManager"
+// import API from "../../modules/apiManager"
 
 //if the Navbar prop hasUser exists ( there is a user ) render the nav bar
 const NavBar = props => {
 
-  const userId = parseInt(sessionStorage.getItem("userId"))
+  // const userId = parseInt(sessionStorage.getItem("userId"))
 
   const handleLogout = () => {
     // const logoutTime = Date.now()

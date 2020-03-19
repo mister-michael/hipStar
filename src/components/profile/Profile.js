@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react"
 import jAPI from "../../modules/apiManager"
 import LoveHates from "./LoveHates"
-import { userInfo } from "os"
 
 const Profile = props => {
 
@@ -40,7 +39,6 @@ const Profile = props => {
   }
 
 
-  // console.log(getUserMovies())
   useEffect(() => {
     getUserObject();
     getUserMovies();

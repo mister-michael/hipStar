@@ -90,7 +90,7 @@ const SearchCard = (props) => {
   return (
     <>
       <div id={`searchCard--${props.result.id}`} className="searchCard">
-        <img src={imageHandler()} className="searchImage" />
+        <img src={imageHandler()} className="searchImage" alt="movie poster"/>
         <div className="cardHeader">{props.result.title} - {release()}</div>
         <div>{props.result.overview}</div>
         <button
