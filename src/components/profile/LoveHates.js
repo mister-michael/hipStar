@@ -1,6 +1,7 @@
 import React from "react";
 import { Table } from 'reactstrap';
 import jAPI from "../../modules/apiManager";
+import "./LoveHate.css"
 
 const LoveHates = (props) => {
   
@@ -9,11 +10,10 @@ const LoveHates = (props) => {
 
   return (
     <>
-      <div id={`loveHates--${userObject.loveHateId}`}>
-        <img src={userObject.image}></img>
+      <div id={`loveHates--${userObject.loveHateId}`} className="loveHateList">
+        <img src={userObject.image} className="loveHateImage"></img>
         <div>{userObject.title}</div>
       </div>
-      <div>hi</div>
     </>
   )
 }

@@ -27,6 +27,8 @@ const Search = (props) => {
         setResults(searchResults.results)
         console.log(searchResults)
       })
+
+      searchInput.value = ""
   }
 
   useEffect(() => {

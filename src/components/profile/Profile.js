@@ -6,22 +6,29 @@ const Profile = props => {
 
   const userId = sessionStorage.getItem("userId")
 
-  const [userObjects, setUserObjects] = useState([])
+  const [loveState, setLoveState] = useState([])
+  const [hateState, setHateState] = useState([])
 
   const getUserMovies = () => {
     return jAPI.userMovieExpand("loveHates", userId)
       .then(loveHates => {
-        const pushArr = []
+        const loveArr = []
+        const hateArr = []
         loveHates.forEach(lh => {
           const displayObject = {
             image: lh.movie.posterPath,
             title: lh.movie.title,
             loveHateId: lh.id
           }
-          pushArr.push(displayObject)
+          if (lh.isHated === true) {
+          loveArr.push(displayObject)
+        } else {
+          hateArr.push(displayObject)
+        }
         }
         )
-        setUserObjects(pushArr)
+        setLoveState(loveArr)
+        setHateState(hateArr)
       }
       )
   }
@@ -34,7 +41,11 @@ const Profile = props => {
 
   return (
     <>
-      {userObjects.map(res => <LoveHates key={res.id} userObject={res} {...props} />)}
+    <h2>LOVE</h2>
+      {loveState.map(res => <LoveHates key={res.loveHateId} userObject={res} {...props} />)}
+      <h2>HATE</h2>
+      {hateState.map(res => <LoveHates key={res.loveHateId} userObject={res} {...props} />)}
+
     </>
   )
 }
