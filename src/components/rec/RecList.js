@@ -4,27 +4,29 @@ import LoveHates from "../profile/LoveHates";
 
 const RecList = (props) => {
 
+  const activeId  = parseInt(props.userId)
+
   const [activeHate, setActiveHate] = useState([]);
   const [overallHate, setOverallHate] = useState([])
   
 
   const activeUserHate = () => {
-    return jAPI.userMovieExpand("loveHates", props.userId)
+    return jAPI.userMovieExpand("loveHates", activeId)
       .then(userLoveHates => {
-        userLoveHates.filter(element => element.movie.isHated === true)
-        const hatedMovies = userLoveHates.map(el => el.movieId)
-        setActiveHate(hatedMovies)
+        const lh = userLoveHates.filter(element => element.isHated === true)
+        // const hatedMovies = userLoveHates.map(el => el.movieId)
+        setActiveHate(lh)
       })
   };
 
   const overallUserHate = () => {
     return jAPI.movieExpand("loveHates")
     .then(overallLoveHates => {
-      overallLoveHates.filter(element => element.movie.isHated === true)
-      setOverallHate(overallLoveHates)
+      const olh = overallLoveHates.filter(element => element.userId !== activeId && element.isHated === true)
+      setOverallHate(olh)
     })
   }
-  console.log(activeHate, "hello2")
+  console.log(activeHate, "active")
   console.log(overallHate, "overall")
 
   useEffect(() => {
