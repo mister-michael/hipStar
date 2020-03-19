@@ -10,7 +10,8 @@ const RecList = (props) => {
   const [overallHate, setOverallHate] = useState([])
   
 
-  const activeUserHate = () => {
+  const recEngine = () => {
+    const activeUserHate = () => {
     return jAPI.userMovieExpand("loveHates", activeId)
       .then(userLoveHates => {
         const lh = userLoveHates.filter(element => element.isHated === true)
@@ -19,20 +20,31 @@ const RecList = (props) => {
       })
   };
 
+  activeUserHate();
+
   const overallUserHate = () => {
     return jAPI.movieExpand("loveHates")
     .then(overallLoveHates => {
-      const olh = overallLoveHates.filter(element => element.userId !== activeId && element.isHated === true)
-      setOverallHate(olh)
+      const olh = overallLoveHates.filter(element => element.userId !== activeId && element.isHated === true);
+      const olhFilter = olh.filter(objects => {
+        for (let i =0 ; i < activeHate.length; i++) {
+          const sameMovies = objects.filter(object => object.movieId === activeHate[i].movieId)
+          return sameMovies
+        }
+      })
+      setOverallHate(olhFilter);
     })
   }
-  console.log(activeHate, "active")
-  console.log(overallHate, "overall")
+
+    overallUserHate();
+
+}
+  console.log(activeHate, "active");
+  console.log(overallHate, "overall");
 
   useEffect(() => {
-    activeUserHate();
-    overallUserHate();
-  }, [])
+    recEngine();
+  }, []);
 
   return (
     <div></div>
