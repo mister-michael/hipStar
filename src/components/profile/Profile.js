@@ -4,7 +4,7 @@ import LoveHates from "./LoveHates"
 
 const Profile = props => {
 
-  const userId = sessionStorage.getItem("userId")
+  const userId = props.userId
 
   const [userObject, setUserObject] = useState([])
   const [loveState, setLoveState] = useState([])
@@ -14,6 +14,7 @@ const Profile = props => {
     return jAPI.getWithId("users", userId)
       .then(user => setUserObject(user))
   }
+
   const getUserMovies = () => {
     return jAPI.userMovieExpand("loveHates", userId)
       .then(loveHates => {
@@ -30,12 +31,10 @@ const Profile = props => {
           } else {
             hateArr.push(displayObject)
           }
-        }
-        )
+        })
         setLoveState(loveArr)
         setHateState(hateArr)
-      }
-      )
+      })
   }
 
 

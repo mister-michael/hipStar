@@ -5,6 +5,7 @@ import Register from "./auth/Register"
 import Home from "./home/Home"
 import Profile from "./profile/Profile"
 import Search from "./search/Search"
+import RecList from "./rec/RecList"
 
 const AppViews = (props) => {
   const activeUserId = parseInt(sessionStorage.getItem("userId"))
@@ -17,28 +18,35 @@ const AppViews = (props) => {
         exact
         path="/login"
         render={props => {
-          return <Login setUser={setUser} hasUser={hasUser} {...props} />;
+          if (hasUser) {return <Redirect to="/home" /> } else {return <Login setUser={setUser} hasUser={hasUser} {...props} />};
         }}
       />
       <Route
         exact
         path="/register"
         render={props => {
-          return <Register setUser={setUser} hasUser={hasUser} {...props} />
+          if(hasUser) {return <Redirect to="/home" /> } else {return <Register setUser={setUser} hasUser={hasUser} {...props} />}
         }}
       />
       <Route
         exact
         path="/home"
         render={props => {
-          return <Home setUser={setUser} hasUser={hasUser} {...props} />
+         if (hasUser) {return <Home setUser={setUser} hasUser={hasUser} {...props} />} else { return <Redirect to="/login" /> }
         }}
       />
       <Route
         exact
         path="/profile"
         render={props => {
-          if (hasUser) { return <Profile activeUserId={activeUserId}/> } else { return <Redirect to="/login" /> }
+          if (hasUser) { return <Profile userId={activeUserId}/> } else { return <Redirect to="/login" /> }
+        }}
+      />
+      <Route
+        exact
+        path="/recommendations"
+        render={props => {
+          if (hasUser) { return <RecList userId={activeUserId}/> } else { return <Redirect to="/login" /> }
         }}
       />
       <Route

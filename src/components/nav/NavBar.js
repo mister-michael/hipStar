@@ -36,6 +36,11 @@ const NavBar = props => {
               Search
             </Link>
           </li>
+          <li>
+            <Link className="nav-link" style={{ textDecoration: 'none', color: '#160D58' }} to="/recommendations">
+              Recommendations
+            </Link>
+          </li>
 
           {/* <li>
                         <Link className="nav-link" style={{ textDecoration: 'none', color: '#160D58' }} to="/messages">
