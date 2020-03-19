@@ -10,6 +10,9 @@ const jAPI = {
     userMovieExpand(entity, userId) {
         return fetch(apiURL + entity + "?userId=" + userId + "&_expand=movie").then(entries => entries.json())
     },
+    movieExpand(entity) {
+        return fetch(apiURL + entity + "?_expand=movie").then(entries => entries.json())
+    },
     save(objToSave, str) {
         return fetch(apiURL + str, {
             method: "POST",

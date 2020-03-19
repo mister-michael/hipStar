@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./LoveHate.css"
 
 const LoveHates = (props) => {
   
   const userObject = props.userObject
+
+  useEffect (() => {
+
+  }, [])
 
   return (
     <>

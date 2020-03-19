@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom"
 import jAPI from "../../modules/apiManager"
 import {
@@ -13,16 +13,16 @@ import {
 const Login = props => {
   const [credentials, setCredentials] = useState({ input: "" });
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [symbol, setSymbol] = useState({ symbol: "@", placeholder: "username" })
+  const [symbol, setSymbol] = useState({ symbol: "@", placeholder: "username" });
 
   const toggleDropDown = () => setDropdownOpen(!dropdownOpen);
 
   const handleAt = () => {
-    setSymbol({ symbol: "@", placeholder: "username" })
+    setSymbol({ symbol: "@", placeholder: "username" });
   }
 
   const handleEmail = () => {
-    setSymbol({ symbol: "email", placeholder: "email" })
+    setSymbol({ symbol: "email", placeholder: "email" });
   }
 
   const handleFieldChange = evt => {
@@ -41,8 +41,12 @@ const Login = props => {
         } else {
           window.alert("try again")
         }
-      })
+      });
   };
+
+  useEffect (() => {
+
+  }, []);
 
   return (
     <>

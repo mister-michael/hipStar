@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom"
 import { withRouter } from "react-router-dom"
 // import "./NavBar.css"
@@ -17,6 +17,9 @@ const NavBar = props => {
     props.history.push("/login")
   }
 
+  useEffect (() => {
+
+  }, [])
   return (
     <nav>
       {props.hasUser ? (

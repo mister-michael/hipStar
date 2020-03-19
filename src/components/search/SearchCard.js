@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect }from "react";
 import "./Search.css"
 import mAPI from "../../modules/movieManager";
 import jAPI from "../../modules/apiManager";
@@ -87,6 +87,9 @@ const SearchCard = (props) => {
     }
   }
 
+  useEffect (() => {
+
+  }, [])
   return (
     <>
       <div id={`searchCard--${props.result.id}`} className="searchCard">
