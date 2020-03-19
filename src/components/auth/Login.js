@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Route, Link } from "react-router-dom"
+import { Link } from "react-router-dom"
 import jAPI from "../../modules/apiManager"
 import {
   Card, Button, CardHeader, CardFooter, CardBody,
-  CardTitle, CardText, InputGroup, InputGroupAddon, InputGroupText, Input,
+  CardTitle, InputGroup, InputGroupAddon, Input,
   InputGroupButtonDropdown,
   DropdownToggle,
   DropdownMenu,

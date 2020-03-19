@@ -1,5 +1,6 @@
-import React, {useState} from "react"
+import React, { useState } from "react"
 import AppViews from "./AppViews"
+import NavBar from "./nav/NavBar"
 
 const HipStar = (props) => {
 
@@ -18,6 +19,7 @@ const HipStar = (props) => {
 
   return (
     <>
+      <NavBar setUser={setUser} hasUser={hasUser} clearUser={clearUser} {...props}/>
       <AppViews setUser={setUser} hasUser={hasUser} {...props} />
     </>
   )

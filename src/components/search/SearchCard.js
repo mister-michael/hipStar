@@ -36,7 +36,7 @@ const SearchCard = (props) => {
         jAPI.get("movies")
           .then(movies => {
 
-            const movieInJson = movies.find(movie => movie.dbid == movieById.id)
+            const movieInJson = movies.find(movie => movie.dbid === movieById.id)
 
             if (movieInJson !== undefined) {
 
