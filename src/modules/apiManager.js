@@ -7,8 +7,10 @@ const jAPI = {
     get(str) {
         return fetch(apiURL + str).then(entries => entries.json());
     },
-    getLoveHate(movieId, userId) {
-
+    userMovieExpand(entity, userId) {
+        console.log("http://localhost:5002/loveHates?userId=2&_expand=movie")
+        console.log(apiURL + entity + "?userId=" + `${userId}` + "&_expand=movie")
+        return fetch(apiURL + entity + "?userId=" + `${userId}` + "&_expand=movie").then(entries => entries.json())
     },
     save(objToSave, str) {
         return fetch(apiURL + str, {

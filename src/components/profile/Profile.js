@@ -1,46 +1,40 @@
 import React, { useState, useEffect } from "react"
 import jAPI from "../../modules/apiManager"
+import LoveHates from "./LoveHates"
 
 const Profile = props => {
 
   const userId = sessionStorage.getItem("userId")
 
-  const [userObject, setUserObject] = useState([])
+  const [userObjects, setUserObjects] = useState([])
 
-  const getUser = () => {
-    jAPI.embedWithId("users", userId, "loveHates")
-      .then(user => {
-        setUserObject(user)
-      })
+  const getUserMovies = () => {
+    return jAPI.userMovieExpand("loveHates", userId)
+      .then(loveHates => {
+        const pushArr = []
+        loveHates.forEach(lh => {
+          const displayObject = {
+            image: lh.movie.posterPath,
+            title: lh.movie.title,
+            loveHateId: lh.id
+          }
+          pushArr.push(displayObject)
+        }
+        )
+        setUserObjects(pushArr)
+      }
+      )
   }
 
 
-  getUser()
+  // console.log(getUserMovies())
   useEffect(() => {
+    getUserMovies();
   }, [])
 
   return (
     <>
-      <div id="profile" className="profile">
-        <img src={userObject.imgUrl} />
-        <div id="profileName" className="profileName">{userObject.username}</div>
-      </div>
-      <div id="lists" className="lists">
-        <div id="dislikeList">
-          <ul>
-            <li></li>
-            <li>movie2</li>
-            <li>movie3</li>
-            <li>movie4</li>
-          </ul>
-        </div>
-        <div id="likeList">
-          <ul>
-            <li>movie1</li>
-            <li>movie1</li>
-          </ul>
-        </div>
-      </div>
+      {userObjects.map(res => <LoveHates key={res.id} userObject={res} {...props} />)}
     </>
   )
 }

@@ -26,8 +26,8 @@ const SearchCard = (props) => {
         const movieObject = {
           dbid: movieById.id,
           title: `${movieById.title}`,
-          release_date: movieById.release_date,
-          poster_path: imageHandler(),
+          releaseDate: movieById.release_date,
+          posterPath: imageHandler(),
           revenue: movieById.revenue,
           overview: movieById.overview,
           tagline: movieById.tagline
