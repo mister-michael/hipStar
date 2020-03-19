@@ -1,8 +1,8 @@
 const apiURL = "http://localhost:5002/";
 
 const jAPI = {
-    getWithId(str, userId) {
-        return fetch(apiURL + str + "/" + userId).then(entries => entries.json());
+    getWithId(str, id) {
+        return fetch(apiURL + str + "/" + id).then(entries => entries.json());
     },
     get(str) {
         return fetch(apiURL + str).then(entries => entries.json());
