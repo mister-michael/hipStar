@@ -21,11 +21,11 @@ const SearchCard = (props) => {
   const handleAdd = () => {
 
     mAPI.searchWithId(mdbId)
-      .then(movieById => {
-        console.log(movieById)
+      .then(movieById => { 
+
         const movieObject = {
           dbid: movieById.id,
-          title: movieById.title,
+          title: `${movieById.title}`,
           release_date: movieById.release_date,
           poster_path: imageHandler(),
           revenue: movieById.revenue,
@@ -35,6 +35,7 @@ const SearchCard = (props) => {
 
         jAPI.get("movies")
           .then(movies => {
+
             const movieInJson = movies.find(movie => movie.dbid == movieById.id)
 
             if (movieInJson !== undefined) {
@@ -48,13 +49,12 @@ const SearchCard = (props) => {
               jAPI.get("loveHates")
                     .then(loveHatesFetch => {
                       const loveHateFound = loveHatesFetch.find(object => object.userId === activeUserId && object.movieId === movieInJson.id)
-                      console.log(loveHateFound)
 
                       if (loveHateFound === undefined) {
-                        console.log("undefined conditional loveHateFound")
+
                         jAPI.save(loveHateObject, "loveHates")
                       } else {
-                        console.log("else conditonal loveHateFound")
+
                         window.alert("already on your list")
                       }
                     })
@@ -72,8 +72,6 @@ const SearchCard = (props) => {
                   }
 
                   jAPI.save(loveHateObject2, "loveHates")
-
-                  
                 })
             }
           })

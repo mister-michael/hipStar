@@ -6,11 +6,9 @@ const jsonUrl = "http://localhost:5002/";
 
 const mAPI = {
   search(keyword) {
-    console.log("API.search", searchUrl + apiKey + "&query=" + keyword)
     return fetch(searchUrl + apiKey + "&query=" + keyword).then(entries => entries.json());
   },
   searchWithId(id) {
-    console.log("API.searchWithId", detailsUrl + id + "?api_key=" + apiKey)
     return fetch(detailsUrl + id + "?api_key=" + apiKey).then(entries => entries.json());
   },
 }

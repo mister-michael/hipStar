@@ -8,12 +8,15 @@ const Profile = props => {
   const [userObject, setUserObject] = useState([])
 
   const getUser = () => {
-    jAPI.getWithId("users", userId)
-      .then(user => setUserObject(user))
+    jAPI.embedWithId("users", userId, "loveHates")
+      .then(user => {
+        setUserObject(user)
+      })
   }
 
+
+  getUser()
   useEffect(() => {
-    getUser()
   }, [])
 
   return (
@@ -25,7 +28,7 @@ const Profile = props => {
       <div id="lists" className="lists">
         <div id="dislikeList">
           <ul>
-            <li>movie1</li>
+            <li></li>
             <li>movie2</li>
             <li>movie3</li>
             <li>movie4</li>

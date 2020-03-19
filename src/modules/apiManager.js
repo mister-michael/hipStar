@@ -40,10 +40,6 @@ const jAPI = {
     expand(str, toExpand) {
         return fetch(`${apiURL}${str}/?_expand=${toExpand}`).then(entries => entries.json());
     },
-    getFriendList: (userId) => {
-        return fetch(`${apiURL}friendships/?_expand=user&activeId=${userId}`)
-            .then(r => r.json());
-    },
     embedWithId(str, id, toEmbed) {
         return fetch(`${apiURL}${str}/${id}?_embed=${toEmbed}`).then(entries => entries.json());
     },
