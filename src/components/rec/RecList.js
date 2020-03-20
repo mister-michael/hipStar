@@ -17,17 +17,18 @@ const RecList = (props) => {
 
     return jAPI.userMovieExpand("loveHates", activeId)
       .then(userLoveHates => {
-        const ulh = userLoveHates.filter(element => element.isHated === true)
-        console.log(ulh)
+        const userHates = userLoveHates.filter(element => element.isHated === true)
+        const userLoves = userLoveHates.filter(element => element.isHated === false)
+        console.log(userHates)
         jAPI.movieExpand("loveHates")
           .then(overallLoveHates => {
-            const olh = overallLoveHates.filter(element => element.userId !== activeId && element.isHated === true);
+            const overallHates = overallLoveHates.filter(element => element.userId !== activeId && element.isHated === true);
             // console.log(olh)
             const sameSameArr = []
-            ulh.forEach(ulhObject => {
-              for (let i = 0; i < olh.length; i++) {
-                if (ulhObject.movieId === olh[i].movieId) {
-                  sameSameArr.push(olh[i])
+            userHates.forEach(ulhObject => {
+              for (let i = 0; i < overallHates.length; i++) {
+                if (ulhObject.movieId === overallHates[i].movieId) {
+                  sameSameArr.push(overallHates[i])
                 }
               }
             })
@@ -81,6 +82,11 @@ const RecList = (props) => {
               })
               setLoveState(loveArr)
               setHateState(hateArr)
+            })
+
+            loveState.forEach(lovedMovie => {
+              //compare lovedMovieId to userHates and userLoves
+              
             })
 
             
