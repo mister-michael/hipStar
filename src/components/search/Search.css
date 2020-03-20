@@ -1,4 +1,4 @@
-.css1 {
+/* .css1 {
   display: flex !important;
   flex-direction: row !important;
   flex-direction: inherit !important;
@@ -14,4 +14,26 @@
 
 .width {
   width: 25%;
+}
+
+.searchContainer {
+
+} */
+
+.cardImage {
+  min-width: 200px;
+  max-width: 200px;
+}
+
+.cardGroup {
+  min-width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.card {
+  width: 28%;
+  margin: 1%;
+  overflow: hidden;
 }

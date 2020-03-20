@@ -1,16 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Search.css"
 import mAPI from "../../modules/movieManager";
 import jAPI from "../../modules/apiManager";
 import {
   Card, Button, CardImg, CardTitle, CardText, CardGroup,
-  CardSubtitle, CardBody
+  CardSubtitle, CardBody, Popover, PopoverBody, PopoverHeader
 } from 'reactstrap';
 
 const SearchCard = (props) => {
 
   const mdbId = props.result.id
   const activeUserId = props.activeUserId
+
+  const [popoverOpen, setPopoverOpen] = useState(false);
+
+  const toggle = () => setPopoverOpen(!popoverOpen);
 
   let poster = "https://harperlibrary.typepad.com/.a/6a0105368f4fef970b01b8d23c71b5970c-800wi"
 
@@ -96,18 +100,25 @@ const SearchCard = (props) => {
   }, [])
   return (
     <>
-      <CardGroup id={`searchCard--${props.result.id}`} className="css1">
-        <Card className="">
-          <CardImg top width="100%" src={imageHandler()} alt={`${props.result.title} poster`} className="css1" />
-            <CardTitle>{props.result.title}</CardTitle>
-            <CardSubtitle>{release()}</CardSubtitle>
-            <CardBody className="css1">
-            {/* <CardText>{props.result.overview}</CardText> */}
-            <Button outline id={`button--${props.result.id}`}
-              onClick={handleAdd} color="primary">Add</Button>{' '}
-          </CardBody>
-        </Card>
-      </CardGroup>
+
+      <div className="card">
+        <CardImg id="" top src={imageHandler()} alt={`${props.result.title} poster`} className="cardImage" />
+        <CardTitle>{props.result.title}</CardTitle>
+        <CardSubtitle>{release()}</CardSubtitle>
+        <CardBody className="css1">
+          <Button id="Popover1" type="button" onClick={toggle}>
+            Synopsis
+      </Button>
+          <Popover placement="bottom" isOpen={popoverOpen} target="Popover1" >
+            <PopoverHeader>{props.result.title}</PopoverHeader>
+            <PopoverBody>{props.result.overview}</PopoverBody>
+          </Popover>
+          {/* <CardText>{props.result.overview}</CardText> */}
+          <Button outline id={`button--${props.result.id}`}
+            onClick={handleAdd} color="primary">Add</Button>{' '}
+        </CardBody>
+      </div>
+
 
     </>
   )

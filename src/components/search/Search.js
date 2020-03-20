@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import mAPI from "../../modules/movieManager"
 import SearchCard from "./SearchCard"
 import "./Search.css"
+import {CardGroup} from "reactstrap"
 
 const Search = (props) => {
 
@@ -47,7 +48,7 @@ const Search = (props) => {
         type="button"
         onClick={handleSearch}>
         Submit</button> */}
-      <div className="css2">
+      <div id="searchResults" className="cardGroup">
         {results.map(res => <SearchCard className="" key={res.id} result={res} searchInput={searchInput} userId={props.activeUserId} {...props} />)}
       </div>
 
