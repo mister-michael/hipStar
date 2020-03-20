@@ -1,7 +1,11 @@
-import React, { useEffect }from "react";
+import React, { useEffect } from "react";
 import "./Search.css"
 import mAPI from "../../modules/movieManager";
 import jAPI from "../../modules/apiManager";
+import {
+  Card, Button, CardImg, CardTitle, CardText, CardGroup,
+  CardSubtitle, CardBody
+} from 'reactstrap';
 
 const SearchCard = (props) => {
 
@@ -21,7 +25,7 @@ const SearchCard = (props) => {
   const handleAdd = () => {
 
     mAPI.searchWithId(mdbId)
-      .then(movieById => { 
+      .then(movieById => {
 
         const movieObject = {
           dbid: movieById.id,
@@ -47,24 +51,24 @@ const SearchCard = (props) => {
               }
 
               jAPI.get("loveHates")
-                    .then(loveHatesFetch => {
-                      const loveHateFound = loveHatesFetch.find(object => object.userId === activeUserId && object.movieId === movieInJson.id)
+                .then(loveHatesFetch => {
+                  const loveHateFound = loveHatesFetch.find(object => object.userId === activeUserId && object.movieId === movieInJson.id)
 
-                      if (loveHateFound === undefined) {
+                  if (loveHateFound === undefined) {
 
-                        jAPI.save(loveHateObject, "loveHates")
-                      } else {
+                    jAPI.save(loveHateObject, "loveHates")
+                  } else {
 
-                        window.alert("already on your list")
-                      }
-                    })
-              
-              
+                    window.alert("already on your list")
+                  }
+                })
+
+
             } else {
 
               jAPI.save(movieObject, "movies")
                 .then(movieObj => {
-                  
+
                   const loveHateObject2 = {
                     userId: props.activeUserId,
                     movieId: movieObj.id,
@@ -87,21 +91,24 @@ const SearchCard = (props) => {
     }
   }
 
-  useEffect (() => {
+  useEffect(() => {
 
   }, [])
   return (
     <>
-      <div id={`searchCard--${props.result.id}`} className="searchCard">
-        <img src={imageHandler()} className="searchImage" alt="movie poster"/>
-        <div className="cardHeader">{props.result.title} - {release()}</div>
-        <div>{props.result.overview}</div>
-        <button
-          id={`button--${props.result.id}`}
-          name="button"
-          type="button"
-          onClick={handleAdd}>Add</button>
-      </div>
+      <CardGroup id={`searchCard--${props.result.id}`} className="css1">
+        <Card className="">
+          <CardImg top width="100%" src={imageHandler()} alt={`${props.result.title} poster`} className="css1" />
+            <CardTitle>{props.result.title}</CardTitle>
+            <CardSubtitle>{release()}</CardSubtitle>
+            <CardBody className="css1">
+            {/* <CardText>{props.result.overview}</CardText> */}
+            <Button outline id={`button--${props.result.id}`}
+              onClick={handleAdd} color="primary">Add</Button>{' '}
+          </CardBody>
+        </Card>
+      </CardGroup>
+
     </>
   )
 }

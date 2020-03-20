@@ -1,3 +1,17 @@
-.searchImage {
-  width: 80px;
+.css1 {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-direction: inherit !important;
+  width: 100% !important;
+  flex-wrap: wrap !important;
+}
+
+.css2 {
+  width: 25% !important;
+  display: flex !important;
+
+}
+
+.width {
+  width: 25%;
 }

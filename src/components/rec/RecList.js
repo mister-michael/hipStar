@@ -35,7 +35,6 @@ const RecList = (props) => {
       setOverallHate(olhFilter);
     })
   }
-
     overallUserHate();
 
 }

@@ -1,11 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom"
 import { withRouter } from "react-router-dom"
-// import "./NavBar.css"
-// import API from "../../modules/apiManager"
+import "./NavBar.css"
+import {
+  Collapse, Navbar, NavbarToggler,  NavbarBrand, Nav, NavItem, NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, NavbarText
+} from 'reactstrap';
 
-//if the Navbar prop hasUser exists ( there is a user ) render the nav bar
 const NavBar = props => {
+  const [collapsed, setCollapsed] = useState(true);
+
+  const toggleNavbar = () => setCollapsed(!collapsed);
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggle = () => setIsOpen(!isOpen);
 
   // const userId = parseInt(sessionStorage.getItem("userId"))
 
@@ -17,58 +25,60 @@ const NavBar = props => {
     props.history.push("/login")
   }
 
-  useEffect (() => {
+  useEffect(() => {
 
   }, [])
   return (
-    <nav>
-      {props.hasUser ? (
-        <ul className="navList">
-          <li>
-            <Link className="nav-link" style={{ textDecoration: 'none', color: '#160D58' }} to="/home">
-              Home
+    <>
+      <Navbar color="light" light expand="md">
+        <NavbarBrand href="/">H P S T R</NavbarBrand>
+        <NavbarToggler onClick={toggle} />
+        <Collapse isOpen={isOpen} navbar>
+          <Nav className="mr-auto" navbar>
+            <NavItem>
+              <Link className="nav-link" style={{ textDecoration: 'none', color: '#160D58' }} to="/home">
+                Home
             </Link>
-          </li>
-          <li>
-            <Link className="nav-link" style={{ textDecoration: 'none', color: '#160D58' }} to="/profile">
-              Profile
+            </NavItem>
+            <NavItem>
+              <Link className="nav-link" style={{ textDecoration: 'none', color: '#160D58' }} to="/profile">
+                Profile
             </Link>
-          </li>
-          <li>
-            <Link className="nav-link" style={{ textDecoration: 'none', color: '#160D58' }} to="/search">
-              Search
+            </NavItem>
+            <NavItem>
+              <Link className="nav-link" style={{ textDecoration: 'none', color: '#160D58' }} to="/search">
+                Search
             </Link>
-          </li>
-          <li>
-            <Link className="nav-link" style={{ textDecoration: 'none', color: '#160D58' }} to="/recommendations">
-              Recommendations
-            </Link>
-          </li>
-
-          {/* <li>
-                        <Link className="nav-link" style={{ textDecoration: 'none', color: '#160D58' }} to="/messages">
-                            Messages
-            </Link>
-                    </li>
-                    <li>
-                        <Link className="nav-link" style={{ textDecoration: 'none', color: '#160D58' }} to="/friendships">
-                            Friends
-            </Link>
-                    </li>
-                    <li>
-                        <Link className="nav-link" style={{ textDecoration: 'none', color: '#160D58' }} to="/articles">
-                            Articles
-            </Link>
-                    </li> */}
-          <li>
-            <span className="nav-link" onClick={handleLogout}>
-              {" "}
-              Logout{" "}
-            </span>
-          </li>
-        </ul>
-      ) : null}
-    </nav>
+            </NavItem>
+            <NavItem><Link className="nav-link" style={{ textDecoration: 'none', color: '#160D58' }} to="/recommendations">
+              Recs
+            </Link></NavItem>
+            <NavItem><Link className="nav-link" style={{ textDecoration: 'none', color: '#160D58' }} to="/recommendations">
+              Friends
+            </Link></NavItem>
+            <NavItem></NavItem>
+            {/* <UncontrolledDropdown nav inNavbar>
+              <DropdownToggle nav caret>
+                Options
+              </DropdownToggle>
+              <DropdownMenu right>
+                <DropdownItem>
+                  Option 1
+                </DropdownItem>
+                <DropdownItem>
+                  Option 2
+                </DropdownItem>
+                <DropdownItem divider />
+                <DropdownItem>
+                  Reset
+                </DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown> */}
+          </Nav>
+          <NavbarText>making unpopular opinions popular again</NavbarText>
+        </Collapse>
+      </Navbar>
+    </>
   )
 }
 

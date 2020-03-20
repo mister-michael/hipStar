@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 // import jAPI from "../../modules/apiManager"
 import mAPI from "../../modules/movieManager"
 import SearchCard from "./SearchCard"
+import "./Search.css"
 
 const Search = (props) => {
 
@@ -46,8 +47,8 @@ const Search = (props) => {
         type="button"
         onClick={handleSearch}>
         Submit</button> */}
-      <div>
-        {results.map(res => <SearchCard key={res.id} result={res} searchInput={searchInput} userId={props.activeUserId} {...props} />)}
+      <div className="css2">
+        {results.map(res => <SearchCard className="" key={res.id} result={res} searchInput={searchInput} userId={props.activeUserId} {...props} />)}
       </div>
 
     </>
