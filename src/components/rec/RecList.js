@@ -26,13 +26,13 @@ const RecList = (props) => {
     return jAPI.movieExpand("loveHates")
     .then(overallLoveHates => {
       const olh = overallLoveHates.filter(element => element.userId !== activeId && element.isHated === true);
-      const olhFilter = olh.filter(objects => {
-        for (let i =0 ; i < activeHate.length; i++) {
-          const sameMovies = objects.filter(object => object.movieId === activeHate[i].movieId)
-          return sameMovies
-        }
-      })
-      setOverallHate(olhFilter);
+      // const olhFilter = olh.filter(objects => {
+      //   for (let i =0 ; i < activeHate.length; i++) {
+      //     const sameMovies = objects.filter(object => object.movieId === activeHate[i].movieId)
+      //     return sameMovies
+      //   }
+      // })
+      setOverallHate(olh);
     })
   }
     overallUserHate();
