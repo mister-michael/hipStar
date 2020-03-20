@@ -50,11 +50,11 @@ const Profile = props => {
         <div id={`name--${userObject.id}`}>{userObject.username}</div>
       </div>
       <div id={`love--${userObject.id}`}>
-        <h2>LOVE</h2>
+        <h2>HATE</h2>
         {loveState.map(res => <LoveHates key={res.loveHateId} userObject={res} {...props} />)}
       </div>
       <div id={`hate--${userObject.id}`}>
-        <h2>HATE</h2>
+        <h2>LOVE</h2>
         {hateState.map(res => <LoveHates key={res.loveHateId} userObject={res} {...props} />)}
       </div>
     </>
