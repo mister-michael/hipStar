@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import { withRouter } from "react-router-dom"
 import "./NavBar.css"
 import {
-  Collapse, Navbar, NavbarToggler,  NavbarBrand, Nav, NavItem, NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, NavbarText
+  Collapse, Navbar, NavbarToggler,  NavbarBrand, Nav, NavItem
 } from 'reactstrap';
 
 const NavBar = props => {
@@ -12,14 +12,13 @@ const NavBar = props => {
   const toggle = () => setIsOpen(!isOpen);
 
   const handleLogout = () => {
-    
     props.clearUser()
     props.history.push("/login")
   }
 
   useEffect(() => {
-
   }, [])
+
   return (
     <>
     {props.hasUser ? (

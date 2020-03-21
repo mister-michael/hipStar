@@ -12,12 +12,7 @@ const SearchCard = (props) => {
   const mdbId = props.result.id
   const activeUserId = props.activeUserId
 
-  const [popoverOpen, setPopoverOpen] = useState(false);
-
-  const toggle = () => setPopoverOpen(!popoverOpen);
-
   let poster = "https://harperlibrary.typepad.com/.a/6a0105368f4fef970b01b8d23c71b5970c-800wi"
-
 
   const imageHandler = () => {
     if (props.result.poster_path !== null) {
@@ -68,7 +63,6 @@ const SearchCard = (props) => {
                   }
                 })
 
-
             } else {
 
               jAPI.save(movieObject, "movies")
@@ -79,7 +73,6 @@ const SearchCard = (props) => {
                     movieId: movieObj.id,
                     isHated: true
                   }
-
                   jAPI.save(loveHateObject2, "loveHates")
                 })
             }

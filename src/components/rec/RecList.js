@@ -10,7 +10,9 @@ const RecList = (props) => {
   const [activeHate, setActiveHate] = useState([]);
   const [activeLove, setActiveLove] = useState([])
   const [recommendations, setRecommendations] = useState([])
-  const [hateState, setHateState] = useState([])
+  const [topMatch, setTopMatch] = useState([])
+
+  let topMatchUser = ""
 
 
   const recEngine = () => {
@@ -32,6 +34,7 @@ const RecList = (props) => {
                 }
               }
             })
+
             console.log("sameSameArr", sameSameArr)
             const userIdArry = sameSameArr.map(object => object.userId)
             const userIdSet = [...new Set(userIdArry)]
@@ -65,7 +68,6 @@ const RecList = (props) => {
             const topMatch = tallyToSort[0].userId
             console.log("topMatch", topMatch)
 
-
             jAPI.userMovieExpand("loveHates", topMatch)
               .then(topMatchLoveHates => {
                 console.log(topMatchLoveHates, "topMatchLoveHates")
@@ -84,30 +86,31 @@ const RecList = (props) => {
                     return rec.movie.id !== userLoveHates[i].movie.id
                   }
                 })
+
+                 jAPI.getWithId("users", topMatch)
+                 .then(matchedUser => setTopMatch(matchedUser))
+                 setRecommendations(loveArrPruned)
                 
-                setRecommendations(loveArrPruned)
-
-
-                console.log(recommendations, "recs recs recs")
-                console.log("lvoeArrPruned", loveArrPruned)
+                console.log("tallyToSort", tallyToSort)
+                
               })
 
-            console.log("tallyToSort", tallyToSort)
 
           })
       })
-
   }
 
   useEffect(() => {
     recEngine();
+    console.log(topMatchUser, "topMatchUser")
   }, []);
 
   return (
     <>
-      <div>From User: {recommendations.username}</div>
+      
       <div>
         <h2>Movies You Might'nt Hate</h2>
+        <div>From User: {topMatch.username}</div>
         {recommendations.map(res => <RecCard key={res.id} userObject={res} {...props} />)}
       </div>
     </>

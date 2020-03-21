@@ -11,7 +11,12 @@ const jAPI = {
         return fetch(apiURL + entity + "?userId=" + userId + "&_expand=movie").then(entries => entries.json())
     },
     movieExpand(entity) {
+        console.log(apiURL + entity + "?_expand=movie", "MOVIE EXPAND")
         return fetch(apiURL + entity + "?_expand=movie").then(entries => entries.json())
+    },
+    movieAndUserExpand(entity) {
+        console.log(apiURL + entity + "?_expand=movie&_expand=user", "MOVIE USER EXPAND")
+        return fetch(apiURL + entity + "?_expand=movie&_expand=user").then(entries => entries.json())
     },
     save(objToSave, str) {
         return fetch(apiURL + str, {
