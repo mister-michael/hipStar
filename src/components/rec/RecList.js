@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import jAPI from "../../modules/apiManager";
-import LoveHates from "../profile/LoveHates";
+import RecCard from "./RecCard";
 import mAPI from "../../modules/movieManager";
 
 const RecList = (props) => {
@@ -9,7 +9,7 @@ const RecList = (props) => {
 
   const [activeHate, setActiveHate] = useState([]);
   const [activeLove, setActiveLove] = useState([])
-  const [loveState, setLoveState] = useState([])
+  const [recommendations, setRecommendations] = useState([])
   const [hateState, setHateState] = useState([])
 
 
@@ -19,11 +19,11 @@ const RecList = (props) => {
       .then(userLoveHates => {
         const userHates = userLoveHates.filter(element => element.isHated === true)
         const userLoves = userLoveHates.filter(element => element.isHated === false)
-        console.log(userHates)
+        console.log("userHates", userHates)
         jAPI.movieExpand("loveHates")
           .then(overallLoveHates => {
             const overallHates = overallLoveHates.filter(element => element.userId !== activeId && element.isHated === true);
-            // console.log(olh)
+            console.log("overallLoveHates", overallLoveHates)
             const sameSameArr = []
             userHates.forEach(ulhObject => {
               for (let i = 0; i < overallHates.length; i++) {
@@ -32,6 +32,7 @@ const RecList = (props) => {
                 }
               }
             })
+            console.log("sameSameArr", sameSameArr)
             const userIdArry = sameSameArr.map(object => object.userId)
             const userIdSet = [...new Set(userIdArry)]
             const userTallyArr = []
@@ -63,31 +64,37 @@ const RecList = (props) => {
             })
 
             const topMatch = tallyToSort[0].userId
+            console.log("topMatch", topMatch)
 
             jAPI.userMovieExpand("loveHates", topMatch)
-            .then(loveHates => {
+            .then(topMatchLoveHates => {
+              console.log(topMatchLoveHates, "topMatchLoveHates")
               const loveArr = []
               const hateArr = []
-              loveHates.forEach(lh => {
-                const displayObject = {
-                  image: lh.movie.posterPath,
-                  title: lh.movie.title,
-                  loveHateId: lh.id
-                }
-                if (lh.isHated === true) {
-                  loveArr.push(displayObject)
+              topMatchLoveHates.forEach(lh => {
+                
+                if (lh.isHated === false) {
+                  loveArr.push(lh)
                 } else {
-                  hateArr.push(displayObject)
+                  hateArr.push(lh)
+                }
+                console.log("loveArr", loveArr)
+              })
+              //remove activeLoves from loveArr
+              //remove activeHates from loveArr
+              console.log(userLoveHates, "userLoveHates")
+              const loveArrPruned = loveArr.filter(rec => {
+                for (let i=0; i < userLoveHates.length; i++) {
+                    return rec.movie.id !== userLoveHates[i].movie.id
                 }
               })
-              setLoveState(loveArr)
-              setHateState(hateArr)
+              console.log("lvoeArrPruned", loveArrPruned)
+              setRecommendations(loveArrPruned)
+              console.log(recommendations, "recs recs recs")
+
             })
 
-            loveState.forEach(lovedMovie => {
-              //compare lovedMovieId to userHates and userLoves
-              
-            })
+            
 
             
 
@@ -95,10 +102,7 @@ const RecList = (props) => {
             console.log("tallyToSort", tallyToSort)
 
 
-            console.log(userIdArry)
-            console.log(sameSameArr, "sameSameArr")
 
-            console.log(userIdSet)
 
           })
       })
@@ -114,10 +118,10 @@ const RecList = (props) => {
 
   return (
     <>
-    <div>From User: {loveState.username}</div>
+    <div>From User: {recommendations.username}</div>
     <div>
     <h2>Movies You Might'nt Hate</h2>
-    {loveState.map(res => <LoveHates key={res.loveHateId} userObject={res} {...props} />)}
+    {recommendations.map(res => <RecCard key={res.id} userObject={res} {...props} />)}
   </div>
   </>
   )
