@@ -1,0 +1,8 @@
+.navList {
+  display: flex;
+  justify-content: space-between
+}
+
+.navToggle {
+text-align: left;
+}
