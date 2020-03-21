@@ -18,6 +18,7 @@ const SearchCard = (props) => {
 
   let poster = "https://harperlibrary.typepad.com/.a/6a0105368f4fef970b01b8d23c71b5970c-800wi"
 
+
   const imageHandler = () => {
     if (props.result.poster_path !== null) {
       return `https://image.tmdb.org/t/p/w500${props.result.poster_path}`
@@ -106,14 +107,6 @@ const SearchCard = (props) => {
         <CardTitle>{props.result.title}</CardTitle>
         <CardSubtitle>{release()}</CardSubtitle>
         <CardBody className="css1">
-          <Button id="Popover1" type="button" onClick={toggle}>
-            Synopsis
-      </Button>
-          <Popover placement="bottom" isOpen={popoverOpen} target="Popover1" >
-            <PopoverHeader>{props.result.title}</PopoverHeader>
-            <PopoverBody>{props.result.overview}</PopoverBody>
-          </Popover>
-          {/* <CardText>{props.result.overview}</CardText> */}
           <Button outline id={`button--${props.result.id}`}
             onClick={handleAdd} color="primary">Add</Button>{' '}
         </CardBody>

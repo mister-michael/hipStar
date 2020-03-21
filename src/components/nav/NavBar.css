@@ -6,3 +6,8 @@
 .navToggle {
 text-align: left;
 }
+
+.nav-link {
+text-align: right;
+margin-right: 10px;
+}

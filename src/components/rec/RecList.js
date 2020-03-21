@@ -59,58 +59,45 @@ const RecList = (props) => {
               if (a.tally < b.tally) {
                 return 1;
               }
-              // a must be equal to b
               return 0;
             })
 
             const topMatch = tallyToSort[0].userId
             console.log("topMatch", topMatch)
 
+
             jAPI.userMovieExpand("loveHates", topMatch)
-            .then(topMatchLoveHates => {
-              console.log(topMatchLoveHates, "topMatchLoveHates")
-              const loveArr = []
-              const hateArr = []
-              topMatchLoveHates.forEach(lh => {
-                
-                if (lh.isHated === false) {
-                  loveArr.push(lh)
-                } else {
-                  hateArr.push(lh)
-                }
-                console.log("loveArr", loveArr)
-              })
-              //remove activeLoves from loveArr
-              //remove activeHates from loveArr
-              console.log(userLoveHates, "userLoveHates")
-              const loveArrPruned = loveArr.filter(rec => {
-                for (let i=0; i < userLoveHates.length; i++) {
+              .then(topMatchLoveHates => {
+                console.log(topMatchLoveHates, "topMatchLoveHates")
+                const loveArr = []
+                const hateArr = []
+                topMatchLoveHates.forEach(lh => {
+
+                  !lh.isHated ? loveArr.push(lh) : hateArr.push(lh)
+
+                  console.log("loveArr", loveArr)
+                })
+                console.log(userLoveHates, "userLoveHates")
+
+                const loveArrPruned = loveArr.filter(rec => {
+                  for (let i = 0; i < userLoveHates.length; i++) {
                     return rec.movie.id !== userLoveHates[i].movie.id
-                }
+                  }
+                })
+                
+                setRecommendations(loveArrPruned)
+
+
+                console.log(recommendations, "recs recs recs")
+                console.log("lvoeArrPruned", loveArrPruned)
               })
-              console.log("lvoeArrPruned", loveArrPruned)
-              setRecommendations(loveArrPruned)
-              console.log(recommendations, "recs recs recs")
-
-            })
-
-            
-
-            
-
 
             console.log("tallyToSort", tallyToSort)
-
-
-
 
           })
       })
 
-    
-
   }
-
 
   useEffect(() => {
     recEngine();
@@ -118,12 +105,12 @@ const RecList = (props) => {
 
   return (
     <>
-    <div>From User: {recommendations.username}</div>
-    <div>
-    <h2>Movies You Might'nt Hate</h2>
-    {recommendations.map(res => <RecCard key={res.id} userObject={res} {...props} />)}
-  </div>
-  </>
+      <div>From User: {recommendations.username}</div>
+      <div>
+        <h2>Movies You Might'nt Hate</h2>
+        {recommendations.map(res => <RecCard key={res.id} userObject={res} {...props} />)}
+      </div>
+    </>
   )
 }
 

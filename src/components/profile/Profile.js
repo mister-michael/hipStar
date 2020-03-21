@@ -37,7 +37,6 @@ const Profile = props => {
       })
   }
 
-
   useEffect(() => {
     getUserObject();
     getUserMovies();
