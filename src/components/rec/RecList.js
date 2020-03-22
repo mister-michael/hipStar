@@ -12,9 +12,6 @@ const RecList = (props) => {
   const [recommendations, setRecommendations] = useState([])
   const [topMatch, setTopMatch] = useState([])
 
-  let topMatchUser = ""
-
-
   const recEngine = () => {
 
     return jAPI.userMovieExpand("loveHates", activeId)
@@ -87,27 +84,24 @@ const RecList = (props) => {
                   }
                 })
 
-                 jAPI.getWithId("users", topMatch)
-                 .then(matchedUser => setTopMatch(matchedUser))
-                 setRecommendations(loveArrPruned)
-                
+                jAPI.getWithId("users", topMatch)
+                  .then(matchedUser => setTopMatch(matchedUser))
+
+                setRecommendations(loveArrPruned)
+
                 console.log("tallyToSort", tallyToSort)
-                
               })
-
-
           })
       })
   }
 
   useEffect(() => {
     recEngine();
-    console.log(topMatchUser, "topMatchUser")
   }, []);
 
   return (
     <>
-      
+
       <div>
         <h2>Movies You Might'nt Hate</h2>
         <div>From User: {topMatch.username}</div>
