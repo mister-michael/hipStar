@@ -57,7 +57,7 @@ const jAPI = {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(objToEdit)
+            body: JSON.stringify(id, objToEdit)
         });
     },
 }

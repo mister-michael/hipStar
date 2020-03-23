@@ -10,8 +10,8 @@ const Profile = props => {
   const [loveState, setLoveState] = useState([])
   const [hateState, setHateState] = useState([])
 
-  const getUserObject = () => {
-    return jAPI.getWithId("users", userId)
+  const getUserObject = (id) => {
+    return jAPI.getWithId("users", id)
       .then(user => setUserObject(user))
   }
 
@@ -38,7 +38,7 @@ const Profile = props => {
   }
 
   useEffect(() => {
-    getUserObject();
+    getUserObject(userId);
     getUserMovies();
   }, [])
 
@@ -49,12 +49,12 @@ const Profile = props => {
         <div id={`name--${userObject.id}`}>{userObject.username}</div>
       </div>
       <div id={`love--${userObject.id}`}>
-        <h2>HATE</h2>
-        {loveState.map(res => <LoveHates key={res.id} userObject={res} {...props} />)}
+        <h2>LOVE</h2>
+        {loveState.map(res => <LoveHates key={res.id} userObject={res} getUserMovies={getUserMovies} getUserObject={getUserObject} {...props} />)}
       </div>
       <div id={`hate--${userObject.id}`}>
-        <h2>LOVE</h2>
-        {hateState.map(res => <LoveHates key={res.id} userObject={res} {...props} />)}
+        <h2>HATE</h2>
+        {hateState.map(res => <LoveHates key={res.id} userObject={res} getUserMovies={getUserMovies} getUserObject={getUserObject} {...props} />)}
       </div>
     </>
   )
