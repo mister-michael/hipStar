@@ -1,24 +1,29 @@
-/* .css1 {
-  display: flex !important;
-  flex-direction: row !important;
-  flex-direction: inherit !important;
-  width: 100% !important;
-  flex-wrap: wrap !important;
+.unlovedBtn {
+  border: solid 2px red !important;
 }
 
-.css2 {
-  width: 25% !important;
-  display: flex !important;
-
+.unhatedBtn {
+  border: solid 2px green !important;
 }
 
-.width {
-  width: 25%;
+.lovedBtn {
+  background-color: red !important;
 }
 
-.searchContainer {
+.hatedBtn {
+  color: green !important;
+}
+.redText {
+  color: red !important;
+}
 
-} */
+.greenText {
+  color: green !important;
+}
+
+.whiteText {
+  color: white !important;
+}
 
 .cardImage {
   min-width: 200px;
