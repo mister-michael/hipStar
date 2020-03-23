@@ -1,3 +1,5 @@
+/* search results buttons css below */
+
 .unlovedBtn {
   border: solid 2px red !important;
 }
@@ -24,6 +26,8 @@
 .whiteText {
   color: white !important;
 }
+
+/* search result cards */
 
 .cardImage {
   min-width: 200px;

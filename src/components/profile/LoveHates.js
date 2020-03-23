@@ -8,10 +8,12 @@ const LoveHates = (props) => {
   const loveHateObject = props.loveHateObject
   const loveHateId = props.loveHateObject.id
   let buttonText = ""
+  const [footerStyle, setFooterStyle] = useState()
+
 
   loveHateObject.isHated ? buttonText = "love" : buttonText = "hate"
-  console.log(loveHateObject)
-  console.log(buttonText, "btn text")
+
+
 
   const handleClick = () => {
     //update loveHate.isHated == opposite
@@ -37,28 +39,36 @@ const LoveHates = (props) => {
 
   const handleDelete = () => {
     if (window.confirm("delete this movie from your profile")) {
-    jAPI.delete(loveHateId, "loveHates");
-    props.getUserMovies();
-  }
+      jAPI.delete(loveHateId, "loveHates");
+      props.getUserMovies();
+    }
   };
 
   useEffect(() => {
-
+    loveHateObject.isHated === true ? setFooterStyle("redFooter") : setFooterStyle("greenFooter")
   }, [])
 
   return (
     <>
+
       <div id={`loveHates--${loveHateObject.id}`} className="loveHateList">
         <img src={loveHateObject.movie.posterPath} className="loveHateImage" alt="movie poster"></img>
-        <div>{loveHateObject.movie.title}</div>
+        <section>
+          <div className="movieTitleProfile">{loveHateObject.movie.title}</div>
+          <div className="overview-container">
+            {/* <div className="overview-container">{loveHateObject.movie.overview}</div> */}
+          </div>
+        </section>
       </div>
-      <div>
+      <div className={footerStyle}>
         <Button
           color=""
+          className="whiteText"
           onClick={handleClick}>{buttonText}</Button>{' '}
-        <Button 
-        color=""
-        onClick={handleDelete}>delete</Button>
+        <Button
+          color=""
+          className="whiteText"
+          onClick={handleDelete}>delete</Button>
       </div>
     </>
   )
