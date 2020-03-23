@@ -5,27 +5,32 @@ import jAPI from "../../modules/apiManager"
 
 const LoveHates = (props) => {
 
-  const userObject = props.userObject
-  const loveHateId = props.userObject.id
+  const loveHateObject = props.loveHateObject
+  const loveHateId = props.loveHateObject.id
   let buttonText = ""
 
-  userObject.isHated ? buttonText = "love" : buttonText = "hate"
-  console.log(userObject)
+  loveHateObject.isHated ? buttonText = "love" : buttonText = "hate"
+  console.log(loveHateObject)
   console.log(buttonText, "btn text")
 
   const handleClick = () => {
     //update loveHate.isHated == opposite
     //retrigger getUserMovies and getUserObject
-    let isHatedState = userObject.isHated
+    let isHatedState = loveHateObject.isHated
     console.log("isHatedState", isHatedState)
-    let isHated = {isHated: true}
-    if (isHatedState === true) {
-      isHated = false
-    } else if (isHatedState === false) {
-      isHated = true
+    let isHatedObj = {
+      id: parseInt(loveHateId),
+      isHated: loveHateObject.isHated,
+      movieId: loveHateObject.movieId,
+      userId: loveHateObject.userId
     }
-    console.log("ishated", isHated)
-    jAPI.patch(isHated, "loveHates", loveHateId)
+    if (isHatedState === true) {
+      isHatedObj.isHated = false
+    } else if (isHatedState === false) {
+      isHatedObj.isHated = true
+    }
+    console.log("ishated", isHatedObj)
+    jAPI.update(isHatedObj, "loveHates")
     props.getUserMovies()
 
   }
@@ -36,9 +41,9 @@ const LoveHates = (props) => {
 
   return (
     <>
-      <div id={`loveHates--${userObject.id}`} className="loveHateList">
-        <img src={userObject.movie.posterPath} className="loveHateImage" alt="movie poster"></img>
-        <div>{userObject.movie.title}</div>
+      <div id={`loveHates--${loveHateObject.id}`} className="loveHateList">
+        <img src={loveHateObject.movie.posterPath} className="loveHateImage" alt="movie poster"></img>
+        <div>{loveHateObject.movie.title}</div>
       </div>
       <div>
         <Button

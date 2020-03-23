@@ -45,16 +45,16 @@ const Profile = props => {
   return (
     <>
       <div id={`profile--${userObject.id}`}>
-        <img className="loveHateImage" src={userObject.posterPath} />
+        {/* <img className="profileImage" src={userObject.imgUrl} /> */}
         <div id={`name--${userObject.id}`}>{userObject.username}</div>
       </div>
       <div id={`love--${userObject.id}`}>
         <h2>LOVE</h2>
-        {loveState.map(res => <LoveHates key={res.id} userObject={res} getUserMovies={getUserMovies} getUserObject={getUserObject} {...props} />)}
+        {loveState.map(res => <LoveHates key={res.id} loveHateObject={res} getUserMovies={getUserMovies} getUserObject={getUserObject} {...props} />)}
       </div>
       <div id={`hate--${userObject.id}`}>
         <h2>HATE</h2>
-        {hateState.map(res => <LoveHates key={res.id} userObject={res} getUserMovies={getUserMovies} getUserObject={getUserObject} {...props} />)}
+        {hateState.map(res => <LoveHates key={res.id} loveHateObject={res} getUserMovies={getUserMovies} getUserObject={getUserObject} {...props} />)}
       </div>
     </>
   )

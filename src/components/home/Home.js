@@ -49,8 +49,10 @@ const Home = props => {
 
     return (
         <>
+            <h2>hipStar's most hated</h2>
+            <img src={mostHatedMovies.posterPath} />
             <div>{mostHatedMovies.title}</div>
-            <img src={mostHatedMovies.posterPath}/>
+            <div>{mostHatedMovies.overview}</div>
         </>
     )
 }
