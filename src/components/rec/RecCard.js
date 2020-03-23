@@ -5,7 +5,6 @@ const RecCard = (props) => {
   const userObject = props.userObject
 
   useEffect (() => {
-
   }, [])
 
   return (

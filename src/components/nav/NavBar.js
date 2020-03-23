@@ -3,81 +3,56 @@ import { Link } from "react-router-dom"
 import { withRouter } from "react-router-dom"
 import "./NavBar.css"
 import {
-  Collapse, Navbar, NavbarToggler,  NavbarBrand, Nav, NavItem, NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, NavbarText
+  Collapse, Navbar, NavbarToggler,  NavbarBrand, Nav, NavItem
 } from 'reactstrap';
 
 const NavBar = props => {
-  const [collapsed, setCollapsed] = useState(true);
-
-  const toggleNavbar = () => setCollapsed(!collapsed);
 
   const [isOpen, setIsOpen] = useState(false);
-
   const toggle = () => setIsOpen(!isOpen);
 
-  // const userId = parseInt(sessionStorage.getItem("userId"))
-
   const handleLogout = () => {
-    // const logoutTime = Date.now()
-    // const logoutObject = {logoutTime: logoutTime}
-    // API.patch(logoutObject, "users", userId)
     props.clearUser()
     props.history.push("/login")
   }
 
   useEffect(() => {
-
   }, [])
+
   return (
     <>
+    {props.hasUser ? (
       <Navbar color="light" light expand="md">
         <NavbarBrand href="/">H P S T R</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <Link className="nav-link" style={{ textDecoration: 'none', color: '#160D58' }} to="/home">
-                Home
-            </Link>
-            </NavItem>
-            <NavItem>
               <Link className="nav-link" style={{ textDecoration: 'none', color: '#160D58' }} to="/profile">
-                Profile
+                profile
             </Link>
             </NavItem>
             <NavItem>
               <Link className="nav-link" style={{ textDecoration: 'none', color: '#160D58' }} to="/search">
-                Search
+                search
             </Link>
             </NavItem>
             <NavItem><Link className="nav-link" style={{ textDecoration: 'none', color: '#160D58' }} to="/recommendations">
-              Recs
+              recs
             </Link></NavItem>
             <NavItem><Link className="nav-link" style={{ textDecoration: 'none', color: '#160D58' }} to="/recommendations">
-              Friends
+              friends
             </Link></NavItem>
             <NavItem></NavItem>
-            {/* <UncontrolledDropdown nav inNavbar>
-              <DropdownToggle nav caret>
-                Options
-              </DropdownToggle>
-              <DropdownMenu right>
-                <DropdownItem>
-                  Option 1
-                </DropdownItem>
-                <DropdownItem>
-                  Option 2
-                </DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem>
-                  Reset
-                </DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown> */}
+            <NavItem>
+              <Link className="nav-link" style={{ textDecoration: 'none', color: '#160D58' }} to="/login" onClick={handleLogout}>
+                logout
+            </Link>
+            </NavItem>
           </Nav>
-          <NavbarText>making unpopular opinions popular again</NavbarText>
         </Collapse>
       </Navbar>
+    ) : null}
     </>
   )
 }

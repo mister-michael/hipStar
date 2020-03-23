@@ -12,10 +12,6 @@ const SearchCard = (props) => {
   const mdbId = props.result.id
   const activeUserId = props.activeUserId
 
-  const [popoverOpen, setPopoverOpen] = useState(false);
-
-  const toggle = () => setPopoverOpen(!popoverOpen);
-
   let poster = "https://harperlibrary.typepad.com/.a/6a0105368f4fef970b01b8d23c71b5970c-800wi"
 
   const imageHandler = () => {
@@ -67,7 +63,6 @@ const SearchCard = (props) => {
                   }
                 })
 
-
             } else {
 
               jAPI.save(movieObject, "movies")
@@ -78,7 +73,6 @@ const SearchCard = (props) => {
                     movieId: movieObj.id,
                     isHated: true
                   }
-
                   jAPI.save(loveHateObject2, "loveHates")
                 })
             }
@@ -106,14 +100,6 @@ const SearchCard = (props) => {
         <CardTitle>{props.result.title}</CardTitle>
         <CardSubtitle>{release()}</CardSubtitle>
         <CardBody className="css1">
-          <Button id="Popover1" type="button" onClick={toggle}>
-            Synopsis
-      </Button>
-          <Popover placement="bottom" isOpen={popoverOpen} target="Popover1" >
-            <PopoverHeader>{props.result.title}</PopoverHeader>
-            <PopoverBody>{props.result.overview}</PopoverBody>
-          </Popover>
-          {/* <CardText>{props.result.overview}</CardText> */}
           <Button outline id={`button--${props.result.id}`}
             onClick={handleAdd} color="primary">Add</Button>{' '}
         </CardBody>

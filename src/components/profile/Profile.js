@@ -21,22 +21,21 @@ const Profile = props => {
         const loveArr = []
         const hateArr = []
         loveHates.forEach(lh => {
-          const displayObject = {
-            image: lh.movie.posterPath,
-            title: lh.movie.title,
-            loveHateId: lh.id
-          }
-          if (lh.isHated === true) {
-            loveArr.push(displayObject)
+          // const displayObject = {
+          //   image: lh.movie.posterPath,
+          //   title: lh.movie.title,
+          //   loveHateId: lh.id
+          // }
+          if (lh.isHated !== true) {
+            loveArr.push(lh)
           } else {
-            hateArr.push(displayObject)
+            hateArr.push(lh)
           }
         })
         setLoveState(loveArr)
         setHateState(hateArr)
       })
   }
-
 
   useEffect(() => {
     getUserObject();
@@ -46,16 +45,16 @@ const Profile = props => {
   return (
     <>
       <div id={`profile--${userObject.id}`}>
-        <img className="loveHateImage" src={userObject.imgUrl} />
+        <img className="loveHateImage" src={userObject.posterPath} />
         <div id={`name--${userObject.id}`}>{userObject.username}</div>
       </div>
       <div id={`love--${userObject.id}`}>
         <h2>HATE</h2>
-        {loveState.map(res => <LoveHates key={res.loveHateId} userObject={res} {...props} />)}
+        {loveState.map(res => <LoveHates key={res.id} userObject={res} {...props} />)}
       </div>
       <div id={`hate--${userObject.id}`}>
         <h2>LOVE</h2>
-        {hateState.map(res => <LoveHates key={res.loveHateId} userObject={res} {...props} />)}
+        {hateState.map(res => <LoveHates key={res.id} userObject={res} {...props} />)}
       </div>
     </>
   )
