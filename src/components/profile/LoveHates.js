@@ -16,24 +16,31 @@ const LoveHates = (props) => {
   const handleClick = () => {
     //update loveHate.isHated == opposite
     //retrigger getUserMovies and getUserObject
-    let isHatedState = loveHateObject.isHated
+    let isHatedState = loveHateObject.isHated;
     console.log("isHatedState", isHatedState)
     let isHatedObj = {
       id: parseInt(loveHateId),
       isHated: loveHateObject.isHated,
       movieId: loveHateObject.movieId,
       userId: loveHateObject.userId
-    }
+    };
     if (isHatedState === true) {
       isHatedObj.isHated = false
     } else if (isHatedState === false) {
       isHatedObj.isHated = true
-    }
-    console.log("ishated", isHatedObj)
-    jAPI.update(isHatedObj, "loveHates")
-    props.getUserMovies()
+    };
+    console.log("ishated", isHatedObj);
+    jAPI.update(isHatedObj, "loveHates");
+    props.getUserMovies();
 
   }
+
+  const handleDelete = () => {
+    if (window.confirm("delete this movie from your profile")) {
+    jAPI.delete(loveHateId, "loveHates");
+    props.getUserMovies();
+  }
+  };
 
   useEffect(() => {
 
@@ -49,7 +56,9 @@ const LoveHates = (props) => {
         <Button
           color=""
           onClick={handleClick}>{buttonText}</Button>{' '}
-        <Button color="">delete</Button>
+        <Button 
+        color=""
+        onClick={handleDelete}>delete</Button>
       </div>
     </>
   )
