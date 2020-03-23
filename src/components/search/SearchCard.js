@@ -156,6 +156,7 @@ const SearchCard = (props) => {
 
   }, [classNames]);
 
+  
   return (
     <>
 
