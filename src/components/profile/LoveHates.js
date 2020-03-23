@@ -10,10 +10,7 @@ const LoveHates = (props) => {
   let buttonText = ""
   const [footerStyle, setFooterStyle] = useState()
 
-
   loveHateObject.isHated ? buttonText = "love" : buttonText = "hate"
-
-
 
   const handleClick = () => {
     //update loveHate.isHated == opposite
@@ -34,7 +31,6 @@ const LoveHates = (props) => {
     console.log("ishated", isHatedObj);
     jAPI.update(isHatedObj, "loveHates");
     props.getUserMovies();
-
   }
 
   const handleDelete = () => {
@@ -50,25 +46,28 @@ const LoveHates = (props) => {
 
   return (
     <>
-
-      <div id={`loveHates--${loveHateObject.id}`} className="loveHateList">
-        <img src={loveHateObject.movie.posterPath} className="loveHateImage" alt="movie poster"></img>
-        <section>
-          <div className="movieTitleProfile">{loveHateObject.movie.title}</div>
-          <div className="overview-container">
-            {/* <div className="overview-container">{loveHateObject.movie.overview}</div> */}
+      <div>
+        <section className="profile-container">
+          <div id={`loveHates--${loveHateObject.id}`} className="loveHateList">
+            <img src={loveHateObject.movie.posterPath} className="loveHateImage" alt="movie poster"></img>
+            <section>
+              <div className="movieTitleProfile">{loveHateObject.movie.title}</div>
+              <div className="overview-container">
+                {/* <div className="overview-container">{loveHateObject.movie.overview}</div> */}
+              </div>
+            </section>
+          </div>
+          <div className={footerStyle}>
+            <Button
+              color=""
+              className="whiteText loveDeleteBtnBkg"
+              onClick={handleClick}>{buttonText}</Button>{' '}
+            <Button
+              color=""
+              className="whiteText loveDeleteBtnBkg"
+              onClick={handleDelete}>delete</Button>
           </div>
         </section>
-      </div>
-      <div className={footerStyle}>
-        <Button
-          color=""
-          className="whiteText"
-          onClick={handleClick}>{buttonText}</Button>{' '}
-        <Button
-          color=""
-          className="whiteText"
-          onClick={handleDelete}>delete</Button>
       </div>
     </>
   )

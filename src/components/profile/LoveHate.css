@@ -10,13 +10,17 @@
 }
 
 .greenFooter {
-  background-color: rgba(136, 185, 161, 0.598);
+  background: rgb(136, 238, 177);
+background: linear-gradient(49deg, rgb(40, 249, 179) 0%, rgba(213,212,186,0.09260183706070291) 42%, rgba(148,210,169,0.39931110223642174) 100%);
 }
 
 .redFooter {
-  background-color: rgba(231, 144, 112, 0.623);
-  border: 1px rgba(231, 144, 112, 0.623) solid;
-  border-bottom: 2px;
+  /* background: linear-gradient(49deg, rgba(224, 141, 141, 0.641) 0%, rgba(160, 159, 145, 0.029) 50%, rgba(215, 216, 197, 0.193) 100%); */
+  background: rgb(222,72,72);
+  background: linear-gradient(49deg, rgba(222,72,72,0.7443590255591055) 0%, rgba(213,212,186,0.09260183706070291) 42%, rgba(148,210,169,0.39931110223642174) 100%);
+  /* background-color: rgba(231, 144, 112, 0.623); */
+  /* border: 1px rgba(255, 245, 241, 0.692) solid; */
+  border-bottom: 1px;
   border-radius: 2%;
 }
 
@@ -31,3 +35,20 @@
   overflow: scroll;
   justify-content: end;
 }
+
+.profile-container {
+display: flex;
+flex-direction: column;
+width: 800px ;
+justify-content: center;
+}
+
+.loveBtnBkg {
+  background: linear-gradient(49deg, rgba(222,72,72,0.7443590255591055) 0%, rgba(213,212,186,0.09260183706070291) 42%, rgba(148,210,169,0.39931110223642174) 100%);
+}
+
+.loveDeleteBtnBkg {
+  background: linear-gradient(49deg, rgba(125, 255, 255, 0.744) 0%, rgba(213,212,186,0.09260183706070291) 42%, rgba(148,210,169,0.39931110223642174) 100%);
+}
+
+
