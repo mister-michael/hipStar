@@ -11,10 +11,40 @@ const SearchCard = (props) => {
 
   const mdbId = props.result.id;
   const activeUserId = props.activeUserId;
-  const [classNames, setClassNames] = useState({loveClass: "unlovedBtn", hateClass: "unhatedBtn"});
-  const [textColors, setTextColors] = useState({loveText: "redText", hateText: "greenText"})
+  const [classNames, setClassNames] = useState({ loveClass: "unlovedBtn", hateClass: "unhatedBtn" });
+  const [textColors, setTextColors] = useState({ loveText: "redText", hateText: "greenText" });
+  const [loveBtnState, setLoveBtnState] = useState({name: ""});
+  const [hateBtnState, setHateBtnState] = useState({name: ""});
 
+  const searchResult = props.result
+
+  const buttons = () => {
+    jAPI.userMovieExpand("loveHates", activeUserId)
+      .then(movies => {
+        for (let i = 0; i < movies.length; i++) {
+          if (mdbId === movies[i].movie.dbid && movies[i].isHated === true) {
+            console.log("111111111", mdbId, movies[i].movie.dbid)
+            setHateBtnState({name: "hatedBtn"});
+            setLoveBtnState({name: "unlovedBtn"});
+            break
+          } else if (mdbId === movies[i].movie.dbid && movies[i].isHated === false) {
+            console.log("22222222", 
+            mdbId, movies[i].movie.dbid)
+            setHateBtnState({name: "unhatedBtn"});
+            setLoveBtnState({name: "lovedBtn"});
+            break
+          } else {
+            console.log("else statement", mdbId)
+            setHateBtnState({name: "unhatedBtn"});
+            setLoveBtnState({name: "unlovedBtn"});
+            
+          }
+        }
+      })
+  }
   let poster = "https://harperlibrary.typepad.com/.a/6a0105368f4fef970b01b8d23c71b5970c-800wi";
+
+
 
   const imageHandler = () => {
     if (props.result.poster_path !== null) {
@@ -79,8 +109,8 @@ const SearchCard = (props) => {
                 })
             }
           })
-          setClassNames({loveClass: "unlovedBtn", hateClass: "hatedBtn"});
-          setTextColors({loveText: "redText", hateClass: "whiteText"});
+        // setClassNames({ loveClass: "unlovedBtn", hateClass: "hatedBtn" });
+        // setTextColors({ loveText: "redText", hateClass: "whiteText" });
         props.searchInput.value = "";
       })
   };
@@ -139,9 +169,9 @@ const SearchCard = (props) => {
                 });
             }
           })
-        setClassNames({loveClass: "lovedBtn", hateClass: "unhatedBtn"});
-        setTextColors({loveText: "whiteText", hateClass: "greenText"});
-        props.searchInput.value = ""
+        // setClassNames({ loveClass: "lovedBtn", hateClass: "unhatedBtn" });
+        // setTextColors({ loveText: "whiteText", hateClass: "greenText" });
+        // props.searchInput.value = ""
       })
   };
 
@@ -153,10 +183,10 @@ const SearchCard = (props) => {
   };
 
   useEffect(() => {
+    buttons();
+  }, []);
 
-  }, [classNames]);
 
-  
   return (
     <>
 
@@ -165,15 +195,15 @@ const SearchCard = (props) => {
         <CardTitle>{props.result.title}</CardTitle>
         <CardSubtitle>{release()}</CardSubtitle>
         <CardBody className="css1">
-          <Button outline 
-          id={`love-button--${props.result.id}`}
-            onClick={handleLove} 
-            className={classNames.loveClass}><span className={textColors.loveText}>Love</span></Button>{' '}
-          <Button outline 
-          id={`hate-button--${props.result.id}`}
-            onClick={handleHate} 
-            className={classNames.hateClass}
-            ><span className={textColors.hateText}>Hate</span></Button>{' '}
+          <Button outline
+            id={`love-button--${props.result.id}`}
+            onClick={handleLove}
+            className={loveBtnState.name}><span className={textColors.loveText}>Love</span></Button>{' '}
+          <Button outline
+            id={`hate-button--${props.result.id}`}
+            onClick={handleHate}
+            className={`${hateBtnState.name}`}
+          ><span className={textColors.hateText}>Hate</span></Button>{' '}
         </CardBody>
       </div>
 

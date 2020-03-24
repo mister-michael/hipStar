@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import jAPI from "../../modules/apiManager";
 import { Link } from "react-router-dom"
+import { InputGroup, InputGroupText, InputGroupAddon, Input, Card } from 'reactstrap';
 
 const RegisterForm = props => {
   const [credentials, setCredentials] = useState({
@@ -60,7 +61,46 @@ const RegisterForm = props => {
 
   return (
     <>
-      <div className="loginForm">
+      <div>
+        <h2>Sign Up</h2>
+        <Card className="registerCard">
+          <InputGroup size="sm">
+            <InputGroupAddon
+              addonType="prepend"
+              onChange={handleFieldChange}
+              type="username"
+              id="username"
+              placeholder="full name">username</InputGroupAddon>
+            <Input />
+          </InputGroup>
+          <br />
+          <InputGroup size="sm">
+            <InputGroupAddon
+              addonType="prepend"
+              onChange={handleFieldChange}
+              type="email"
+              id="email"
+              placeholder="email address">e m a i l</InputGroupAddon>
+            <Input />
+          </InputGroup>
+          <br />
+          <InputGroup size="sm">
+            <InputGroupAddon
+              addonType="prepend"
+              onChange={handleFieldChange}
+              type="imgUrl"
+              id="imgUrl"
+              placeholder="image url">image url</InputGroupAddon>
+            <Input />
+          </InputGroup>
+          <div className="rightAlign smallText">
+            <Link to="/login" className="signLink" style={{ textDecoration: 'none' }} >
+              already a user?
+          </Link>
+          </div>
+        </Card>
+      </div>
+      {/* <div className="loginForm">
         <div>
           <h3>Sign up</h3>
           <label htmlFor="inputName">Name:</label>
@@ -98,7 +138,7 @@ const RegisterForm = props => {
           </Link>
 
         </div>
-      </div>
+      </div> */}
     </>
   );
 };

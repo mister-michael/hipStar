@@ -4,11 +4,14 @@ import "./LoveHate.css";
 import jAPI from "../../modules/apiManager"
 
 const LoveHates = (props) => {
+  const [footerStyle, setFooterStyle] = useState();
+  
 
   const loveHateObject = props.loveHateObject
   const loveHateId = props.loveHateObject.id
   let buttonText = ""
-  const [footerStyle, setFooterStyle] = useState()
+  
+
 
   loveHateObject.isHated ? buttonText = "love" : buttonText = "hate"
 
@@ -18,9 +21,9 @@ const LoveHates = (props) => {
     let isHatedState = loveHateObject.isHated;
     console.log("isHatedState", isHatedState)
     let isHatedObj = {
-      id: parseInt(loveHateId),
-      isHated: loveHateObject.isHated,
-      movieId: loveHateObject.movieId,
+      // id: parseInt(loveHateId),
+      // isHated: loveHateObject.isHated,
+      // movieId: loveHateObject.movieId,
       userId: loveHateObject.userId
     };
     if (isHatedState === true) {
@@ -29,7 +32,8 @@ const LoveHates = (props) => {
       isHatedObj.isHated = true
     };
     console.log("ishated", isHatedObj);
-    jAPI.update(isHatedObj, "loveHates");
+    // jAPI.update(isHatedObj, "loveHates");
+    jAPI.patch(isHatedObj, "loveHates", 2)
     props.getUserMovies();
   }
 

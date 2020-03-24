@@ -1,0 +1,22 @@
+.loginCard {
+    display: flex !important;
+    width: 98% !important;
+    justify-content: center;
+}
+.registerCard {
+    display: flex !important;
+    width: 98% !important;
+    justify-content: center;
+}
+
+.rightAlign {
+    text-align: right;
+}
+
+.smallText {
+    font-size: .75em;
+}
+.signLink {
+    margin-right: 1em;
+    padding-top: 2em;
+}

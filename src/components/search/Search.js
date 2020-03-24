@@ -28,7 +28,7 @@ const Search = (props) => {
         console.log(searchResults)
       })
 
-      searchInput.value = ""
+      // searchInput.value = ""
   }
 
   useEffect(() => {
@@ -49,7 +49,7 @@ const Search = (props) => {
         onClick={handleSearch}>
         Submit</button> */}
       <div id="searchResults" className="cardGroup">
-        {results.map(res => <SearchCard className="" key={res.id} result={res} searchInput={searchInput} userId={props.activeUserId} {...props} />)}
+        {results.map(res => <SearchCard className="" handleSearch={handleSearch} key={res.id} result={res} searchInput={searchInput} userId={props.activeUserId} {...props} />)}
       </div>
 
     </>

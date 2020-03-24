@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom"
 import jAPI from "../../modules/apiManager"
+import "./LoginRegister.css"
 import {
   Card, Button, CardHeader, CardFooter, CardBody,
   CardTitle, InputGroup, InputGroupAddon, Input,
@@ -51,7 +52,7 @@ const Login = props => {
   return (
     <>
       <div>
-        <Card>
+        <Card className="loginCard">
           <CardHeader>hipStar</CardHeader>
           <CardBody>
             <CardTitle>sign in with {symbol.placeholder}</CardTitle>
