@@ -1,21 +1,31 @@
 /* search results buttons css below */
 
 .unlovedBtn {
-  border: solid 2px red !important;
+  border: solid 2px rgba(231, 111, 129, 0.808) !important;
+  color: rgba(222,72,72,0.7443590255591055)
 }
 
 .unhatedBtn {
-  border: solid 2px green !important;
+  border: solid 2px rgb(40, 249, 179) !important;
+  color: rgb(40, 249, 179);
 }
 
 .lovedBtn {
-  background-color: red !important;
+  background-color: rgba(222,72,72,0.7443590255591055) !important;
+  color: white !important;
 }
 
 .hatedBtn {
-  background-color: green !important;
+  background-color: rgb(178, 245, 223) !important;
+  border: solid 2px rgb(40, 226, 164) !important;
+  color: white !important;
 }
-.redText {
+
+.forgetBtn {
+  border: solid 2px rgb(66, 142, 235) !important;
+  color:  rgb(66, 142, 235) !important;
+}
+/* .redText {
   color: red !important;
 }
 
@@ -24,8 +34,9 @@
 }
 
 .whiteText {
+  font-weight: bold;
   color: white !important;
-}
+} */
 
 /* search result cards */
 
@@ -45,4 +56,10 @@
   width: 28%;
   margin: 1%;
   overflow: hidden;
+}
+
+/* search bar  */
+.movieSearchInput {
+  padding-left: 1em;
+  padding-top: .5em;
 }

@@ -11,10 +11,12 @@ const SearchCard = (props) => {
 
   const mdbId = props.result.id;
   const activeUserId = props.activeUserId;
-  const [classNames, setClassNames] = useState({ loveClass: "unlovedBtn", hateClass: "unhatedBtn" });
-  const [textColors, setTextColors] = useState({ loveText: "redText", hateText: "greenText" });
-  const [loveBtnState, setLoveBtnState] = useState({name: ""});
-  const [hateBtnState, setHateBtnState] = useState({name: ""});
+  const [loveBtnState, setLoveBtnState] = useState({ name: "" });
+  const [hateBtnState, setHateBtnState] = useState({ name: "" });
+  const [loveHateId, setLoveHateId] = useState(false);
+  const [isLoveDisabled, setIsLoveDisabled] = useState(true);
+  const [isHateDisabled, setIsHateDisabled] = useState(true);
+  const [hasBeenChanged, setHasBeenChanged] = useState(false)
 
   const searchResult = props.result
 
@@ -23,28 +25,31 @@ const SearchCard = (props) => {
       .then(movies => {
         for (let i = 0; i < movies.length; i++) {
           if (mdbId === movies[i].movie.dbid && movies[i].isHated === true) {
-            console.log("111111111", mdbId, movies[i].movie.dbid)
-            setHateBtnState({name: "hatedBtn"});
-            setLoveBtnState({name: "unlovedBtn"});
+            setHateBtnState({ name: "hatedBtn" });
+            setLoveBtnState({ name: "unlovedBtn" });
+            setLoveHateId(movies[i].id);
+            setIsLoveDisabled(false);
+            setIsHateDisabled(true);
+
             break
           } else if (mdbId === movies[i].movie.dbid && movies[i].isHated === false) {
-            console.log("22222222", 
-            mdbId, movies[i].movie.dbid)
-            setHateBtnState({name: "unhatedBtn"});
-            setLoveBtnState({name: "lovedBtn"});
+            setHateBtnState({ name: "unhatedBtn" });
+            setLoveBtnState({ name: "lovedBtn" });
+            setLoveHateId(movies[i].id);
+            setIsLoveDisabled(true);
+            setIsHateDisabled(false);
+
             break
           } else {
-            console.log("else statement", mdbId)
-            setHateBtnState({name: "unhatedBtn"});
-            setLoveBtnState({name: "unlovedBtn"});
-            
+            setHateBtnState({ name: "unhatedBtn" });
+            setLoveBtnState({ name: "unlovedBtn" });
+            setIsLoveDisabled(false);
+            setIsHateDisabled(false);
           }
         }
       })
   }
   let poster = "https://harperlibrary.typepad.com/.a/6a0105368f4fef970b01b8d23c71b5970c-800wi";
-
-
 
   const imageHandler = () => {
     if (props.result.poster_path !== null) {
@@ -84,14 +89,15 @@ const SearchCard = (props) => {
 
               jAPI.get("loveHates")
                 .then(loveHatesFetch => {
+
                   const loveHateFound = loveHatesFetch.find(object => object.userId === activeUserId && object.movieId === movieInJson.id);
 
                   if (loveHateFound === undefined) {
 
                     jAPI.save(loveHateObject, "loveHates")
                   } else {
-
-                    window.alert("already on your list")
+                    const toggleIsHated = { isHated: true }
+                    jAPI.patch(toggleIsHated, "loveHates", loveHateId)
                   }
                 });
 
@@ -108,10 +114,11 @@ const SearchCard = (props) => {
                   jAPI.save(loveHateObject2, "loveHates");
                 })
             }
+
           })
-        // setClassNames({ loveClass: "unlovedBtn", hateClass: "hatedBtn" });
-        // setTextColors({ loveText: "redText", hateClass: "whiteText" });
-        props.searchInput.value = "";
+        props.setKeyword(props.keyword)
+        setHasBeenChanged(true)
+        props.handleSearch();
       })
   };
   const handleLove = () => {
@@ -151,7 +158,8 @@ const SearchCard = (props) => {
                     jAPI.save(loveHateObject, "loveHates")
                   } else {
 
-                    window.alert("already on your list")
+                    const toggleIsHated = { isHated: false }
+                    jAPI.patch(toggleIsHated, "loveHates", loveHateId)
                   }
                 });
 
@@ -169,11 +177,31 @@ const SearchCard = (props) => {
                 });
             }
           })
-        // setClassNames({ loveClass: "lovedBtn", hateClass: "unhatedBtn" });
-        // setTextColors({ loveText: "whiteText", hateClass: "greenText" });
-        // props.searchInput.value = ""
+
+        props.handleSearch();
       })
   };
+
+  const handleForget = () => {
+    jAPI.delete("loveHates", loveHateId);
+    setLoveHateId(false);
+    setHateBtnState({ name: "unhatedBtn" });
+    setLoveBtnState({ name: "unlovedBtn" });
+    setIsLoveDisabled(false);
+    setIsHateDisabled(false);
+    
+  }
+
+  const forgetJSX = () => {
+    if (loveHateId !== false) {
+      return (<><button
+        id={`hate-button--${props.result.id}`}
+        // onClick={handleForget}
+        className="forgetBtn"
+      // disabled={isForgetDisabled}
+      ><span >forget</span></button>{' '}</>)
+    }
+  }
 
   const release = () => {
     const releaseDate = "release_date";
@@ -184,7 +212,8 @@ const SearchCard = (props) => {
 
   useEffect(() => {
     buttons();
-  }, []);
+
+  }, [hasBeenChanged]);
 
 
   return (
@@ -195,15 +224,18 @@ const SearchCard = (props) => {
         <CardTitle>{props.result.title}</CardTitle>
         <CardSubtitle>{release()}</CardSubtitle>
         <CardBody className="css1">
-          <Button outline
+          <button
             id={`love-button--${props.result.id}`}
             onClick={handleLove}
-            className={loveBtnState.name}><span className={textColors.loveText}>Love</span></Button>{' '}
-          <Button outline
+            className={loveBtnState.name}
+            disabled={isLoveDisabled}><span >Love</span></button>{' '}
+          <button
             id={`hate-button--${props.result.id}`}
             onClick={handleHate}
-            className={`${hateBtnState.name}`}
-          ><span className={textColors.hateText}>Hate</span></Button>{' '}
+            className={hateBtnState.name}
+            disabled={isHateDisabled}
+          ><span >Hate</span></button>{' '}
+          {forgetJSX()}
         </CardBody>
       </div>
 

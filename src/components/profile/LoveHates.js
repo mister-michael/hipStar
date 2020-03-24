@@ -5,7 +5,8 @@ import jAPI from "../../modules/apiManager"
 
 const LoveHates = (props) => {
   const [footerStyle, setFooterStyle] = useState();
-  
+  const [loveBtnState, setLoveBtnState] = useState();
+  const [hateBtnState, setHateBtnState] = useState();
 
   const loveHateObject = props.loveHateObject
   const loveHateId = props.loveHateObject.id
@@ -64,11 +65,11 @@ const LoveHates = (props) => {
           <div className={footerStyle}>
             <Button
               color=""
-              className="whiteText loveDeleteBtnBkg"
+              className="profileBtnText loveDeleteBtnBkg"
               onClick={handleClick}>{buttonText}</Button>{' '}
             <Button
               color=""
-              className="whiteText loveDeleteBtnBkg"
+              className="profileBtnText loveDeleteBtnBkg"
               onClick={handleDelete}>delete</Button>
           </div>
         </section>
