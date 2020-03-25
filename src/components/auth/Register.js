@@ -20,43 +20,56 @@ const RegisterForm = props => {
 
   const handleRegister = evt => {
     evt.preventDefault();
-    setCredentials("credentials")
 
-    const nameArr = credentials.username.split("")
-    const nameArrFind = nameArr.find(char => char === " ")
+    // jAPI.checkEmail(credentials.email)
+    // .then(usersFromApi => {
+    //   console.log(usersFromApi)
+    //   if (usersFromApi.length > 0) {
+    //     window.alert("email taken dawg")
+    //   } else {window.alert("you're good dawg")}
+    // })
 
-    if (nameArrFind !== undefined) {
-      window.alert("username can not contain spaces")
+        const emailArr = credentials.email.split("")
+        const emailArrFind = emailArr.find(char => char === "@")
 
-    } else if (nameArr.length > 16) {
-      window.alert("username can not be more than 16 characters")
+        const nameArr = credentials.username.split("")
+        const nameArrFind = nameArr.find(char => char === " ")
 
-    } else {
+        if (nameArrFind !== undefined) {
+          window.alert("username can not contain spaces")
 
-      jAPI.get("users").then(users => {
+        } else if (nameArr.length > 16) {
+          window.alert("username can not be more than 16 characters")
 
-        const email = users.find(user => user.email.toLowerCase() === credentials.email.toLowerCase());
-        const name = users.find(user => user.username.toLowerCase() === credentials.username.toLowerCase());
+        } else {
 
-        if (email === undefined && name === undefined) {
-
-          setCredentials("credentials");
-          jAPI.save(credentials, "users");
           jAPI.get("users").then(users => {
-            const newUser = users.find(newUser => newUser.email === credentials.email);
-            sessionStorage.setItem("userId", newUser.id);
-            props.setUser(credentials);
-            props.history.push("/home");
+
+            const name = users.find(user => user.username.toLowerCase() === credentials.username.toLowerCase());
+            const email = users.find(user => user.email.toLowerCase() === credentials.email.toLowerCase());
+
+            if (email === undefined && name === undefined) {
+
+              jAPI.save(credentials, "users");
+
+              jAPI.get("users").then(users => {
+
+                const newUser = users.find(newUser => newUser.email.toLowerCase() === credentials.email.toLowerCase());
+                sessionStorage.setItem("userId", newUser.id);
+                props.setUser(credentials);
+                props.history.push("/home");
+              });
+            }
+            else if (email !== undefined) {
+              console.log(email)
+              window.alert("email already exists");
+            }
+            else if (name !== undefined) {
+              window.alert("username already exists")
+            }
           });
         }
-        else if (email !== undefined) {
-          window.alert("email already exists");
-        }
-        else if (name !== undefined) {
-          window.alert("username already exists")
-        }
-      });
-    }
+      
   };
 
   return (
@@ -66,33 +79,38 @@ const RegisterForm = props => {
         <Card className="registerCard">
           <InputGroup size="sm">
             <InputGroupAddon
-              addonType="prepend"
+              >username</InputGroupAddon>
+            <Input addonType="prepend"
               onChange={handleFieldChange}
               type="username"
               id="username"
-              placeholder="full name">username</InputGroupAddon>
-            <Input />
+              placeholder="full name"/>
           </InputGroup>
           <br />
           <InputGroup size="sm">
             <InputGroupAddon
-              addonType="prepend"
+              >e m a i l</InputGroupAddon>
+            <Input addonType="prepend"
               onChange={handleFieldChange}
               type="email"
               id="email"
-              placeholder="email address">e m a i l</InputGroupAddon>
-            <Input />
+              placeholder="email address" />
           </InputGroup>
           <br />
           <InputGroup size="sm">
             <InputGroupAddon
-              addonType="prepend"
+              >image url</InputGroupAddon>
+            <Input addonType="prepend"
               onChange={handleFieldChange}
               type="imgUrl"
               id="imgUrl"
-              placeholder="image url">image url</InputGroupAddon>
-            <Input />
+              placeholder="image url"/>
+
           </InputGroup>
+          <button type="button"
+            onClick={handleRegister}>
+            Submit
+          </button>
           <div className="rightAlign smallText">
             <Link to="/login" className="signLink" style={{ textDecoration: 'none' }} >
               already a user?

@@ -1,6 +1,9 @@
 const apiURL = "http://localhost:5002/";
 
 const jAPI = {
+    checkEmail(email) {
+        return fetch(apiURL + `users?email=${email}`).then(entries => entries.json());
+    },
     getWithId(str, id) {
         return fetch(apiURL + str + "/" + id).then(entries => entries.json());
     },
