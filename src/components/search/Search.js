@@ -32,7 +32,7 @@ const Search = (props) => {
   }
 
   useEffect(() => {
-  }, [])
+  }, [keyword])
 
   return (
     <>
