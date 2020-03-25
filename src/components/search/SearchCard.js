@@ -18,6 +18,10 @@ const SearchCard = (props) => {
   const [isHateDisabled, setIsHateDisabled] = useState(true);
   const [hasBeenChanged, setHasBeenChanged] = useState(false)
 
+  
+
+  let loveHateFoundId = ""
+
   const searchResult = props.result
 
   const buttons = () => {
@@ -28,6 +32,7 @@ const SearchCard = (props) => {
             setHateBtnState({ name: "hatedBtn" });
             setLoveBtnState({ name: "unlovedBtn" });
             setLoveHateId(movies[i].id);
+            loveHateFoundId = movies[i].id;
             setIsLoveDisabled(false);
             setIsHateDisabled(true);
 
@@ -36,6 +41,7 @@ const SearchCard = (props) => {
             setHateBtnState({ name: "unhatedBtn" });
             setLoveBtnState({ name: "lovedBtn" });
             setLoveHateId(movies[i].id);
+            loveHateFoundId = movies[i].id;
             setIsLoveDisabled(true);
             setIsHateDisabled(false);
 
@@ -91,13 +97,15 @@ const SearchCard = (props) => {
                 .then(loveHatesFetch => {
 
                   const loveHateFound = loveHatesFetch.find(object => object.userId === activeUserId && object.movieId === movieInJson.id);
+                  
 
                   if (loveHateFound === undefined) {
 
                     jAPI.save(loveHateObject, "loveHates")
                   } else {
+                    loveHateFoundId = loveHateFound.id
                     const toggleIsHated = { isHated: true }
-                    jAPI.patch(toggleIsHated, "loveHates", loveHateId)
+                    jAPI.patch(toggleIsHated, "loveHates", loveHateFoundId)
                   }
                 });
 
@@ -116,9 +124,13 @@ const SearchCard = (props) => {
             }
 
           })
-        props.setKeyword(props.keyword)
-        setHasBeenChanged(true)
-        props.handleSearch();
+        setLoveHateId(loveHateFoundId);
+        setHateBtnState({ name: "hatedBtn" });
+        setLoveBtnState({ name: "unlovedBtn" });
+        setIsLoveDisabled(false);
+        setIsHateDisabled(true);
+        setHasBeenChanged(!hasBeenChanged)
+        props.setKeyword(props.keyword);
       })
   };
   const handleLove = () => {
@@ -152,14 +164,14 @@ const SearchCard = (props) => {
               jAPI.get("loveHates")
                 .then(loveHatesFetch => {
                   const loveHateFound = loveHatesFetch.find(object => object.userId === activeUserId && object.movieId === movieInJson.id);
-
+                  
                   if (loveHateFound === undefined) {
 
                     jAPI.save(loveHateObject, "loveHates")
                   } else {
-
+                    loveHateFoundId = loveHateFound.id
                     const toggleIsHated = { isHated: false }
-                    jAPI.patch(toggleIsHated, "loveHates", loveHateId)
+                    jAPI.patch(toggleIsHated, "loveHates", loveHateFoundId)
                   }
                 });
 
@@ -177,25 +189,32 @@ const SearchCard = (props) => {
                 });
             }
           })
-        props.handleSearch();
+        setLoveHateId(loveHateFoundId);
+        setHateBtnState({ name: "unhatedBtn" });
+        setLoveBtnState({ name: "lovedBtn" });
+        setIsLoveDisabled(true);
+        setIsHateDisabled(false);
+        setHasBeenChanged(!hasBeenChanged);
+        props.setKeyword(props.keyword);
       })
   };
 
   const handleForget = () => {
-    jAPI.delete("loveHates", loveHateId);
-    setLoveHateId(false);
+    jAPI.delete(loveHateId, "loveHates");
+    setLoveHateId(false)
     setHateBtnState({ name: "unhatedBtn" });
     setLoveBtnState({ name: "unlovedBtn" });
     setIsLoveDisabled(false);
     setIsHateDisabled(false);
-    
+    setHasBeenChanged(!hasBeenChanged)
+    props.setKeyword(props.keyword);
   }
 
   const forgetJSX = () => {
     if (loveHateId !== false) {
       return (<><button
         id={`hate-button--${props.result.id}`}
-        // onClick={handleForget}
+        onClick={handleForget}
         className="forgetBtn"
       // disabled={isForgetDisabled}
       ><span >forget</span></button>{' '}</>)
@@ -222,18 +241,18 @@ const SearchCard = (props) => {
         <CardSubtitle>{release()}</CardSubtitle>
         <CardBody >
           <div className="buttonRow">
-          <button
-            id={`love-button--${props.result.id}`}
-            onClick={handleLove}
-            className={loveBtnState.name}
-            disabled={isLoveDisabled}><span >Love</span></button>{' '}
-          <button
-            id={`hate-button--${props.result.id}`}
-            onClick={handleHate}
-            className={hateBtnState.name}
-            disabled={isHateDisabled}
-          ><span >Hate</span></button>{' '}
-          {forgetJSX()}
+            <button
+              id={`love-button--${props.result.id}`}
+              onClick={handleLove}
+              className={loveBtnState.name}
+              disabled={isLoveDisabled}><span >Love</span></button>{' '}
+            <button
+              id={`hate-button--${props.result.id}`}
+              onClick={handleHate}
+              className={hateBtnState.name}
+              disabled={isHateDisabled}
+            ><span >Hate</span></button>{' '}
+            {forgetJSX()}
           </div>
         </CardBody>
       </div>

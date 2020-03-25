@@ -67,7 +67,7 @@ const LoveHates = (props) => {
             <Button
               color=""
               className="profileBtnText loveDeleteBtnBkg"
-              onClick={handleDelete}>delete</Button>
+              onClick={handleDelete}>forget</Button>
           </div>
           
           {/* <CardText className="black">{loveHateObject.movie.overview}</CardText> */}
@@ -79,7 +79,7 @@ const LoveHates = (props) => {
         </>
       </Card>
     </div>
-      <div className="movieCard">
+      {/* <div className="movieCard">
         <section className="profile-container">
           <div id={`loveHates--${loveHateObject.id}`} className="loveHateList">
             <img src={loveHateObject.movie.posterPath} className="loveHateImage" alt="movie poster"></img>
@@ -97,7 +97,7 @@ const LoveHates = (props) => {
               onClick={handleDelete}>delete</Button>
           </div>
         </section>
-      </div>
+      </div> */}
     </>
   )
 }
