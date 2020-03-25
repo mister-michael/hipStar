@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import jAPI from "../../modules/apiManager";
 import { Link } from "react-router-dom"
 import { InputGroup, InputGroupText, InputGroupAddon, Input, Card } from 'reactstrap';
+import "./LoginRegister.css"
 
 const RegisterForm = props => {
   const [credentials, setCredentials] = useState({
