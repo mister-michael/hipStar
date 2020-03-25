@@ -1,12 +1,14 @@
 .loginCard {
     display: flex !important;
     width: 98% !important;
-    justify-content: center;
+    justify-content: center !important;
+    margin-top: 5%;
 }
+
 .registerCard {
     display: flex !important;
     width: 98% !important;
-    justify-content: center;
+    justify-content: center !important;
 }
 
 .rightAlign {
@@ -16,7 +18,27 @@
 .smallText {
     font-size: .75em;
 }
+
 .signLink {
     margin-right: 1em;
     padding-top: 2em;
+}
+
+.register {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.registerSubmitBtn {
+    display: flex;
+    width: 10%;
+    justify-content: center;
+}
+
+.registerSubmitBtnBox {
+    display: flex;
+    justify-content: center;
 }
