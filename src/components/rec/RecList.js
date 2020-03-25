@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import jAPI from "../../modules/apiManager";
 import RecCard from "./RecCard";
+import LoveHates from "../profile/LoveHates"
 import mAPI from "../../modules/movieManager";
+import "../search/Search.css"
 
 const RecList = (props) => {
 
@@ -104,8 +106,10 @@ const RecList = (props) => {
 
       <div>
         <h2>Movies You Might'nt Hate</h2>
-        <div>From User: {topMatch.username}</div>
-        {recommendations.map(res => <RecCard key={res.id} userObject={res} {...props} />)}
+        <div className="">From User: {topMatch.username}</div>
+        <div className="cardGroup">
+        {recommendations.map(res => <RecCard key={res.id} loveHateObject={res} {...props} />)}
+        </div>
       </div>
     </>
   )

@@ -29,16 +29,6 @@
 .buttonRow {
   align-self: flex-end;
 }
-/* .redText {
-  color: red !important;
-}
-.greenText {
-  color: green !important;
-}
-.whiteText {
-  font-weight: bold;
-  color: white !important;
-} */
 
 /* search result cards */
 
@@ -54,15 +44,6 @@
   justify-content: space-evenly;
   
 }
-
-/* .card {
-  display: flex !important;
-  flex-basis: auto !important;
-  width: 28% !important;
-  margin: 1% !important;
-  overflow: hidden !important;
-  justify-content: center !important;
-} */
 
 /* search bar  */
 .movieSearchInput {

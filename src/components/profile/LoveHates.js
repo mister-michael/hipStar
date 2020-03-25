@@ -4,8 +4,8 @@ import {
   CardSubtitle, CardBody, Popover, PopoverBody, PopoverHeader
 } from 'reactstrap';
 import "./LoveHate.css";
-import "../search/Search.css"
-import jAPI from "../../modules/apiManager"
+import "../search/Search.css";
+import jAPI from "../../modules/apiManager";
 
 const LoveHates = (props) => {
   // const [footerStyle, setFooterStyle] = useState();
