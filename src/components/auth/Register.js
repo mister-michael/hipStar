@@ -16,6 +16,7 @@ const RegisterForm = props => {
     const stateToChange = { ...credentials };
     stateToChange[evt.target.id] = evt.target.value;
     setCredentials(stateToChange);
+
   };
 
   const handleRegister = evt => {
@@ -37,8 +38,10 @@ const RegisterForm = props => {
 
         if (nameArrFind !== undefined) {
           window.alert("username can not contain spaces")
-
-        } else if (nameArr.length > 16) {
+        } else if (emailArrFind === undefined) {
+          window.alert("please enter a valid email address")
+        } 
+        else if (nameArr.length > 16) {
           window.alert("username can not be more than 16 characters")
 
         } else {
