@@ -1,20 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { Button } from 'reactstrap';
-import { Card, CardTitle, CardText, CardImg, CardImgOverlay } from 'reactstrap'
+import {
+  Card, Button, CardImg, CardTitle, CardText, CardGroup,
+  CardSubtitle, CardBody, Popover, PopoverBody, PopoverHeader
+} from 'reactstrap';
 import "./LoveHate.css";
+import "../search/Search.css"
 import jAPI from "../../modules/apiManager"
 
 const LoveHates = (props) => {
-  const [footerStyle, setFooterStyle] = useState();
+  // const [footerStyle, setFooterStyle] = useState();
+  // const [loveHateButtonClass, setLoveHateButtonClass] = useState("");
 
   const loveHateObject = props.loveHateObject
   const loveHateId = props.loveHateObject.id
+
   let buttonText = ""
+  let buttonClass = ""
 
   const activeUserId = props.userId
 
 
   loveHateObject.isHated ? buttonText = "love" : buttonText = "hate"
+  loveHateObject.isHated ? buttonClass = "lovedBtn" : buttonClass = "hatedBtn"
 
   const handleClick = () => {
 
@@ -26,12 +33,13 @@ const LoveHates = (props) => {
 
     if (isHatedState === true) {
       isHatedObj.isHated = false
+      
     } else if (isHatedState === false) {
       isHatedObj.isHated = true
     };
     console.log("ishated", isHatedObj);
     // jAPI.update(isHatedObj, "loveHates");
-    jAPI.patch(isHatedObj, "loveHates", activeUserId)
+    jAPI.patch(isHatedObj, "loveHates", loveHateId)
     props.getUserMovies();
   }
 
@@ -43,57 +51,31 @@ const LoveHates = (props) => {
   };
 
   useEffect(() => {
-    loveHateObject.isHated === true ? setFooterStyle("redFooter") : setFooterStyle("greenFooter")
   }, [])
 
   return (
-    <>
-      <div>
-        <Card inverse className="movieCard">
-          <CardTitle className="card-movieTitle card-text">{loveHateObject.movie.title}</CardTitle>
-          <div>
-            <CardImg width="100%" src={loveHateObject.movie.posterPath} alt="Card image cap" />
-          </div>
-          <>
-            <div className={footerStyle}>
-              <Button
-                color="#3a94bd"
-                className="profileBtnText loveDeleteBtnBkg"
-                onClick={handleClick}>{buttonText}</Button>{' '}
-              <Button
-                color=""
-                className="profileBtnText loveDeleteBtnBkg"
-                onClick={handleDelete}>forget</Button>
+ 
+      <>
+        <div className="card">
+          <CardTitle>{loveHateObject.movie.title}</CardTitle>
+          <CardImg id="" top src={loveHateObject.movie.posterPath} alt={`${loveHateObject.movie.title} poster`} className="cardImage" />
+          {/* <CardSubtitle>{release()}</CardSubtitle> */}
+          <CardBody >
+            <div className="buttonRow">
+              <button
+                id={`love-button--${loveHateObject.id}`}
+                onClick={handleClick}
+                className={buttonClass}
+              ><span >{buttonText}</span></button>{' '}
+              <button
+                id={`hate-button--${loveHateObject.id}`}
+                onClick={handleDelete}
+                className="forgetBtn"
+
+              ><span >Forget</span></button>{' '}
             </div>
-
-            {/* <CardText className="black">{loveHateObject.movie.overview}</CardText> */}
-
-            <CardText>
-              <small className="text-muted">Last updated 3 mins ago</small>
-            </CardText>
-
-          </>
-        </Card>
-      </div>
-      {/* <div className="movieCard">
-        <section className="profile-container">
-          <div id={`loveHates--${loveHateObject.id}`} className="loveHateList">
-            <img src={loveHateObject.movie.posterPath} className="loveHateImage" alt="movie poster"></img>
-              <div className="movieTitleProfile">{loveHateObject.movie.title}</div>
-                <div className="overview-container">{loveHateObject.movie.overview}</div>
-          </div>
-          <div className={footerStyle}>
-            <Button
-              color=""
-              className="profileBtnText loveDeleteBtnBkg"
-              onClick={handleClick}>{buttonText}</Button>{' '}
-            <Button
-              color=""
-              className="profileBtnText loveDeleteBtnBkg"
-              onClick={handleDelete}>delete</Button>
-          </div>
-        </section>
-      </div> */}
+          </CardBody>
+        </div>
     </>
   )
 }
