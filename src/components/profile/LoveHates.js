@@ -1,33 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { Button } from 'reactstrap';
-import {Card, CardTitle, CardText, CardImg, CardImgOverlay} from 'reactstrap'
+import { Card, CardTitle, CardText, CardImg, CardImgOverlay } from 'reactstrap'
 import "./LoveHate.css";
 import jAPI from "../../modules/apiManager"
 
 const LoveHates = (props) => {
   const [footerStyle, setFooterStyle] = useState();
-  const [loveBtnState, setLoveBtnState] = useState();
-  const [hateBtnState, setHateBtnState] = useState();
 
   const loveHateObject = props.loveHateObject
   const loveHateId = props.loveHateObject.id
   let buttonText = ""
 
+  const activeUserId = props.userId
 
 
   loveHateObject.isHated ? buttonText = "love" : buttonText = "hate"
 
   const handleClick = () => {
-    //update loveHate.isHated == opposite
-    //retrigger getUserMovies and getUserObject
+
     let isHatedState = loveHateObject.isHated;
-    console.log("isHatedState", isHatedState)
+
     let isHatedObj = {
-      // id: parseInt(loveHateId),
-      // isHated: loveHateObject.isHated,
-      // movieId: loveHateObject.movieId,
-      userId: loveHateObject.userId
+      isHated: ""
     };
+
     if (isHatedState === true) {
       isHatedObj.isHated = false
     } else if (isHatedState === false) {
@@ -35,7 +31,7 @@ const LoveHates = (props) => {
     };
     console.log("ishated", isHatedObj);
     // jAPI.update(isHatedObj, "loveHates");
-    jAPI.patch(isHatedObj, "loveHates", 2)
+    jAPI.patch(isHatedObj, "loveHates", activeUserId)
     props.getUserMovies();
   }
 
@@ -52,33 +48,33 @@ const LoveHates = (props) => {
 
   return (
     <>
-    <div>
-      <Card inverse className="movieCard">
-      <CardTitle className="card-movieTitle card-text">{loveHateObject.movie.title}</CardTitle>
-        <div>
-        <CardImg width="100%" src={loveHateObject.movie.posterPath} alt="Card image cap" />
-        </div>
-        <>
-        <div className={footerStyle}>
-            <Button
-              color="#3a94bd"
-              className="profileBtnText loveDeleteBtnBkg"
-              onClick={handleClick}>{buttonText}</Button>{' '}
-            <Button
-              color=""
-              className="profileBtnText loveDeleteBtnBkg"
-              onClick={handleDelete}>forget</Button>
+      <div>
+        <Card inverse className="movieCard">
+          <CardTitle className="card-movieTitle card-text">{loveHateObject.movie.title}</CardTitle>
+          <div>
+            <CardImg width="100%" src={loveHateObject.movie.posterPath} alt="Card image cap" />
           </div>
-          
-          {/* <CardText className="black">{loveHateObject.movie.overview}</CardText> */}
-          
-          <CardText>
-            <small className="text-muted">Last updated 3 mins ago</small>
-          </CardText>
-         
-        </>
-      </Card>
-    </div>
+          <>
+            <div className={footerStyle}>
+              <Button
+                color="#3a94bd"
+                className="profileBtnText loveDeleteBtnBkg"
+                onClick={handleClick}>{buttonText}</Button>{' '}
+              <Button
+                color=""
+                className="profileBtnText loveDeleteBtnBkg"
+                onClick={handleDelete}>forget</Button>
+            </div>
+
+            {/* <CardText className="black">{loveHateObject.movie.overview}</CardText> */}
+
+            <CardText>
+              <small className="text-muted">Last updated 3 mins ago</small>
+            </CardText>
+
+          </>
+        </Card>
+      </div>
       {/* <div className="movieCard">
         <section className="profile-container">
           <div id={`loveHates--${loveHateObject.id}`} className="loveHateList">
