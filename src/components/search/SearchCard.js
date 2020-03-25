@@ -177,7 +177,6 @@ const SearchCard = (props) => {
                 });
             }
           })
-
         props.handleSearch();
       })
   };
@@ -213,17 +212,16 @@ const SearchCard = (props) => {
   useEffect(() => {
     buttons();
 
-  }, [hasBeenChanged]);
-
+  }, []);
 
   return (
     <>
-
       <div className="card">
         <CardImg id="" top src={imageHandler()} alt={`${props.result.title} poster`} className="cardImage" />
         <CardTitle>{props.result.title}</CardTitle>
         <CardSubtitle>{release()}</CardSubtitle>
-        <CardBody className="css1">
+        <CardBody >
+          <div className="buttonRow">
           <button
             id={`love-button--${props.result.id}`}
             onClick={handleLove}
@@ -236,10 +234,9 @@ const SearchCard = (props) => {
             disabled={isHateDisabled}
           ><span >Hate</span></button>{' '}
           {forgetJSX()}
+          </div>
         </CardBody>
       </div>
-
-
     </>
   )
 }

@@ -1,12 +1,26 @@
+.movieCard {
+  background-color: black !important;
+  border-radius: 25%;
+  padding: 2%;
+  width: 25%;
+  height: 25%;
+  position: relative;
+  overflow: hidden;
+  
+}
+
 .loveHateList {
   display: flex;
-  height: 100px;
+  flex-direction: column;
 }
 
 .loveHateImage {
-  width: 80px;
   border-radius: 25%;
   padding: 2%;
+  width: 25%;
+  height: 25%;
+  position: relative;
+  overflow: hidden;
 }
 
 .greenFooter {
@@ -20,6 +34,7 @@ background: linear-gradient(49deg, rgb(40, 249, 179) 0%, rgba(213,212,186,0.0926
   background: linear-gradient(49deg, rgba(222,72,72,0.7443590255591055) 0%, rgba(213,212,186,0.09260183706070291) 42%, rgba(148,210,169,0.39931110223642174) 100%);
   border-bottom: 1px;
   border-radius: 2%;
+  color: #3a94bd;
 }
 
 .movieTitleProfile {
@@ -34,12 +49,12 @@ background: linear-gradient(49deg, rgb(40, 249, 179) 0%, rgba(213,212,186,0.0926
   justify-content: end;
 }
 
-.profile-container {
+/* .profile-container {
 display: flex;
 flex-direction: column;
 width:  ;
 justify-content: center;
-}
+} */
 
 .loveBtnBkg {
   background: linear-gradient(49deg, rgba(222,72,72,0.7443590255591055) 0%, rgba(213,212,186,0.09260183706070291) 42%, rgba(148,210,169,0.39931110223642174) 100%);
@@ -52,6 +67,10 @@ justify-content: center;
 .profileBtnText {
   color: white !important;
   font-weight: bolder !important;
+}
+
+.card-text {
+  color: rgb(255, 255, 255) !important;  
 }
 
 

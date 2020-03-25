@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button } from 'reactstrap';
+import {Card, CardTitle, CardText, CardImg, CardImgOverlay} from 'reactstrap'
 import "./LoveHate.css";
 import jAPI from "../../modules/apiManager"
 
@@ -11,7 +12,7 @@ const LoveHates = (props) => {
   const loveHateObject = props.loveHateObject
   const loveHateId = props.loveHateObject.id
   let buttonText = ""
-  
+
 
 
   loveHateObject.isHated ? buttonText = "love" : buttonText = "hate"
@@ -51,16 +52,39 @@ const LoveHates = (props) => {
 
   return (
     <>
-      <div>
+    <div>
+      <Card inverse className="movieCard">
+      <CardTitle className="card-movieTitle card-text">{loveHateObject.movie.title}</CardTitle>
+        <div>
+        <CardImg width="100%" src={loveHateObject.movie.posterPath} alt="Card image cap" />
+        </div>
+        <>
+        <div className={footerStyle}>
+            <Button
+              color="#3a94bd"
+              className="profileBtnText loveDeleteBtnBkg"
+              onClick={handleClick}>{buttonText}</Button>{' '}
+            <Button
+              color=""
+              className="profileBtnText loveDeleteBtnBkg"
+              onClick={handleDelete}>delete</Button>
+          </div>
+          
+          {/* <CardText className="black">{loveHateObject.movie.overview}</CardText> */}
+          
+          <CardText>
+            <small className="text-muted">Last updated 3 mins ago</small>
+          </CardText>
+         
+        </>
+      </Card>
+    </div>
+      <div className="movieCard">
         <section className="profile-container">
           <div id={`loveHates--${loveHateObject.id}`} className="loveHateList">
             <img src={loveHateObject.movie.posterPath} className="loveHateImage" alt="movie poster"></img>
-            <section>
               <div className="movieTitleProfile">{loveHateObject.movie.title}</div>
-              <div className="overview-container">
-                {/* <div className="overview-container">{loveHateObject.movie.overview}</div> */}
-              </div>
-            </section>
+                <div className="overview-container">{loveHateObject.movie.overview}</div>
           </div>
           <div className={footerStyle}>
             <Button

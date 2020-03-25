@@ -25,6 +25,10 @@
   border: solid 2px rgb(66, 142, 235) !important;
   color:  rgb(66, 142, 235) !important;
 }
+
+.buttonRow {
+  align-self: flex-end;
+}
 /* .redText {
   color: red !important;
 }
@@ -50,13 +54,17 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
+  
 }
 
-.card {
-  width: 28%;
-  margin: 1%;
-  overflow: hidden;
-}
+/* .card {
+  display: flex !important;
+  flex-basis: auto !important;
+  width: 28% !important;
+  margin: 1% !important;
+  overflow: hidden !important;
+  justify-content: center !important;
+} */
 
 /* search bar  */
 .movieSearchInput {
