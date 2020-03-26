@@ -29,10 +29,10 @@ const RecCard = (props) => {
   }
 
   const handleDelete = () => {
-    if (window.confirm("delete this movie from your profile")) {
-      jAPI.delete(loveHateId, "loveHates");
-      props.getUserMovies();
-    }
+    // if (window.confirm("delete this movie from your profile")) {
+    //   jAPI.delete(loveHateId, "loveHates");
+    //   props.getUserMovies();
+    // }
   };
 
   useEffect(() => {
@@ -47,17 +47,17 @@ const RecCard = (props) => {
           {/* <CardSubtitle>{release()}</CardSubtitle> */}
           <CardBody >
             <div className="buttonRow">
-              <button
+              {/* <button
                 id={`love-button--${loveHateObject.id}`}
                 onClick={handleClick}
                 className={buttonClass}
-              ><span >{buttonText}</span></button>{' '}
-              <button
+              ><span >{buttonText}</span></button>{' '} */}
+              {/* <button
                 id={`hate-button--${loveHateObject.id}`}
                 onClick={handleDelete}
                 className="forgetBtn"
 
-              ><span >Forget</span></button>{' '}
+              ><span >Forget</span></button>{' '} */}
             </div>
           </CardBody>
         </div>

@@ -23,7 +23,7 @@ const NavBar = props => {
     <>
     {props.hasUser ? (
       <Navbar color="light" light expand="md">
-        <NavbarBrand href="/">H P S T R</NavbarBrand>
+        <NavbarBrand href="/hpstr">H P S T R</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>

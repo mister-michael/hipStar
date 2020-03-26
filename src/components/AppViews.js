@@ -6,6 +6,7 @@ import Home from "./home/Home"
 import Profile from "./profile/Profile"
 import Search from "./search/Search"
 import RecList from "./rec/RecList"
+import Hpstr from "./hpstr/Hpstr"
 
 const AppViews = (props) => {
   const activeUserId = parseInt(sessionStorage.getItem("userId"))
@@ -33,6 +34,13 @@ const AppViews = (props) => {
         path="/home"
         render={props => {
          if (hasUser) {return <Home setUser={setUser} hasUser={hasUser} {...props} />} else { return <Redirect to="/login" /> }
+        }}
+      />
+      <Route
+        exact
+        path="/HPSTR"
+        render={props => {
+         if (hasUser) {return <Hpstr setUser={setUser} hasUser={hasUser} {...props} />} else { return <Redirect to="/login" /> }
         }}
       />
       <Route

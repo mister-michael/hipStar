@@ -86,7 +86,7 @@ const RecList = (props) => {
                   let count = 0
                   for (let i = 0; i < userLoveHates.length; i++) {
                     if (userLoveHates[i].movieId !== lovedMovie.movieId) { count++ }
-                    
+
                   }
                   if (count === userLoveHates.length) {
                     console.log("if statement")
@@ -107,21 +107,26 @@ const RecList = (props) => {
   }
 
   useEffect(() => {
-    recEngine();
+    if (recommendations.length !== 0) {
+      recEngine();
+    }
   }, []);
 
-  return (
-    <>
-
-      <div>
-        <h2>Movies You Might'nt Hate</h2>
-        <div className="">From User: {topMatch.username}</div>
-        <div className="cardGroup">
-          {recommendations.map(res => <RecCard key={res.id} loveHateObject={res} {...props} />)}
+  if (recommendations.length === 0) {
+    return (null)
+  } else {
+    return (
+      <>
+        <div>
+          <h2>Movies You Might'nt Hate</h2>
+          <div className="">From User: {topMatch.username}</div>
+          <div className="cardGroup">
+            {recommendations.map(res => <RecCard key={res.id} loveHateObject={res} {...props} />)}
+          </div>
         </div>
-      </div>
-    </>
-  )
+      </>
+    )
+  }
 }
 
 export default RecList
