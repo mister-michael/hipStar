@@ -10,7 +10,7 @@ const RecList = (props) => {
   const activeId = parseInt(props.userId)
 
   const [activeHate, setActiveHate] = useState([]);
-  const [activeLove, setActiveLove] = useState([])
+  const [activeLove, setActiveLove] = useState([]);
   const [recommendations, setRecommendations] = useState([])
   const [topMatch, setTopMatch] = useState([])
 
@@ -19,34 +19,34 @@ const RecList = (props) => {
     return jAPI.userMovieExpand("loveHates", activeId)
       .then(userLoveHates => {
         const userHates = userLoveHates.filter(element => element.isHated === true)
-        const userLoves = userLoveHates.filter(element => element.isHated === false)
-        console.log("userHates", userHates)
         jAPI.movieExpand("loveHates")
           .then(overallLoveHates => {
-            const overallHates = overallLoveHates.filter(element => element.userId !== activeId && element.isHated === true);
-            console.log("overallLoveHates", overallLoveHates)
+            const overallHates = overallLoveHates.filter(olh => olh.userId !== activeId && olh.isHated === true);
+            // console.log("overallLoveHates", overallLoveHates)
             const sameSameArr = []
-            userHates.forEach(ulhObject => {
+            userHates.forEach(userHate => {
               for (let i = 0; i < overallHates.length; i++) {
-                if (ulhObject.movieId === overallHates[i].movieId) {
+                if (userHate.movieId === overallHates[i].movieId) {
                   sameSameArr.push(overallHates[i])
                 }
               }
             })
 
-            console.log("sameSameArr", sameSameArr)
+            console.log("sameSameArr, movieHates of other users which match the active users", sameSameArr)
+
             const userIdArry = sameSameArr.map(object => object.userId)
             const userIdSet = [...new Set(userIdArry)]
             const userTallyArr = []
+
             userIdSet.forEach(element => {
               const tallyObject = { userId: element, tally: 0 }
               userTallyArr.push(tallyObject)
             })
 
-            sameSameArr.forEach(lh => {
+            sameSameArr.forEach(sameSame => {
               for (let i = 0; i < userIdSet.length; i++) {
-                if (lh.userId === userIdSet[i]) {
-                  const tallyIndex = userTallyArr.findIndex(element => element.userId === lh.userId)
+                if (sameSame.userId === userIdSet[i]) {
+                  const tallyIndex = userTallyArr.findIndex(element => element.userId === sameSame.userId)
                   userTallyArr[tallyIndex].tally += 1
                   console.log(userTallyArr[tallyIndex], "uta[tallyIndex]")
                 }
@@ -65,6 +65,7 @@ const RecList = (props) => {
             })
 
             const topMatch = tallyToSort[0].userId
+
             console.log("topMatch", topMatch)
 
             jAPI.userMovieExpand("loveHates", topMatch)
@@ -76,7 +77,6 @@ const RecList = (props) => {
 
                   lh.isHated ? hateArr.push(lh) : loveArr.push(lh)
 
-                  console.log("loveArr", loveArr)
                 })
                 console.log(userLoveHates, "userLoveHates")
 
