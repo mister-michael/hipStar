@@ -40,5 +40,10 @@
 
 .registerSubmitBtnBox {
     display: flex;
-    justify-content: center;
+    
+}
+
+.fitInBtn {
+    display: flex;
+    overflow: hidden
 }

@@ -45,9 +45,9 @@ const NavBar = props => {
             <NavItem><Link className="nav-link" style={{ textDecoration: 'none', color: '#160D58' }} to="/recommendations">
               recs
             </Link></NavItem>
-            <NavItem><Link className="nav-link" style={{ textDecoration: 'none', color: '#160D58' }} to="/recommendations">
+            {/* <NavItem><Link className="nav-link" style={{ textDecoration: 'none', color: '#160D58' }} to="/recommendations">
               friends
-            </Link></NavItem>
+            </Link></NavItem> */}
             <NavItem></NavItem>
             <NavItem>
               <Link className="nav-link" style={{ textDecoration: 'none', color: '#160D58' }} to="/login" onClick={handleLogout}>

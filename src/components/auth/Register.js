@@ -71,7 +71,7 @@ const RegisterForm = props => {
 
             <Card className="registerCard" >
                 <InputGroup size="sm" >
-                    <InputGroupAddon >
+                    <InputGroupAddon addonType="prepend">
                         username </InputGroupAddon>
                     <Input onChange={handleFieldChange}
                         type="username"
@@ -79,7 +79,7 @@ const RegisterForm = props => {
                         placeholder="full name" />
                 </InputGroup> <br />
                 <InputGroup size="sm" >
-                    <InputGroupAddon >
+                    <InputGroupAddon addonType="" >
                         e m a i l </InputGroupAddon> <Input addonType="prepend"
                         onChange={handleFieldChange}
                         type="email"
@@ -87,7 +87,7 @@ const RegisterForm = props => {
                         placeholder="email address" />
                 </InputGroup> <br />
                 <InputGroup size="sm" >
-                    <InputGroupAddon >
+                    <InputGroupAddon addonType="prepend">
                         image url </InputGroupAddon> <Input addonType="prepend"
                         onChange={handleFieldChange}
                         type="imgUrl"
@@ -99,7 +99,7 @@ const RegisterForm = props => {
                 <button className="registerSubmitBtn"
                     type="button"
                     onClick={handleRegister} >
-                    Submit </button>
+                    <span className="fitInBtn">GO! </span></button>
 
                 <CardFooter >
                     < div className="rightAlign smallText" >

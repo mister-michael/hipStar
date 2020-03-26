@@ -9,6 +9,7 @@ const Search = (props) => {
 
   const [keyword, setKeyword] = useState({ searchInput: "" });
   const [results, setResults] = useState([]);
+  const [loveHateId, setLoveHateId] = useState(false);
 
   const searchInput = document.getElementById("searchInput")
 
@@ -53,7 +54,7 @@ const Search = (props) => {
         onClick={handleSearch}>
         Submit</button> */}
       <div id="searchResults" className="cardGroup">
-        {results.map(res => <SearchCard className="" keyword={keyword} setKeyword={setKeyword} handleSearch={handleSearch} key={res.id} result={res} searchInput={searchInput} userId={props.activeUserId} {...props} />)}
+        {results.map(res => <SearchCard className="" loveHateId={loveHateId} setLoveHateId={setLoveHateId} keyword={keyword} setKeyword={setKeyword} handleSearch={handleSearch} key={res.id} result={res} searchInput={searchInput} userId={props.activeUserId} {...props} />)}
       </div>
 
     </>

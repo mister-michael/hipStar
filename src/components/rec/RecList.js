@@ -64,7 +64,8 @@ const RecList = (props) => {
               return 0;
             })
 
-            const topMatch = tallyToSort[0].userId
+            let topMatch = ""
+            tallyToSort.length > 0 ? topMatch = tallyToSort[0].userId : topMatch = 1
 
             console.log("topMatch", topMatch)
 
@@ -107,9 +108,8 @@ const RecList = (props) => {
   }
 
   useEffect(() => {
-    if (recommendations.length !== 0) {
       recEngine();
-    }
+    
   }, []);
 
   if (recommendations.length === 0) {

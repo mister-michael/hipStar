@@ -104,13 +104,23 @@ const SearchCard = (props) => {
                 .then(loveHatesFetch => {
 
                   const loveHateFound = loveHatesFetch.find(object => object.userId === activeUserId && object.movieId === movieInJson.id);
-
-
+                  console.log("lovehatefound", loveHateFound)
                   if (loveHateFound === undefined) {
 
                     jAPI.save(loveHateObject, "loveHates")
+                    jAPI.userMovieExpand("lovehates", activeUserId)
+                      .then(lhs => {
+                        lhs.filter(lh => {
+                          if (lh.movie.dbid === mdbId && lh.userId === activeUserId) {
+                            console.log("lh.id", lh, lh.id)
+                            loveHateFoundId = lh.id
+                            setLoveHateId(loveHateFoundId)
+                          }
+                        })
+                      })
                   } else {
                     loveHateFoundId = loveHateFound.id
+                    setLoveHateId(loveHateFoundId)
                     const toggleIsHated = { isHated: true }
                     jAPI.patch(toggleIsHated, "loveHates", loveHateFoundId)
                   }
@@ -121,15 +131,24 @@ const SearchCard = (props) => {
               jAPI.save(movieObject, "movies")
                 .then(movieObj => {
 
-                  const loveHateObject2 = {
+                  const loveHateObjectToSave = {
                     userId: props.activeUserId,
                     movieId: movieObj.id,
                     isHated: true
                   };
-                  jAPI.save(loveHateObject2, "loveHates");
+                  jAPI.save(loveHateObjectToSave, "loveHates");
+                  jAPI.userMovieExpand("lovehates", activeUserId)
+                    .then(lhs => {
+                      lhs.filter(lh => {
+                        if (lh.movie.dbid === mdbId && lh.userId === activeUserId) {
+                          loveHateFoundId = lh.id
+                          console.log("145 lhfound lh.id", loveHateFoundId, lh.id)
+                          setLoveHateId(loveHateFoundId)
+                        }
+                      })
+                    })
                 })
             }
-
           })
         setLoveHateId(loveHateFoundId);
         setHateBtnState({ name: "hatedBtn" });
@@ -141,6 +160,7 @@ const SearchCard = (props) => {
       })
   };
   const handleLove = () => {
+    console.log("handle love")
 
     mAPI.searchWithId(mdbId)
       .then(movieById => {
@@ -165,7 +185,7 @@ const SearchCard = (props) => {
               const loveHateObject = {
                 userId: props.activeUserId,
                 movieId: movieInJson.id,
-                isHated: true
+                isHated: false
               };
 
               jAPI.get("loveHates")
@@ -175,10 +195,24 @@ const SearchCard = (props) => {
                   if (loveHateFound === undefined) {
 
                     jAPI.save(loveHateObject, "loveHates")
+                    jAPI.userMovieExpand("lovehates", activeUserId)
+                      .then(lhs => {
+                        lhs.forEach(lh => {
+                          if (lh.movie.dbid === mdbId && lh.userId === activeUserId) {
+                            loveHateFoundId = lh.id
+                            setLoveHateId(loveHateFoundId)
+                            setHateBtnState({ name: "unhatedBtn" });
+                            setLoveBtnState({ name: "lovedBtn" });
+                          }
+                        })
+                      })
                   } else {
+                    console.log("lovehateFound")
                     loveHateFoundId = loveHateFound.id
                     const toggleIsHated = { isHated: false }
                     jAPI.patch(toggleIsHated, "loveHates", loveHateFoundId)
+                    setHateBtnState({ name: "unhatedBtn" });
+                    setLoveBtnState({ name: "lovedBtn" });
                   }
                 });
 
@@ -193,6 +227,17 @@ const SearchCard = (props) => {
                     isHated: false
                   };
                   jAPI.save(loveHateObject2, "loveHates")
+                  jAPI.userMovieExpand("lovehates", activeUserId)
+                    .then(lhs => {
+                      lhs.filter(lh => {
+                        if (lh.movie.dbid === mdbId && lh.userId === activeUserId) {
+                          loveHateFoundId = lh.id
+                          setLoveHateId(loveHateFoundId)
+                        }
+                        setHateBtnState({ name: "unhatedBtn" });
+                        setLoveBtnState({ name: "lovedBtn" });
+                      })
+                    })
                 });
             }
           })
@@ -207,6 +252,7 @@ const SearchCard = (props) => {
   };
 
   const handleForget = () => {
+    console.log("delete lhfid", loveHateFoundId)
     jAPI.delete(loveHateId, "loveHates");
     setLoveHateId(false)
     setHateBtnState({ name: "unhatedBtn" });
