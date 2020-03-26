@@ -74,22 +74,31 @@ const RecList = (props) => {
                 const hateArr = []
                 topMatchLoveHates.forEach(lh => {
 
-                  !lh.isHated ? loveArr.push(lh) : hateArr.push(lh)
+                  lh.isHated ? hateArr.push(lh) : loveArr.push(lh)
 
                   console.log("loveArr", loveArr)
                 })
                 console.log(userLoveHates, "userLoveHates")
 
-                const loveArrPruned = loveArr.filter(rec => {
+                const loveArrPruned = loveArr.filter(lovedMovie => userLoveHates.filter(rated => lovedMovie.movieId !== rated.movieId))
+                const loveArrToPrune = []
+                loveArr.map(lovedMovie => {
+                  let count = 0
                   for (let i = 0; i < userLoveHates.length; i++) {
-                    return rec.movie.id !== userLoveHates[i].movie.id
+                    if (userLoveHates[i].movieId !== lovedMovie.movieId) { count++ }
+                    
+                  }
+                  if (count === userLoveHates.length) {
+                    console.log("if statement")
+                    loveArrToPrune.push(lovedMovie)
                   }
                 })
 
                 jAPI.getWithId("users", topMatch)
                   .then(matchedUser => setTopMatch(matchedUser))
-
-                setRecommendations(loveArrPruned)
+                console.log(loveArrToPrune)
+                setRecommendations(loveArrToPrune)
+                console.log(userLoveHates.length)
 
                 console.log("tallyToSort", tallyToSort)
               })
@@ -108,7 +117,7 @@ const RecList = (props) => {
         <h2>Movies You Might'nt Hate</h2>
         <div className="">From User: {topMatch.username}</div>
         <div className="cardGroup">
-        {recommendations.map(res => <RecCard key={res.id} loveHateObject={res} {...props} />)}
+          {recommendations.map(res => <RecCard key={res.id} loveHateObject={res} {...props} />)}
         </div>
       </div>
     </>
