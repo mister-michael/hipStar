@@ -44,10 +44,10 @@ const LoveHates = (props) => {
   }
 
   const handleDelete = () => {
-    if (window.confirm("delete this movie from your profile")) {
+    // if (window.confirm("delete this movie from your profile")) {
       jAPI.delete(loveHateId, "loveHates");
       props.getUserMovies();
-    }
+    // }
   };
 
   useEffect(() => {
