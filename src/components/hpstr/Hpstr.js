@@ -24,12 +24,13 @@ const Hpstr = () => {
 
     return (
         <>
-            <h2 className="headline">the only movie to ever see</h2>
-            <section className="andysContainer">
+            <h2 className="headline headlineGreen headlineTextBlack">the only movie to ever see</h2>
+            <h5 className="headline headlineRed headlineTextWhite">{movieObject.title}</h5>
+            <section className="andysContainer marginTop">
                 <div className="andysDiv">
                     <div className="bodyContainer">
                     </div>
-                    <img src={movieObject.posterPath} alt="poster"
+                    <img className="smallRadius" src={movieObject.posterPath} alt="poster"
                         className="hpstrImage" />
                     <div className="bodyContainer">
                         <h5 className="hpstrMovieTitle">{movieObject.title}</h5>

@@ -117,9 +117,9 @@ const RecList = (props) => {
   } else {
     return (
       <>
-        <div>
-          <h2>Movies You Might'nt Hate</h2>
-          <div className="">From User: {topMatch.username}</div>
+          <h2 className="headline headlineGreen headlineTextBlack">Movies You Might'nt Hate</h2>
+          <div className="headline headlineRed headlineTextWhite">From User: {topMatch.username}</div>
+        <div className="marginTop">
           <div className="cardGroup">
             {recommendations.map(res => <RecCard key={res.id} loveHateObject={res} {...props} />)}
           </div>

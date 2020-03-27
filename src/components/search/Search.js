@@ -37,25 +37,28 @@ const Search = (props) => {
 
   return (
     <>
+    <div className="headline headlineRed headlineTextBlack">search
       {/* <label htmlFor="searchInput">Search</label> */}
       <div className="movieSearchInput">
       <input
         id="searchInput"
-        
+        className="greenBorder"
         type="text"
-        placeholder="enter search term"
+        placeholder=""
         onChange={handleFieldChange}
         onKeyUp={evt => evt.key === "Enter" ? handleSearch(evt) : null}
       />
+      </div>
       </div>
       {/* <button
         id="searchBtn"
         type="button"
         onClick={handleSearch}>
         Submit</button> */}
-      <div id="searchResults" className="cardGroup">
+      <div id="searchResults" className="cardGroup marginTop">
         {results.map(res => <SearchCard className="" loveHateId={loveHateId} setLoveHateId={setLoveHateId} keyword={keyword} setKeyword={setKeyword} handleSearch={handleSearch} key={res.id} result={res} searchInput={searchInput} userId={props.activeUserId} {...props} />)}
       </div>
+      
 
     </>
   )

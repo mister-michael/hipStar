@@ -46,15 +46,17 @@ const Profile = props => {
     <>
       <div id={`profile--${userObject.id}`}>
         {/* <img className="profileImage" src={userObject.imgUrl} /> */}
-        <div id={`name--${userObject.id}`}>{userObject.username}</div>
+        <div id={`name--${userObject.id}`} className="headline headlineGreen headlineTextBlack">{userObject.username}</div>
       </div>
 
-      <h2>HATE</h2>
-      <div id={`hate--${userObject.id}`} className="cardGroup">
+      <h2 className="headline headlineRed headlineTextWhite">HATES</h2>
+      <div className="marginTop">
+        <div id={`hate--${userObject.id}`} className="cardGroup">
 
-        {hateState.map(res => <LoveHates key={res.id} loveHateObject={res} getUserMovies={getUserMovies} getUserObject={getUserObject} userId={userId} {...props} />)}
+          {hateState.map(res => <LoveHates key={res.id} loveHateObject={res} getUserMovies={getUserMovies} getUserObject={getUserObject} userId={userId} {...props} />)}
+        </div>
       </div>
-      <h2>LOVE</h2>
+      <h2 className="headline headlineGreen headlineTextWhite">LOVES</h2>
       <div id={`love--${userObject.id}`} className="cardGroup">
 
         {loveState.map(res => <LoveHates key={res.id} loveHateObject={res} getUserMovies={getUserMovies} getUserObject={getUserObject} userId={userId}  {...props} />)}
