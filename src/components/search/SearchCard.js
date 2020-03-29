@@ -11,6 +11,11 @@ const SearchCard = (props) => {
 
   const mdbId = props.result.id;
   const activeUserId = props.activeUserId;
+
+  let poster = "https://harperlibrary.typepad.com/.a/6a0105368f4fef970b01b8d23c71b5970c-800wi";
+
+  let loveHateFoundId = ""
+
   const [loveBtnState, setLoveBtnState] = useState({ name: "" });
   const [hateBtnState, setHateBtnState] = useState({ name: "" });
   const [loveHateId, setLoveHateId] = useState(false);
@@ -18,31 +23,25 @@ const SearchCard = (props) => {
   const [isHateDisabled, setIsHateDisabled] = useState(true);
   const [hasBeenChanged, setHasBeenChanged] = useState(false);
 
-
-
-  let loveHateFoundId = ""
-
-  const searchResult = props.result
-
   const buttons = () => {
     jAPI.userMovieExpand("loveHates", activeUserId)
       .then(movies => {
         if (movies.length > 0) {
           for (let i = 0; i < movies.length; i++) {
             if (mdbId === movies[i].movie.dbid && movies[i].isHated === true) {
+              loveHateFoundId = movies[i].id;
               setHateBtnState({ name: "hatedBtn" });
               setLoveBtnState({ name: "unlovedBtn" });
-              setLoveHateId(movies[i].id);
-              loveHateFoundId = movies[i].id;
+              setLoveHateId(loveHateFoundId);
               setIsLoveDisabled(false);
               setIsHateDisabled(true);
 
               break
             } else if (mdbId === movies[i].movie.dbid && movies[i].isHated === false) {
+              loveHateFoundId = movies[i].id;
               setHateBtnState({ name: "unhatedBtn" });
               setLoveBtnState({ name: "lovedBtn" });
-              setLoveHateId(movies[i].id);
-              loveHateFoundId = movies[i].id;
+              setLoveHateId(loveHateFoundId);
               setIsLoveDisabled(true);
               setIsHateDisabled(false);
 
@@ -62,17 +61,30 @@ const SearchCard = (props) => {
         }
       })
   }
-  let poster = "https://harperlibrary.typepad.com/.a/6a0105368f4fef970b01b8d23c71b5970c-800wi";
 
-  const imageHandler = () => {
-    if (props.result.poster_path !== null) {
-      return `https://image.tmdb.org/t/p/w500${props.result.poster_path}`
+
+  const handleClick = (e) => {
+
+    console.log(e.target.innerHTML)
+    let patchBool = ""
+    let loveDisabledBool = ""
+    let hateDisabledBool = ""
+    let hateClass = ""
+    let loveClass = ""
+
+    if (e.target.innerHTML === "Hate") {
+      patchBool = true;
+      loveDisabledBool = false;
+      hateDisabledBool = true;
+      hateClass = "hatedBtn";
+      loveClass = "unlovedBtn";
     } else {
-      return poster
-    };
-  };
-
-  const handleHate = () => {
+      patchBool = true;
+      loveDisabledBool = true;
+      hateDisabledBool = false;
+      hateClass = "unhatedBtn";
+      loveClass = "lovedBtn";
+    }
 
     mAPI.searchWithId(mdbId)
       .then(movieById => {
@@ -121,7 +133,7 @@ const SearchCard = (props) => {
                   } else {
                     loveHateFoundId = loveHateFound.id
                     setLoveHateId(loveHateFoundId)
-                    const toggleIsHated = { isHated: true }
+                    const toggleIsHated = { isHated: patchBool }
                     jAPI.patch(toggleIsHated, "loveHates", loveHateFoundId)
                   }
                 });
@@ -134,7 +146,7 @@ const SearchCard = (props) => {
                   const loveHateObjectToSave = {
                     userId: props.activeUserId,
                     movieId: movieObj.id,
-                    isHated: true
+                    isHated: patchBool
                   };
                   jAPI.save(loveHateObjectToSave, "loveHates");
                   jAPI.userMovieExpand("lovehates", activeUserId)
@@ -151,126 +163,35 @@ const SearchCard = (props) => {
             }
           })
         setLoveHateId(loveHateFoundId);
-        setHateBtnState({ name: "hatedBtn" });
-        setLoveBtnState({ name: "unlovedBtn" });
-        setIsLoveDisabled(false);
-        setIsHateDisabled(true);
+        setHateBtnState({ name: hateClass });
+        setLoveBtnState({ name: loveClass });
+        setIsLoveDisabled(loveDisabledBool);
+        setIsHateDisabled(hateDisabledBool);
         setHasBeenChanged(!hasBeenChanged)
-        props.setKeyword(props.keyword);
-      })
-  };
-  const handleLove = () => {
-    console.log("handle love")
-
-    mAPI.searchWithId(mdbId)
-      .then(movieById => {
-
-        const movieObject = {
-          dbid: movieById.id,
-          title: `${movieById.title}`,
-          releaseDate: movieById.release_date,
-          posterPath: imageHandler(),
-          revenue: movieById.revenue,
-          overview: movieById.overview,
-          tagline: movieById.tagline
-        };
-
-        jAPI.get("movies")
-          .then(movies => {
-
-            const movieInJson = movies.find(movie => movie.dbid === movieById.id);
-
-            if (movieInJson !== undefined) {
-
-              const loveHateObject = {
-                userId: props.activeUserId,
-                movieId: movieInJson.id,
-                isHated: false
-              };
-
-              jAPI.get("loveHates")
-                .then(loveHatesFetch => {
-                  const loveHateFound = loveHatesFetch.find(object => object.userId === activeUserId && object.movieId === movieInJson.id);
-
-                  if (loveHateFound === undefined) {
-
-                    jAPI.save(loveHateObject, "loveHates")
-                    jAPI.userMovieExpand("lovehates", activeUserId)
-                      .then(lhs => {
-                        lhs.forEach(lh => {
-                          if (lh.movie.dbid === mdbId && lh.userId === activeUserId) {
-                            loveHateFoundId = lh.id
-                            setLoveHateId(loveHateFoundId)
-                            setHateBtnState({ name: "unhatedBtn" });
-                            setLoveBtnState({ name: "lovedBtn" });
-                          }
-                        })
-                      })
-                  } else {
-                    console.log("lovehateFound")
-                    loveHateFoundId = loveHateFound.id
-                    const toggleIsHated = { isHated: false }
-                    jAPI.patch(toggleIsHated, "loveHates", loveHateFoundId)
-                    setHateBtnState({ name: "unhatedBtn" });
-                    setLoveBtnState({ name: "lovedBtn" });
-                  }
-                });
-
-            } else {
-
-              jAPI.save(movieObject, "movies")
-                .then(movieObj => {
-
-                  const loveHateObject2 = {
-                    userId: props.activeUserId,
-                    movieId: movieObj.id,
-                    isHated: false
-                  };
-                  jAPI.save(loveHateObject2, "loveHates")
-                  jAPI.userMovieExpand("lovehates", activeUserId)
-                    .then(lhs => {
-                      lhs.filter(lh => {
-                        if (lh.movie.dbid === mdbId && lh.userId === activeUserId) {
-                          loveHateFoundId = lh.id
-                          setLoveHateId(loveHateFoundId)
-                        }
-                        setHateBtnState({ name: "unhatedBtn" });
-                        setLoveBtnState({ name: "lovedBtn" });
-                      })
-                    })
-                });
-            }
-          })
-        setLoveHateId(loveHateFoundId);
-        setHateBtnState({ name: "unhatedBtn" });
-        setLoveBtnState({ name: "lovedBtn" });
-        setIsLoveDisabled(true);
-        setIsHateDisabled(false);
-        setHasBeenChanged(!hasBeenChanged);
-        props.setKeyword(props.keyword);
       })
   };
 
   const handleForget = () => {
-    console.log("delete lhfid", loveHateFoundId)
     jAPI.delete(loveHateId, "loveHates");
-    setLoveHateId(false)
+    setLoveHateId(false);
     setHateBtnState({ name: "unhatedBtn" });
     setLoveBtnState({ name: "unlovedBtn" });
     setIsLoveDisabled(false);
     setIsHateDisabled(false);
     setHasBeenChanged(!hasBeenChanged)
     props.setKeyword(props.keyword);
-  }
+  };
 
   const forgetJSX = () => {
     if (loveHateId !== false) {
-      return (<><button
-        id={`hate-button--${props.result.id}`}
-        onClick={handleForget}
-        className="forgetBtn"
-      // disabled={isForgetDisabled}
-      ><span >forget</span></button>{' '}</>)
+      return (
+        <>
+          <button
+            id={`hate-button--${props.result.id}`}
+            onClick={handleForget}
+            className="forgetBtn">
+            <span >forget</span>
+          </button>{' '}</>)
     }
   }
 
@@ -278,6 +199,14 @@ const SearchCard = (props) => {
     const releaseDate = "release_date";
     if (props.result[releaseDate] !== undefined) {
       return props.result[releaseDate].split("-")[0];
+    };
+  };
+
+  const imageHandler = () => {
+    if (props.result.poster_path !== null) {
+      return `https://image.tmdb.org/t/p/w500${props.result.poster_path}`;
+    } else {
+      return poster;
     };
   };
 
@@ -296,13 +225,13 @@ const SearchCard = (props) => {
           <div className="buttonRow">
             <button
               id={`hate-button--${props.result.id}`}
-              onClick={handleHate}
+              onClick={(e) => handleClick(e)}
               className={hateBtnState.name}
               disabled={isHateDisabled}
             ><span >Hate</span></button>
             <button
               id={`love-button--${props.result.id}`}
-              onClick={handleLove}
+              onClick={(e) => handleClick(e)}
               className={loveBtnState.name}
               disabled={isLoveDisabled}><span >Love</span></button>{' '}
             {' '}
