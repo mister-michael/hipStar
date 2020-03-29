@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react"
 import jAPI from "../../modules/apiManager"
 import LoveHates from "./LoveHates"
+import RecList from "../rec/RecList"
+import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
+import classnames from 'classnames';
+
 
 const Profile = props => {
 
@@ -37,6 +41,12 @@ const Profile = props => {
       })
   }
 
+  const [activeTab, setActiveTab] = useState('1');
+
+  const toggle = tab => {
+    if (activeTab !== tab) setActiveTab(tab);
+  }
+
   useEffect(() => {
     getUserObject(userId);
     getUserMovies();
@@ -44,23 +54,59 @@ const Profile = props => {
 
   return (
     <>
-      <div id={`profile--${userObject.id}`}>
-        {/* <img className="profileImage" src={userObject.imgUrl} /> */}
-        <div id={`name--${userObject.id}`} className="headline headlineGreen headlineTextBlack">{userObject.username}</div>
+      <div>
+        <Nav tabs>
+          <NavItem>
+            <NavLink
+              className={classnames({ active: activeTab === '1' })}
+              onClick={() => { toggle('1'); }}
+            >
+              HATES
+          </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink
+              className={classnames({ active: activeTab === '2' })}
+              onClick={() => { toggle('2'); }}
+            >
+              LOVES
+          </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink
+              className={classnames({ active: activeTab === '3' })}
+              onClick={() => { toggle('3'); }}
+            >
+              RECS
+          </NavLink>
+          </NavItem>
+        </Nav>
+        <TabContent activeTab={activeTab}>
+          <TabPane tabId="1">
+            <h2 className="headline headlineRed headlineTextWhite">HATES</h2>
+            <div className="marginTop">
+              <div id={`hate--${userObject.id}`} className="cardGroup">
+
+                {hateState.map(res => <LoveHates key={res.id} loveHateObject={res} getUserMovies={getUserMovies} getUserObject={getUserObject} userId={userId} {...props} />)}
+              </div>
+            </div>
+          </TabPane>
+          <TabPane tabId="2">
+            <h2 className="headline headlineGreen headlineTextWhite">LOVES</h2>
+            <div id={`love--${userObject.id}`} className="cardGroup">
+
+              {loveState.map(res => <LoveHates key={res.id} loveHateObject={res} getUserMovies={getUserMovies} getUserObject={getUserObject} userId={userId}  {...props} />)}
+            </div>
+          </TabPane>
+          <TabPane tabId="3">
+            <div>
+              <RecList></RecList>
+            </div>
+          </TabPane>
+        </TabContent>
       </div>
 
-      <h2 className="headline headlineRed headlineTextWhite">HATES</h2>
-      <div className="marginTop">
-        <div id={`hate--${userObject.id}`} className="cardGroup">
 
-          {hateState.map(res => <LoveHates key={res.id} loveHateObject={res} getUserMovies={getUserMovies} getUserObject={getUserObject} userId={userId} {...props} />)}
-        </div>
-      </div>
-      <h2 className="headline headlineGreen headlineTextWhite">LOVES</h2>
-      <div id={`love--${userObject.id}`} className="cardGroup">
-
-        {loveState.map(res => <LoveHates key={res.id} loveHateObject={res} getUserMovies={getUserMovies} getUserObject={getUserObject} userId={userId}  {...props} />)}
-      </div>
     </>
   )
 }
