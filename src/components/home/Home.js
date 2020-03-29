@@ -49,7 +49,7 @@ const Home = props => {
 
     return (
         <>
-                <div className="headline headlineRed headlineTextBlack">hipStar's most hated</div>
+                <div className="headline headlineRed headlineTextBlack">h!pst@r's most hated</div>
                 <div className="headline headlineGreen headlineTextWhite">{mostHatedMovies.title}</div>
             <div className="marginTop">
                 <div className="andysContainer">

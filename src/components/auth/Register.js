@@ -86,7 +86,7 @@ const RegisterForm = props => {
                         id="email"
                         placeholder="email address" />
                 </InputGroup> <br />
-                <InputGroup size="sm" >
+                {/* <InputGroup size="sm" >
                     <InputGroupAddon addonType="prepend">
                         image url </InputGroupAddon> <Input addonType="prepend"
                         onChange={handleFieldChange}
@@ -94,7 +94,7 @@ const RegisterForm = props => {
                         id="imgUrl"
                         placeholder="image url" />
 
-                </InputGroup>
+                </InputGroup> */}
 
                 <button className="registerSubmitBtn"
                     type="button"
@@ -108,47 +108,8 @@ const RegisterForm = props => {
                     </div>
                 </CardFooter >
             </Card>
-        </div> {
-            /* <div className="loginForm">
-                    <div>
-                      <h3>Sign up</h3>
-                      <label htmlFor="inputName">Name:</label>
-                      <input
-                        onChange={handleFieldChange}
-                        type="username"
-                        id="username"
-                        placeholder="full name"
-                      ></input>
-
-                      <label htmlFor="inputEmail">Email Address:</label>
-                      <input
-                        onChange={handleFieldChange}
-                        type="email"
-                        id="email"
-                        placeholder="email address"
-                      ></input>
-
-                      <label htmlFor="inputImgUrl">Image Url:</label>
-                      <input
-                        onChange={handleFieldChange}
-                        type="imgUrl"
-                        id="imgUrl"
-                        placeholder="image url"
-                      ></input>
-
-                      <button type="button" onClick={handleRegister}>
-                        Submit
-                      </button>
-
-                      Already a user? <span></span>
-                      <Link to="/login" className="signLink" style={{ textDecoration: 'none' }} >
-
-                        Click here
-                      </Link>
-
-                    </div>
-                  </div> */
-        } </>
+        </div>
+    </>
     );
 };
 

@@ -16,7 +16,7 @@ const SearchCard = (props) => {
   const [loveHateId, setLoveHateId] = useState(false);
   const [isLoveDisabled, setIsLoveDisabled] = useState(true);
   const [isHateDisabled, setIsHateDisabled] = useState(true);
-  const [hasBeenChanged, setHasBeenChanged] = useState(false)
+  const [hasBeenChanged, setHasBeenChanged] = useState(false);
 
 
 
