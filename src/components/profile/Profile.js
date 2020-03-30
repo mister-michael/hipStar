@@ -8,7 +8,7 @@ import classnames from 'classnames';
 
 const Profile = props => {
 
-  const userId = props.userId
+  const activeUserId = props.userId
 
   const [userObject, setUserObject] = useState([])
   const [loveState, setLoveState] = useState([])
@@ -20,16 +20,12 @@ const Profile = props => {
   }
 
   const getUserMovies = () => {
-    return jAPI.userMovieExpand("loveHates", userId)
+    return jAPI.userMovieExpand("loveHates", activeUserId)
       .then(loveHates => {
         const loveArr = []
         const hateArr = []
         loveHates.forEach(lh => {
-          // const displayObject = {
-          //   image: lh.movie.posterPath,
-          //   title: lh.movie.title,
-          //   loveHateId: lh.id
-          // }
+          
           if (lh.isHated !== true) {
             loveArr.push(lh)
           } else {
@@ -48,7 +44,7 @@ const Profile = props => {
   }
 
   useEffect(() => {
-    getUserObject(userId);
+    getUserObject(activeUserId);
     getUserMovies();
   }, [])
 
@@ -83,24 +79,24 @@ const Profile = props => {
         </Nav>
         <TabContent activeTab={activeTab}>
           <TabPane tabId="1">
-            <h2 className="headline headlineRed headlineTextWhite">HATES</h2>
+            <h2 className="headline headlineGreen headlineTextWhite">HATES</h2>
             <div className="marginTop">
               <div id={`hate--${userObject.id}`} className="cardGroup">
 
-                {hateState.map(res => <LoveHates key={res.id} loveHateObject={res} getUserMovies={getUserMovies} getUserObject={getUserObject} userId={userId} {...props} />)}
+                {hateState.map(res => <LoveHates key={res.id} loveHateObject={res} getUserMovies={getUserMovies} getUserObject={getUserObject} userId={activeUserId} {...props} />)}
               </div>
             </div>
           </TabPane>
           <TabPane tabId="2">
-            <h2 className="headline headlineGreen headlineTextWhite">LOVES</h2>
+            <h2 className="headline headlineRed headlineTextWhite">LOVES</h2>
             <div id={`love--${userObject.id}`} className="cardGroup">
 
-              {loveState.map(res => <LoveHates key={res.id} loveHateObject={res} getUserMovies={getUserMovies} getUserObject={getUserObject} userId={userId}  {...props} />)}
+              {loveState.map(res => <LoveHates key={res.id} loveHateObject={res} getUserMovies={getUserMovies} getUserObject={getUserObject} userId={activeUserId}  {...props} />)}
             </div>
           </TabPane>
           <TabPane tabId="3">
             <div>
-              <RecList></RecList>
+              <RecList activeUserId={activeUserId}></RecList>
             </div>
           </TabPane>
         </TabContent>

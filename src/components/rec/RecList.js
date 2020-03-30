@@ -7,7 +7,7 @@ import "../search/Search.css"
 
 const RecList = (props) => {
 
-  const activeId = parseInt(props.userId)
+  const activeUserId = props.activeUserId
 
   const [activeHate, setActiveHate] = useState([]);
   const [activeLove, setActiveLove] = useState([]);
@@ -16,13 +16,12 @@ const RecList = (props) => {
 
   const recEngine = () => {
 
-    return jAPI.userMovieExpand("loveHates", activeId)
+    return jAPI.userMovieExpand("loveHates", activeUserId)
       .then(userLoveHates => {
         const userHates = userLoveHates.filter(element => element.isHated === true)
         jAPI.movieExpand("loveHates")
           .then(overallLoveHates => {
-            const overallHates = overallLoveHates.filter(olh => olh.userId !== activeId && olh.isHated === true);
-            // console.log("overallLoveHates", overallLoveHates)
+            const overallHates = overallLoveHates.filter(olh => olh.userId !== activeUserId && olh.isHated === true);
             const sameSameArr = []
             userHates.forEach(userHate => {
               for (let i = 0; i < overallHates.length; i++) {
@@ -31,8 +30,6 @@ const RecList = (props) => {
                 }
               }
             })
-
-            console.log("sameSameArr, movieHates of other users which match the active users", sameSameArr)
 
             const userIdArry = sameSameArr.map(object => object.userId)
             const userIdSet = [...new Set(userIdArry)]
@@ -64,12 +61,12 @@ const RecList = (props) => {
               return 0;
             })
 
-            let topMatch = ""
-            tallyToSort.length > 0 ? topMatch = tallyToSort[0].userId : topMatch = 1
+            let topMatchedUser = ""
+            tallyToSort.length > 0 ? topMatchedUser = tallyToSort[0].userId : topMatchedUser = 1
 
-            console.log("topMatch", topMatch)
+            console.log("topMatch", topMatchedUser)
 
-            jAPI.userMovieExpand("loveHates", topMatch)
+            jAPI.userMovieExpand("loveHates", topMatchedUser)
               .then(topMatchLoveHates => {
                 console.log(topMatchLoveHates, "topMatchLoveHates")
                 const loveArr = []
@@ -95,7 +92,7 @@ const RecList = (props) => {
                   }
                 })
 
-                jAPI.getWithId("users", topMatch)
+                jAPI.getWithId("users", topMatchedUser)
                   .then(matchedUser => setTopMatch(matchedUser))
                 console.log(loveArrToPrune)
                 setRecommendations(loveArrToPrune)
@@ -121,7 +118,7 @@ const RecList = (props) => {
           <div className="headline headlineRed headlineTextWhite">From User: {topMatch.username}</div>
         <div className="marginTop">
           <div className="cardGroup">
-            {recommendations.map(res => <RecCard key={res.id} loveHateObject={res} {...props} />)}
+            {recommendations.map(res => <RecCard activeUserId={activeUserId} key={res.id} result={res} {...props} />)}
           </div>
         </div>
       </>

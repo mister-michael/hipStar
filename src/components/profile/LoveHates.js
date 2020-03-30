@@ -21,7 +21,7 @@ const LoveHates = (props) => {
 
 
   loveHateObject.isHated ? buttonText = "love" : buttonText = "hate"
-  loveHateObject.isHated ? buttonClass = "lovedBtn" : buttonClass = "hatedBtn"
+  loveHateObject.isHated ? buttonClass = "unlovedBtn" : buttonClass = "unhatedBtn"
 
   const handleClick = () => {
 
