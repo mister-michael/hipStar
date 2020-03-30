@@ -13,6 +13,8 @@ const RecList = (props) => {
   const [activeLove, setActiveLove] = useState([]);
   const [recommendations, setRecommendations] = useState([])
   const [topMatch, setTopMatch] = useState([])
+  const [changed, setChanged] = useState(false)
+  
 
   const recEngine = () => {
 
@@ -118,7 +120,7 @@ const RecList = (props) => {
           <div className="headline headlineRed headlineTextWhite">From User: {topMatch.username}</div>
         <div className="marginTop">
           <div className="cardGroup">
-            {recommendations.map(res => <RecCard activeUserId={activeUserId} key={res.id} result={res} {...props} />)}
+            {recommendations.map(res => <RecCard changed={changed} setChanged={setChanged} activeUserId={activeUserId} key={res.id} result={res} recUpdated={props.recUpdated} setRecUpdated={props.setRecUpdated} recEngine={recEngine} {...props} />)}
           </div>
         </div>
       </>

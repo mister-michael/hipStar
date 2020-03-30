@@ -13,6 +13,7 @@ const Profile = props => {
   const [userObject, setUserObject] = useState([])
   const [loveState, setLoveState] = useState([])
   const [hateState, setHateState] = useState([])
+  const [recUpdated, setRecUpdated] = useState(false)
 
   const getUserObject = (id) => {
     return jAPI.getWithId("users", id)
@@ -83,7 +84,7 @@ const Profile = props => {
             <div className="marginTop">
               <div id={`hate--${userObject.id}`} className="cardGroup">
 
-                {hateState.map(res => <LoveHates key={res.id} loveHateObject={res} getUserMovies={getUserMovies} getUserObject={getUserObject} userId={activeUserId} {...props} />)}
+                {hateState.map(res => <LoveHates key={res.id} loveHateObject={res} getUserMovies={getUserMovies} getUserObject={getUserObject} userId={activeUserId} recUpdated={recUpdated} setRecUpdated={setRecUpdated} {...props} />)}
               </div>
             </div>
           </TabPane>
@@ -91,12 +92,12 @@ const Profile = props => {
             <h2 className="headline headlineRed headlineTextWhite">LOVES</h2>
             <div id={`love--${userObject.id}`} className="cardGroup">
 
-              {loveState.map(res => <LoveHates key={res.id} loveHateObject={res} getUserMovies={getUserMovies} getUserObject={getUserObject} userId={activeUserId}  {...props} />)}
+              {loveState.map(res => <LoveHates key={res.id} loveHateObject={res} getUserMovies={getUserMovies} getUserObject={getUserObject} userId={activeUserId} recUpdated={recUpdated} setRecUpdated={setRecUpdated} {...props} />)}
             </div>
           </TabPane>
           <TabPane tabId="3">
             <div>
-              <RecList activeUserId={activeUserId}></RecList>
+              <RecList activeUserId={activeUserId} getUserMovies={getUserMovies} getUserObject={getUserObject}  recUpdated={recUpdated} setRecUpdated={setRecUpdated}></RecList>
             </div>
           </TabPane>
         </TabContent>

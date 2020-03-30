@@ -181,7 +181,8 @@ const RecCard = (props) => {
         setLoveBtnState({ name: loveClass });
         setIsLoveDisabled(loveDisabledBool);
         setIsHateDisabled(hateDisabledBool);
-        setHasBeenChanged(!hasBeenChanged)
+        setHasBeenChanged(!hasBeenChanged);
+        props.setChanged(!props.changed)
       })
   };
 
@@ -193,6 +194,10 @@ const RecCard = (props) => {
     setIsLoveDisabled(false);
     setIsHateDisabled(false);
     setHasBeenChanged(!hasBeenChanged)
+    props.setRecUpdated(!props.recUpdated)
+    props.getUserMovies();
+    props.recEngine();
+    props.setChanged(!props.changed)
   };
 
   const forgetJSX = () => {
@@ -222,10 +227,6 @@ const RecCard = (props) => {
       return poster;
     };
   };
-
-
-
-
 
 
   useEffect(() => {
