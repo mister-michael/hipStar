@@ -15,7 +15,7 @@ const LoveHates = (props) => {
 
   const loveHateObject = props.loveHateObject
   const loveHateId = props.loveHateObject.id
-  console.log("DBID", loveHateObject.movie.dbid)
+  // console.log("DBID", loveHateObject.movie.dbid)
 
   let buttonText = ""
   let buttonClass = ""
@@ -43,12 +43,14 @@ const LoveHates = (props) => {
     console.log("ishated", isHatedObj);
     // jAPI.update(isHatedObj, "loveHates");
     jAPI.patch(isHatedObj, "loveHates", loveHateId)
+    props.getUserObject(activeUserId);
     props.getUserMovies();
   }
 
   const handleDelete = () => {
     // if (window.confirm("delete this movie from your profile")) {
     jAPI.delete(loveHateId, "loveHates");
+    props.getUserObject(activeUserId);
     props.getUserMovies();
     // }
   };

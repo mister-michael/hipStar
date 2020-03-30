@@ -47,7 +47,7 @@ const Profile = props => {
   useEffect(() => {
     getUserObject(activeUserId);
     getUserMovies();
-  }, [])
+  }, [recUpdated])
 
   return (
     <>
@@ -69,14 +69,14 @@ const Profile = props => {
               LOVES
           </NavLink>
           </NavItem>
-          <NavItem>
+          {/* <NavItem>
             <NavLink
               className={classnames({ active: activeTab === '3' })}
               onClick={() => { toggle('3'); }}
             >
               RECS
           </NavLink>
-          </NavItem>
+          </NavItem> */}
         </Nav>
         <TabContent activeTab={activeTab}>
           <TabPane tabId="1">
@@ -95,11 +95,11 @@ const Profile = props => {
               {loveState.map(res => <LoveHates key={res.id} loveHateObject={res} getUserMovies={getUserMovies} getUserObject={getUserObject} userId={activeUserId} recUpdated={recUpdated} setRecUpdated={setRecUpdated} {...props} />)}
             </div>
           </TabPane>
-          <TabPane tabId="3">
+          {/* <TabPane tabId="3">
             <div>
               <RecList activeUserId={activeUserId} getUserMovies={getUserMovies} getUserObject={getUserObject}  recUpdated={recUpdated} setRecUpdated={setRecUpdated}></RecList>
             </div>
-          </TabPane>
+          </TabPane> */}
         </TabContent>
       </div>
 

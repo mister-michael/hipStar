@@ -38,6 +38,11 @@ const NavBar = props => {
             </Link>
               </NavItem>
               <NavItem>
+                <Link className="nav-link" style={{ textDecoration: 'none', color: '#160D58' }} to="/recommendations">
+                  recs
+            </Link>
+              </NavItem>
+              <NavItem>
                 <Link className="nav-link" style={{ textDecoration: 'none', color: '#160D58' }} to="/search">
                   search
             </Link>

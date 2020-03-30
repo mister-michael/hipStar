@@ -47,7 +47,7 @@ const RecList = (props) => {
                 if (sameSame.userId === userIdSet[i]) {
                   const tallyIndex = userTallyArr.findIndex(element => element.userId === sameSame.userId)
                   userTallyArr[tallyIndex].tally += 1
-                  console.log(userTallyArr[tallyIndex], "uta[tallyIndex]")
+                  // console.log(userTallyArr[tallyIndex], "uta[tallyIndex]")
                 }
               }
             })
@@ -120,7 +120,9 @@ const RecList = (props) => {
           <div className="headline headlineRed headlineTextWhite">From User: {topMatch.username}</div>
         <div className="marginTop">
           <div className="cardGroup">
-            {recommendations.map(res => <RecCard changed={changed} setChanged={setChanged} activeUserId={activeUserId} key={res.id} result={res} recUpdated={props.recUpdated} setRecUpdated={props.setRecUpdated} recEngine={recEngine} getUserMovies={props.getUserMovies} {...props} />)}
+            {recommendations.map(res => <RecCard changed={changed} setChanged={setChanged} activeUserId={activeUserId} key={res.id} result={res} recUpdated={props.recUpdated} setRecUpdated={props.setRecUpdated} recEngine={recEngine} 
+            // getUserMovies={props.getUserMovies} getUserObject={props.getUserObject} 
+            {...props} />)}
           </div>
         </div>
       </>

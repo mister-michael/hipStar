@@ -13,10 +13,10 @@ const RecCard = (props) => {
   // const [loveHateButtonClass, setLoveHateButtonClass] = useState("");
   const movie = props.result.movie;
   const mdbId = movie.dbid;
-  console.log(mdbId)
+  // console.log(mdbId)
   const activeUserId = props.activeUserId;
 
-  console.log(movie)
+  // console.log(movie)
 
   let poster = "https://harperlibrary.typepad.com/.a/6a0105368f4fef970b01b8d23c71b5970c-800wi";
 
@@ -79,7 +79,7 @@ const RecCard = (props) => {
 
   const handleClick = (e) => {
 
-    console.log(e.target.innerHTML)
+    console.log(e.target.innerHTML, "eeeee.target.innerhtml")
     let patchBool = ""
     let loveDisabledBool = ""
     let hateDisabledBool = ""
@@ -92,8 +92,8 @@ const RecCard = (props) => {
       hateDisabledBool = true;
       hateClass = "hatedBtn";
       loveClass = "unlovedBtn";
-    } else {
-      patchBool = true;
+    } else if (e.target.innerHTML === "Love") {
+      patchBool = false;
       loveDisabledBool = true;
       hateDisabledBool = false;
       hateClass = "unhatedBtn";
@@ -103,27 +103,15 @@ const RecCard = (props) => {
     mAPI.searchWithId(mdbId)
       .then(movieById => {
 
-        const movieObject = {
-          dbid: movieById.id,
-          title: `${movieById.title}`,
-          releaseDate: movieById.release_date,
-          posterPath: imageHandler(),
-          revenue: movieById.revenue,
-          overview: movieById.overview,
-          tagline: movieById.tagline
-        };
-
         jAPI.get("movies")
           .then(movies => {
 
             const movieInJson = movies.find(movie => movie.dbid === movieById.id);
 
-            if (movieInJson !== undefined) {
-
               const loveHateObject = {
                 userId: activeUserId,
                 movieId: movieInJson.id,
-                isHated: true
+                isHated: patchBool
               };
 
               jAPI.get("loveHates")
@@ -149,32 +137,13 @@ const RecCard = (props) => {
                     setLoveHateId(loveHateFoundId)
                     const toggleIsHated = { isHated: patchBool }
                     jAPI.patch(toggleIsHated, "loveHates", loveHateFoundId)
+                    
+                    // props.getUserObject(activeUserId);
+                    // props.getUserMovies();
                   }
                 });
 
-            } else {
-
-              jAPI.save(movieObject, "movies")
-                .then(movieObj => {
-
-                  const loveHateObjectToSave = {
-                    userId: activeUserId,
-                    movieId: movieObj.id,
-                    isHated: patchBool
-                  };
-                  jAPI.save(loveHateObjectToSave, "loveHates");
-                  jAPI.userMovieExpand("lovehates", activeUserId)
-                    .then(lhs => {
-                      lhs.filter(lh => {
-                        if (lh.movie.dbid === mdbId && lh.userId === activeUserId) {
-                          loveHateFoundId = lh.id
-                          console.log("145 lhfound lh.id", loveHateFoundId, lh.id)
-                          setLoveHateId(loveHateFoundId)
-                        }
-                      })
-                    })
-                })
-            }
+             
           })
         setLoveHateId(loveHateFoundId);
         setHateBtnState({ name: hateClass });
@@ -182,8 +151,9 @@ const RecCard = (props) => {
         setIsLoveDisabled(loveDisabledBool);
         setIsHateDisabled(hateDisabledBool);
         setHasBeenChanged(!hasBeenChanged);
-        props.getUserMovies();
-        props.setChanged(!props.changed)
+        // props.getUserObject(activeUserId)
+        // props.getUserMovies();
+        // props.setChanged(!props.changed)
       })
   };
 
@@ -195,10 +165,10 @@ const RecCard = (props) => {
     setIsLoveDisabled(false);
     setIsHateDisabled(false);
     setHasBeenChanged(!hasBeenChanged)
-    props.setRecUpdated(!props.recUpdated)
-    props.getUserMovies();
-    props.recEngine();
-    props.setChanged(!props.changed)
+    // props.setRecUpdated(!props.recUpdated)
+    // props.getUserMovies();
+    // props.recEngine();
+    // props.setChanged(!props.changed)
   };
 
   const forgetJSX = () => {

@@ -55,7 +55,7 @@ const AppViews = (props) => {
         exact
         path="/recommendations"
         render={props => {
-          if (hasUser) { return <RecList userId={activeUserId}/> } else { return <Redirect to="/login" /> }
+          if (hasUser) { return <RecList activeUserId={activeUserId}/> } else { return <Redirect to="/login" /> }
         }}
       />
       <Route
