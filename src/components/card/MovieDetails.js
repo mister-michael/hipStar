@@ -9,58 +9,91 @@ import {
 const MovieDetails = props => {
 
     const [movieFromDb, setMovieFromDb] = useState([]);
+    const [poster, setPoster] = useState([]);
+    const [jsonId, setJsonId] = useState([]);
 
-    let poster = "https://harperlibrary.typepad.com/.a/6a0105368f4fef970b01b8d23c71b5970c-800wi";
+    // let poster = "https://harperlibrary.typepad.com/.a/6a0105368f4fef970b01b8d23c71b5970c-800wi";
 
     const movieId = parseInt(props.movieId)
     console.log(props.movieId)
 
-    const getMovieByDbid = () => {
-        jAPI.getWithId("movies", movieId)
-            .then(movie => {
-                console.log(movie)
-                setMovieFromDb(movie)
+
+
+    const getMovieJson = () => {
+        mAPI.searchWithId(movieId)
+            .then(movieFromTmdb => {
+                console.log(movieFromTmdb)
+                setMovieFromDb(movieFromTmdb)
+                setPoster(imageHandler(movieFromTmdb))
+
+                jAPI.get("movies")
+                    .then(movies => {
+
+                        const movieInJson = movies.find(movie => movie.dbid === movieId);
+                        if (movieInJson !== undefined) {
+                            setJsonId(movieInJson.id)
+                        } else {
+                            const movieObject = {
+                                dbid: movieFromTmdb.id,
+                                title: movieFromTmdb.title,
+                                releaseDate: movieFromTmdb.release_date,
+                                posterPath: imageHandler(movieFromTmdb),
+                                revenue: movieFromTmdb.revenue,
+                                overview: movieFromTmdb.overview,
+                                tagline: movieFromTmdb.tagline
+                            };
+                            jAPI.save(movieObject, "movies")
+                                .then(savedMovie => setJsonId(savedMovie.id))
+                        }
+
+                    })
             });
     }
 
-    // const imageHandler = () => {
-    //     if (movieFromDb.posterPath !== null) {
-    //         return `https://image.tmdb.org/t/p/w500${movieFromDb.posterPath}`;
-    //     } else {
-    //         return poster;
-    //     };
-    // };
-
     const handleClick = (e) => {
-        console.log(e, "eeeeeee")
-    }
+       const idForPatch = e.target.id.split("--")[1];
+       const buttonName = e.target.innerHTML.toLowerCase();
+       console.log(buttonName, "buttonName");
+       console.log(idForPatch, "idforpatch")
+        //  if (buttonName === "love")
+    };
+
+    const imageHandler = (movie) => {
+        const posterPath = "poster_path";
+        if (movie[posterPath] !== null) {
+
+            return `https://image.tmdb.org/t/p/w500${movie[posterPath]}`;
+        } else {
+            return poster;
+        };
+    };
 
     useEffect(() => {
-        getMovieByDbid();
+        getMovieJson();
     }, [])
 
     return (
         <>
             <div className="">
-                <CardImg id="" top src={movieFromDb.posterPath} alt={`${movieFromDb.title} poster`} className="cardImage" />
+                <CardImg id="" top src={poster} alt={`${movieFromDb.title} poster`} className="cardImage" />
                 <CardTitle>{movieFromDb.title}</CardTitle>
                 {/* <CardSubtitle>{release()}</CardSubtitle> */}
                 <CardBody >
                     <div>{movieFromDb.overview}</div>
                     <div className="buttonRow">
                         <button
-                            id={`hate-button--${movieFromDb.id}`}
+                            id={`hate-button--${jsonId}`}
                             onClick={(e) => handleClick(e)}
-                            // className={hateBtnState.name}
-                            // disabled={isHateDisabled}
-                            >
-                            <span>Hate</span></button>
+                        // className={hateBtnState.name}
+                        // disabled={isHateDisabled}
+                        >
+                            Hate</button>
                         <button
-                            id={`love-button--${movieFromDb.id}`}
+                            id={`love-button--${jsonId}`}
                             onClick={(e) => handleClick(e)}
-                            // className={loveBtnState.name}
-                            // disabled={isLoveDisabled}
-                            ><span >Love</span></button>{' '}
+                        // className={loveBtnState.name}
+                        // disabled={isLoveDisabled}
+                        >Love</button>{' '}
                         {' '}
                         {/* {forgetJSX()} */}
                     </div>

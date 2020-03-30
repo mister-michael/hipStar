@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom"
 import "./Search.css"
 import mAPI from "../../modules/movieManager";
 import jAPI from "../../modules/apiManager";
@@ -218,7 +219,9 @@ const SearchCard = (props) => {
   return (
     <>
       <div className="">
-        <CardImg id="" top src={imageHandler()} alt={`${props.result.title} poster`} className="cardImage" />
+        <Link to={`/${mdbId}`}>
+          <CardImg id="" top src={imageHandler()} alt={`${props.result.title} poster`} className="cardImage" />
+        </Link>
         <CardTitle>{props.result.title}</CardTitle>
         <CardSubtitle>{release()}</CardSubtitle>
         <CardBody >

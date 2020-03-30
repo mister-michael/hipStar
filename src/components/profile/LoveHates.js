@@ -70,7 +70,7 @@ const LoveHates = (props) => {
     <>
       <div className="card">
         <CardTitle>{loveHateObject.movie.title}</CardTitle>
-        <Link to={`/${loveHateObject.movie.id}`}>
+        <Link to={`/${loveHateObject.movie.dbid}`}>
           <CardImg id="" top src={loveHateObject.movie.posterPath} alt={`${loveHateObject.movie.title} poster`} className="cardImage" />
         </Link>
         {/* <CardSubtitle>{release()}</CardSubtitle> */}

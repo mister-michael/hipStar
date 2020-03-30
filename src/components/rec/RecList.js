@@ -98,9 +98,6 @@ const RecList = (props) => {
                   .then(matchedUser => setTopMatch(matchedUser))
                 console.log(loveArrToPrune)
                 setRecommendations(loveArrToPrune)
-                console.log(userLoveHates.length)
-
-                console.log("tallyToSort", tallyToSort)
               })
           })
       })
