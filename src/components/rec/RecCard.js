@@ -182,6 +182,7 @@ const RecCard = (props) => {
         setIsLoveDisabled(loveDisabledBool);
         setIsHateDisabled(hateDisabledBool);
         setHasBeenChanged(!hasBeenChanged);
+        props.getUserMovies();
         props.setChanged(!props.changed)
       })
   };

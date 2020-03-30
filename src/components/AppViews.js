@@ -7,6 +7,7 @@ import Profile from "./profile/Profile"
 import Search from "./search/Search"
 import RecList from "./rec/RecList"
 import Hpstr from "./hpstr/Hpstr"
+import MovieDetails from "./card/MovieDetails"
 
 const AppViews = (props) => {
   const activeUserId = parseInt(sessionStorage.getItem("userId"))
@@ -62,6 +63,22 @@ const AppViews = (props) => {
         path="/search"
         render={props => {
           if (hasUser) { return <Search activeUserId={activeUserId} {...props} /> } else { return <Redirect to="/login" /> }
+        }}
+      />
+      <Route
+        exact
+        path="/:movieId(\d+)"
+        render={props => {
+          if (hasUser) {
+            return (
+              <MovieDetails
+                movieId={parseInt(props.match.params.movieId)}
+                {...props}
+              />
+            );
+          } else {
+            return <Redirect to="/login" />;
+          }
         }}
       />
     </React.Fragment>
