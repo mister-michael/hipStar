@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
-  Card, Button, CardImg, CardTitle, CardText, CardGroup,
+  Card as div, Button, CardImg, CardTitle, CardText, CardGroup,
   CardSubtitle, CardBody,
   Popover, PopoverBody, PopoverHeader,
   Modal, ModalHeader, ModalBody, ModalFooter
@@ -214,37 +214,41 @@ const RecCard = (props) => {
 
   return (
     <>
-      <div onClick={toggle} className="">
-        <CardImg id="" top src={imageHandler()} alt={`${props.result.movie.title} poster`} className="cardImage" />
-        <CardTitle>{props.result.movie.title}</CardTitle>
-        <CardSubtitle>{release()}</CardSubtitle>
-        <CardBody >
-          <div className="buttonRow">
-            <button
-              id={`hate-button--${props.result.id}`}
-              onClick={(e) => handleClick(e)}
-              className={hateBtnState.name}
-              disabled={isHateDisabled}
-            ><span >Hate</span></button>
-            <button
-              id={`love-button--${props.result.id}`}
-              onClick={(e) => handleClick(e)}
-              className={loveBtnState.name}
-              disabled={isLoveDisabled}><span >Love</span></button>{' '}
-            {' '}
-            {forgetJSX()}
-          </div>
-        </CardBody>
-        <Modal isOpen={modal} toggle={toggle} className="">
-          <ModalHeader toggle={toggle}>{props.result.movie.title} <span className="releaseDate">{release()}</span></ModalHeader>
-          <ModalBody>
-            <MovieDetails mdbId={mdbId} release={release()} />
-          </ModalBody>
-          <ModalFooter>
-            <Button color="primary" onClick={toggle}>Do Something</Button>{' '}
-            <Button color="secondary" onClick={toggle}>Cancel</Button>
-          </ModalFooter>
-        </Modal>
+      <div className="card shadow movieCard">
+        <div onClick={toggle} >
+          <CardImg id="" top src={imageHandler()} alt={`${props.result.movie.title} poster`} className="cardImage" />
+          <CardTitle>{props.result.movie.title}</CardTitle>
+          <CardSubtitle>{release()}</CardSubtitle>
+          <CardBody >
+
+          </CardBody>
+          <Modal isOpen={modal} toggle={toggle} className="">
+            <ModalHeader toggle={toggle}>{props.result.movie.title} <span className="releaseDate">{release()}</span></ModalHeader>
+            <ModalBody>
+              <MovieDetails mdbId={mdbId} release={release()} />
+            </ModalBody>
+            <ModalFooter>
+              <Button color="primary" onClick={toggle}>Do Something</Button>{' '}
+              <Button color="secondary" onClick={toggle}>Cancel</Button>
+            </ModalFooter>
+          </Modal>
+
+        </div>
+        <div className="buttonRow">
+          <button
+            id={`hate-button--${props.result.id}`}
+            onClick={(e) => handleClick(e)}
+            className={hateBtnState.name}
+            disabled={isHateDisabled}
+          ><span >Hate</span></button>
+          <button
+            id={`love-button--${props.result.id}`}
+            onClick={(e) => handleClick(e)}
+            className={loveBtnState.name}
+            disabled={isLoveDisabled}><span >Love</span></button>{' '}
+          {' '}
+          {forgetJSX()}
+        </div>
       </div>
     </>
   )

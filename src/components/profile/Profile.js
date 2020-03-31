@@ -80,6 +80,8 @@ const Profile = props => {
         </Nav>
         <TabContent activeTab={activeTab}>
           <TabPane tabId="1">
+            
+            <h2 className="headline headlineRed headlineTextBlack">{userObject.username}</h2>
             <h2 className="headline headlineGreen headlineTextWhite">HATES</h2>
             <div className="marginTop">
               <div id={`hate--${userObject.id}`} className="cardGroup">
@@ -89,6 +91,7 @@ const Profile = props => {
             </div>
           </TabPane>
           <TabPane tabId="2">
+          <h2 className="headline headlineGreen headlineTextBlack">{userObject.username}</h2>
             <h2 className="headline headlineRed headlineTextWhite">LOVES</h2>
             <div id={`love--${userObject.id}`} className="cardGroup">
 

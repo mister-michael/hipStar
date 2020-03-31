@@ -15,7 +15,10 @@ const SearchCard = (props) => {
   const mdbId = props.result.id;
   const activeUserId = props.activeUserId;
 
-  let poster = "https://harperlibrary.typepad.com/.a/6a0105368f4fef970b01b8d23c71b5970c-800wi";
+  let poster = (int) => {
+    const randomN = Math.ceil(Math.random() * int)
+    return require(`../img/image-unavailable--${randomN}.jpg`)
+  };
 
   let loveHateFoundId = ""
 
@@ -86,7 +89,7 @@ const SearchCard = (props) => {
       hateClass = "hatedBtn";
       loveClass = "unlovedBtn";
     } else {
-      patchBool = true;
+      patchBool = false;
       loveDisabledBool = true;
       hateDisabledBool = false;
       hateClass = "unhatedBtn";
@@ -116,7 +119,7 @@ const SearchCard = (props) => {
               const loveHateObject = {
                 userId: props.activeUserId,
                 movieId: movieInJson.id,
-                isHated: true
+                isHated: patchBool
               };
 
               jAPI.get("loveHates")
@@ -213,7 +216,7 @@ const SearchCard = (props) => {
     if (props.result.poster_path !== null) {
       return `https://image.tmdb.org/t/p/w500${props.result.poster_path}`;
     } else {
-      return poster;
+      return poster(5);
     };
   };
 
@@ -226,45 +229,44 @@ const SearchCard = (props) => {
 
   return (
     <>
+      <div className="movieCard card shadow">
         {/* <Button color="danger" onClick={toggle}>HELLO</Button> */}
-      <div onClick={toggle}>
+        <div onClick={toggle}>
 
-        <CardImg id="" top src={imageHandler()} alt={`${props.result.title} poster`} className="cardImage" />
-        <CardTitle>{props.result.title}</CardTitle>
-        <CardSubtitle>{release()}</CardSubtitle>
-        <CardBody >
-          <div className="buttonRow">
-            <button
-              id={`hate-button--${props.result.id}`}
-              onClick={(e) => handleClick(e)}
-              className={hateBtnState.name}
-              disabled={isHateDisabled}
-            ><span >Hate</span></button>
-            <button
-              id={`love-button--${props.result.id}`}
-              onClick={(e) => handleClick(e)}
-              className={loveBtnState.name}
-              disabled={isLoveDisabled}><span >Love</span></button>{' '}
-            {' '}
-            {forgetJSX()}
-          </div>
+          <CardImg id="" top src={imageHandler()} alt={`${props.result.title} poster`} className="cardImage" />
+          <CardTitle>{props.result.title}</CardTitle>
+          <CardSubtitle>{release()}</CardSubtitle>
+          <CardBody >
+
+          </CardBody>
+          <Modal isOpen={modal} toggle={toggle} className="">
+            <ModalHeader toggle={toggle}>{props.result.title}<span className="releaseDate">{release()}</span></ModalHeader>
+            <ModalBody>
+              <MovieDetails mdbId={mdbId} />
+            </ModalBody>
+            <ModalFooter>
+              <Button color="primary" onClick={toggle}>Do Something</Button>{' '}
+              <Button color="secondary" onClick={toggle}>Cancel</Button>
+            </ModalFooter>
+          </Modal>
+        </div>
+        <CardBody className="buttonRow">
+        <div className="buttonRow">
+          <button
+            id={`hate-button--${props.result.id}`}
+            onClick={(e) => handleClick(e)}
+            className={hateBtnState.name}
+            disabled={isHateDisabled}
+          ><span >Hate</span></button>
+          <button
+            id={`love-button--${props.result.id}`}
+            onClick={(e) => handleClick(e)}
+            className={loveBtnState.name}
+            disabled={isLoveDisabled}><span >Love</span></button>{' '}
+          {' '}
+          {forgetJSX()}
+        </div>
         </CardBody>
-        <Modal isOpen={modal} toggle={toggle} className="">
-          <ModalHeader toggle={toggle}>{props.result.title}<span className="releaseDate">{release()}</span></ModalHeader>
-          <ModalBody>
-            <MovieDetails mdbId={mdbId} />
-          </ModalBody>
-          <ModalFooter>
-            <Button color="primary" onClick={toggle}>Do Something</Button>{' '}
-            <Button color="secondary" onClick={toggle}>Cancel</Button>
-          </ModalFooter>
-        </Modal>
-
-
-
-
-
-
       </div>
     </>
   )

@@ -74,8 +74,10 @@ const LoveHates = (props) => {
   return (
 
     <>
-      <div onClick={toggle} className="card">
-        <CardTitle>{loveHateObject.movie.title}</CardTitle>
+      <div onClick={toggle} className="card movieCard shadow">
+        <div className="overflow">
+        <CardTitle className="overflow">{loveHateObject.movie.title}</CardTitle>
+        </div>
         <CardImg id="" top src={loveHateObject.movie.posterPath} alt={`${loveHateObject.movie.title} poster`} className="cardImage" />
         {/* <CardSubtitle>{release()}</CardSubtitle> */}
         <CardBody >
