@@ -250,7 +250,7 @@ const SearchCard = (props) => {
           </div>
         </CardBody>
         <Modal isOpen={modal} toggle={toggle} className="">
-          <ModalHeader toggle={toggle}>Modal title</ModalHeader>
+          <ModalHeader toggle={toggle}>{props.result.title}</ModalHeader>
           <ModalBody>
             <MovieDetails mdbId={mdbId} />
           </ModalBody>

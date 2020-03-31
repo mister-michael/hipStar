@@ -18,35 +18,29 @@ const MovieDetails = props => {
     // let poster = "https://harperlibrary.typepad.com/.a/6a0105368f4fef970b01b8d23c71b5970c-800wi";
 
     const activeUserId = parseInt(sessionStorage.getItem("userId"))
-    const movieId = parseInt(props.movieId)
+    const movieId = parseInt(props.mdbId)
     console.log(props.mdbId)
 
 
-    const isMovieRated = () => {
-        jAPI.userMovieExpand("loveHates", activeUserId)
-            .then(lhs => {
-                console.log(lhs, "user in isRated")
-                const lhsIsRated = lhs.filter(lh => lh.movieId === jsonId)
-                console.log(lhsIsRated, "lhsIsRated")
-                if (lhsIsRated !== undefined) {
-                    console.log("lh.movieId === jsonId")
-                    setIsRated(true);
-                    console.log(lhsIsRated.id, "lhsIsRated.id")
-                    setLoveHateFoundId(lhsIsRated.id)
-                } else {
-                    console.log("lh.movieId !== jsonId")
-                    setIsRated(false);
-                }
-
-            });
+    const imageHandler = (movie) => {
+        const posterPath = "poster_path";
+        if (movie[posterPath] !== null) {
+            return `https://image.tmdb.org/t/p/w500${movie[posterPath]}`;
+        } else {
+            return poster;
+        };
     };
+
     const getMovieJson = () => {
         mAPI.searchWithId(movieId)
             .then(movieFromTmdb => {
                 console.log(movieFromTmdb)
                 setMovieFromDb(movieFromTmdb)
-                setPoster(imageHandler(movieFromTmdb))
-
+                if (movieFromTmdb.poster_path !== null) {
+                    setPoster(imageHandler(movieFromTmdb))
+                } else {
+                    setPoster("https://productivityist.com/wp-content/uploads/testpattern.jpg")
+                }
                 jAPI.get("movies")
                     .then(movies => {
 
@@ -54,7 +48,9 @@ const MovieDetails = props => {
                         console.log(movieInJson, "movieINJson")
                         if (movieInJson !== undefined) {
                             setJsonId(movieInJson.id)
+                            setMovieFromDb(movieInJson)
                         } else {
+                            console.log()
                             const movieObject = {
                                 dbid: movieFromTmdb.id,
                                 title: movieFromTmdb.title,
@@ -66,47 +62,19 @@ const MovieDetails = props => {
                             };
                             jAPI.save(movieObject, "movies")
                                 .then(savedMovie => {
-                                    console.log(savedMovie, "savedMovie")
-                                    setJsonId(savedMovie.id)
+                                    console.log(savedMovie, "savedMovie");
+                                    setJsonId(savedMovie.id);
+                                    setMovieFromDb(savedMovie);
                                 })
                         }
-                        isMovieRated();
                     });
             });
     };
 
 
 
-    const handleClick = (e) => {
-        const buttonName = e.target.innerHTML.toLowerCase();
-        let patchBool = ""
-        buttonName === "hate" ? patchBool = true : patchBool = false;
-        console.log(buttonName, "buttonName");
-        if (isRated === true) {
-            console.log("inside patch")
-            console.log(patchBool)
-            const toggleIsHated = { isHated: patchBool }
-            jAPI.patch(toggleIsHated, "loveHates", loveHateFoundId)
-            isMovieRated();
-        } else if (isRated == false) {
-            const loveHateObject = {
-                userId: activeUserId,
-                movieId: jsonId,
-                isHated: patchBool
-            }
-            jAPI.save(loveHateObject, "lovehates")
-            setIsRated(true);
-        }
-    };
 
-    const imageHandler = (movie) => {
-        const posterPath = "poster_path";
-        if (movie[posterPath] !== null) {
-            return `https://image.tmdb.org/t/p/w500${movie[posterPath]}`;
-        } else {
-            return poster;
-        };
-    };
+
 
     const {
         buttonLabel,
@@ -125,7 +93,7 @@ const MovieDetails = props => {
 
     return (
         <>
-            <div className="">
+            <div id={jsonId} className="">
                 <CardImg id="" top src={poster} alt={`${movieFromDb.title} poster`} className="cardImage" />
                 <CardTitle>{movieFromDb.title}</CardTitle>
                 {/* <CardSubtitle>{release()}</CardSubtitle> */}
