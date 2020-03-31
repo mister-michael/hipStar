@@ -26,7 +26,7 @@ const Profile = props => {
         const loveArr = []
         const hateArr = []
         loveHates.forEach(lh => {
-          
+
           if (lh.isHated !== true) {
             loveArr.push(lh)
           } else {
@@ -80,7 +80,7 @@ const Profile = props => {
         </Nav>
         <TabContent activeTab={activeTab}>
           <TabPane tabId="1">
-            
+
             <h2 className="headline headlineRed headlineTextBlack">{userObject.username}</h2>
             <h2 className="headline headlineGreen headlineTextWhite">HATES</h2>
             <div className="marginTop">
@@ -91,11 +91,13 @@ const Profile = props => {
             </div>
           </TabPane>
           <TabPane tabId="2">
-          <h2 className="headline headlineGreen headlineTextBlack">{userObject.username}</h2>
+            <h2 className="headline headlineGreen headlineTextBlack">{userObject.username}</h2>
             <h2 className="headline headlineRed headlineTextWhite">LOVES</h2>
-            <div id={`love--${userObject.id}`} className="cardGroup">
+            <div className="marginTop">
+              <div id={`love--${userObject.id}`} className="cardGroup">
 
-              {loveState.map(res => <LoveHates key={res.id} loveHateObject={res} getUserMovies={getUserMovies} getUserObject={getUserObject} userId={activeUserId} recUpdated={recUpdated} setRecUpdated={setRecUpdated} {...props} />)}
+                {loveState.map(res => <LoveHates key={res.id} loveHateObject={res} getUserMovies={getUserMovies} getUserObject={getUserObject} userId={activeUserId} recUpdated={recUpdated} setRecUpdated={setRecUpdated} {...props} />)}
+              </div>
             </div>
           </TabPane>
           {/* <TabPane tabId="3">

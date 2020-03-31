@@ -22,14 +22,7 @@ const MovieDetails = props => {
     console.log(props.mdbId)
 
 
-    const imageHandler = (movie) => {
-        const posterPath = "poster_path";
-        if (movie[posterPath] !== null) {
-            return `https://image.tmdb.org/t/p/w500${movie[posterPath]}`;
-        } else {
-            return poster;
-        };
-    };
+   
 
     const getMovieJson = () => {
         mAPI.searchWithId(movieId)
@@ -39,7 +32,7 @@ const MovieDetails = props => {
                 if (movieFromTmdb.poster_path !== null) {
                     setPoster(imageHandler(movieFromTmdb))
                 } else {
-                    setPoster("https://productivityist.com/wp-content/uploads/testpattern.jpg")
+                    setPoster(imageHandler(movieFromTmdb))
                 }
                 jAPI.get("movies")
                     .then(movies => {
@@ -71,8 +64,19 @@ const MovieDetails = props => {
             });
     };
 
+    let posterFunction = (int) => {
+        const randomN = Math.ceil(Math.random() * int)
+        return require(`../img/image-unavailable--${randomN}.jpg`)
+      };
 
-
+      const imageHandler = (movie) => {
+        const posterPath = "poster_path";
+        if (movie[posterPath] !== null) {
+            return `https://image.tmdb.org/t/p/w500${movie[posterPath]}`;
+        } else {
+            return posterFunction(5);
+        };
+    };
 
 
 

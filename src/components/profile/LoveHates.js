@@ -75,11 +75,11 @@ const LoveHates = (props) => {
 
     <>
       <div onClick={toggle} className="card movieCard shadow">
-        <div className="overflow">
-        <CardTitle className="overflow">{loveHateObject.movie.title}</CardTitle>
+        <div className="">
         </div>
         <CardImg id="" top src={loveHateObject.movie.posterPath} alt={`${loveHateObject.movie.title} poster`} className="cardImage" />
         {/* <CardSubtitle>{release()}</CardSubtitle> */}
+            <CardTitle className="loveHateTitle">{loveHateObject.movie.title}</CardTitle>
         <CardBody >
           <div className="buttonRow">
             <button
