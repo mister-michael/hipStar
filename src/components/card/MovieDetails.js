@@ -6,6 +6,7 @@ import {
     CardSubtitle, CardBody, Popover, PopoverBody, PopoverHeader,
     Modal, ModalHeader, ModalBody, ModalFooter
 } from 'reactstrap';
+import "./Card.css"
 
 const MovieDetails = props => {
 
@@ -98,10 +99,11 @@ const MovieDetails = props => {
     return (
         <>
             <div id={jsonId} className="">
-                <CardImg id="" top src={poster} alt={`${movieFromDb.title} poster`} className="cardImage" />
+                <CardImg id="" top src={poster} alt={`${movieFromDb.title} poster`} className="cardImage boxShadow" />
                 {/* <CardTitle>{movieFromDb.title}</CardTitle> */}
                 {/* <CardSubtitle>{release()}</CardSubtitle> */}
-                <CardBody >
+                <CardBody className="detailsMarginBottom">
+                    <div className="overviewText detailsMarginTop">Overview</div>
                     <div>{movieFromDb.overview}</div>
                     {/* <div className="buttonRow">
                         <button

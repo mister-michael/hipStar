@@ -80,3 +80,16 @@
   margin-top: 3px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
+.marginBottom {
+  margin-top: 0px !important;
+}
+
+.modal-body {
+  margin-bottom: 0px !important;
+}
+
+/* .commentContainer {
+  display: flex;
+justify-content: flex-start;
+} */
