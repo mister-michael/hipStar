@@ -218,7 +218,7 @@ const RecCard = (props) => {
         <div onClick={toggle} >
           <CardImg id="" top src={imageHandler()} alt={`${props.result.movie.title} poster`} className="cardImage" />
           <CardTitle>{props.result.movie.title}</CardTitle>
-          <CardSubtitle>{release()}</CardSubtitle>
+          {/* <CardSubtitle>{release()}</CardSubtitle> */}
           <CardBody >
 
           </CardBody>

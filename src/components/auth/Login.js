@@ -79,6 +79,7 @@ const Login = props => {
                         </InputGroupAddon>
                         <Input placeholder={symbol.placeholder}
                             onChange={handleFieldChange}
+                            onKeyUp={evt => evt.key === "Enter" ? handleLogin(evt) : null}
                             type="input"
                             id="input" />
                         <InputGroupAddon addonType="append" >
