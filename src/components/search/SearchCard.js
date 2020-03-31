@@ -5,8 +5,10 @@ import mAPI from "../../modules/movieManager";
 import jAPI from "../../modules/apiManager";
 import {
   Card, Button, CardImg, CardTitle, CardText, CardGroup,
-  CardSubtitle, CardBody, Popover, PopoverBody, PopoverHeader
+  CardSubtitle, CardBody, Popover, PopoverBody, PopoverHeader,
+  Modal, ModalHeader, ModalBody, ModalFooter
 } from 'reactstrap';
+import MovieDetails from "../card/MovieDetails"
 
 const SearchCard = (props) => {
 
@@ -23,6 +25,10 @@ const SearchCard = (props) => {
   const [isLoveDisabled, setIsLoveDisabled] = useState(true);
   const [isHateDisabled, setIsHateDisabled] = useState(true);
   const [hasBeenChanged, setHasBeenChanged] = useState(false);
+  const [modal, setModal] = useState(false);
+
+  const toggle = () => setModal(!modal);
+
 
   const buttons = () => {
     jAPI.userMovieExpand("loveHates", activeUserId)
@@ -211,6 +217,8 @@ const SearchCard = (props) => {
     };
   };
 
+
+
   useEffect(() => {
     buttons();
 
@@ -218,10 +226,10 @@ const SearchCard = (props) => {
 
   return (
     <>
-      <div className="">
-        <Link to={`/${mdbId}`}>
-          <CardImg id="" top src={imageHandler()} alt={`${props.result.title} poster`} className="cardImage" />
-        </Link>
+      <div>
+        <Button color="danger" onClick={toggle}>HELLO</Button>
+
+        <CardImg id="" top src={imageHandler()} alt={`${props.result.title} poster`} className="cardImage" />
         <CardTitle>{props.result.title}</CardTitle>
         <CardSubtitle>{release()}</CardSubtitle>
         <CardBody >
@@ -241,6 +249,22 @@ const SearchCard = (props) => {
             {forgetJSX()}
           </div>
         </CardBody>
+        <Modal isOpen={modal} toggle={toggle} className="">
+          <ModalHeader toggle={toggle}>Modal title</ModalHeader>
+          <ModalBody>
+            <MovieDetails mdbId={mdbId} />
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={toggle}>Do Something</Button>{' '}
+            <Button color="secondary" onClick={toggle}>Cancel</Button>
+          </ModalFooter>
+        </Modal>
+
+
+
+
+
+
       </div>
     </>
   )

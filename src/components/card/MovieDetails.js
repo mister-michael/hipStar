@@ -3,7 +3,8 @@ import mAPI from "../../modules/movieManager"
 import jAPI from "../../modules/apiManager"
 import {
     Card, Button, CardImg, CardTitle, CardText, CardGroup,
-    CardSubtitle, CardBody, Popover, PopoverBody, PopoverHeader
+    CardSubtitle, CardBody, Popover, PopoverBody, PopoverHeader,
+    Modal, ModalHeader, ModalBody, ModalFooter
 } from 'reactstrap';
 
 const MovieDetails = props => {
@@ -11,14 +12,34 @@ const MovieDetails = props => {
     const [movieFromDb, setMovieFromDb] = useState([]);
     const [poster, setPoster] = useState([]);
     const [jsonId, setJsonId] = useState([]);
+    const [isRated, setIsRated] = useState([]);
+    const [loveHateFoundId, setLoveHateFoundId] = useState([])
 
     // let poster = "https://harperlibrary.typepad.com/.a/6a0105368f4fef970b01b8d23c71b5970c-800wi";
 
+    const activeUserId = parseInt(sessionStorage.getItem("userId"))
     const movieId = parseInt(props.movieId)
-    console.log(props.movieId)
+    console.log(props.mdbId)
 
 
+    const isMovieRated = () => {
+        jAPI.userMovieExpand("loveHates", activeUserId)
+            .then(lhs => {
+                console.log(lhs, "user in isRated")
+                const lhsIsRated = lhs.filter(lh => lh.movieId === jsonId)
+                console.log(lhsIsRated, "lhsIsRated")
+                if (lhsIsRated !== undefined) {
+                    console.log("lh.movieId === jsonId")
+                    setIsRated(true);
+                    console.log(lhsIsRated.id, "lhsIsRated.id")
+                    setLoveHateFoundId(lhsIsRated.id)
+                } else {
+                    console.log("lh.movieId !== jsonId")
+                    setIsRated(false);
+                }
 
+            });
+    };
     const getMovieJson = () => {
         mAPI.searchWithId(movieId)
             .then(movieFromTmdb => {
@@ -30,6 +51,7 @@ const MovieDetails = props => {
                     .then(movies => {
 
                         const movieInJson = movies.find(movie => movie.dbid === movieId);
+                        console.log(movieInJson, "movieINJson")
                         if (movieInJson !== undefined) {
                             setJsonId(movieInJson.id)
                         } else {
@@ -43,33 +65,62 @@ const MovieDetails = props => {
                                 tagline: movieFromTmdb.tagline
                             };
                             jAPI.save(movieObject, "movies")
-                                .then(savedMovie => setJsonId(savedMovie.id))
+                                .then(savedMovie => {
+                                    console.log(savedMovie, "savedMovie")
+                                    setJsonId(savedMovie.id)
+                                })
                         }
-
-                    })
+                        isMovieRated();
+                    });
             });
-    }
+    };
+
+
 
     const handleClick = (e) => {
-       const idForPatch = e.target.id.split("--")[1];
-       const buttonName = e.target.innerHTML.toLowerCase();
-       console.log(buttonName, "buttonName");
-       console.log(idForPatch, "idforpatch")
-        //  if (buttonName === "love")
+        const buttonName = e.target.innerHTML.toLowerCase();
+        let patchBool = ""
+        buttonName === "hate" ? patchBool = true : patchBool = false;
+        console.log(buttonName, "buttonName");
+        if (isRated === true) {
+            console.log("inside patch")
+            console.log(patchBool)
+            const toggleIsHated = { isHated: patchBool }
+            jAPI.patch(toggleIsHated, "loveHates", loveHateFoundId)
+            isMovieRated();
+        } else if (isRated == false) {
+            const loveHateObject = {
+                userId: activeUserId,
+                movieId: jsonId,
+                isHated: patchBool
+            }
+            jAPI.save(loveHateObject, "lovehates")
+            setIsRated(true);
+        }
     };
 
     const imageHandler = (movie) => {
         const posterPath = "poster_path";
         if (movie[posterPath] !== null) {
-
             return `https://image.tmdb.org/t/p/w500${movie[posterPath]}`;
         } else {
             return poster;
         };
     };
 
+    const {
+        buttonLabel,
+        className
+    } = props;
+
+    const [modal, setModal] = useState(false);
+
+    const toggle = () => setModal(!modal);
+
     useEffect(() => {
         getMovieJson();
+
+        console.log("isRated =", isRated)
     }, [])
 
     return (
@@ -80,23 +131,23 @@ const MovieDetails = props => {
                 {/* <CardSubtitle>{release()}</CardSubtitle> */}
                 <CardBody >
                     <div>{movieFromDb.overview}</div>
-                    <div className="buttonRow">
+                    {/* <div className="buttonRow">
                         <button
                             id={`hate-button--${jsonId}`}
                             onClick={(e) => handleClick(e)}
-                        // className={hateBtnState.name}
-                        // disabled={isHateDisabled}
+                        className={hateBtnState.name}
+                        disabled={isHateDisabled}
                         >
                             Hate</button>
                         <button
                             id={`love-button--${jsonId}`}
                             onClick={(e) => handleClick(e)}
-                        // className={loveBtnState.name}
-                        // disabled={isLoveDisabled}
+                        className={loveBtnState.name}
+                        disabled={isLoveDisabled}
                         >Love</button>{' '}
                         {' '}
-                        {/* {forgetJSX()} */}
-                    </div>
+                        {forgetJSX()} */}
+                    {/* </div> */}
                 </CardBody>
             </div>
         </>
