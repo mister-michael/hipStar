@@ -45,7 +45,12 @@
     
   }
   
-  
+  .releaseDate {
+    font-weight: lighter;
+    font-size: medium;
+    font-style: italic;
+    padding-left: 5px;
+  }
   
   /* search bar  */
   .movieSearchInput {

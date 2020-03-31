@@ -61,12 +61,12 @@ const LoveHates = (props) => {
     // }
   };
 
-  // const release = () => {
-  //   // const releaseDate = "release_date";
-  //   if (loveHateObject.movie.releaseDate !== undefined) {
-  //     return loveHateObject.movie.releaseDate.split("-")[0];
-  //   };
-  // };
+  const release = () => {
+    // const releaseDate = "release_date";
+    if (loveHateObject.movie.releaseDate !== undefined) {
+      return loveHateObject.movie.releaseDate.split("-")[0];
+    };
+  };
 
   useEffect(() => {
   }, [])
@@ -94,7 +94,7 @@ const LoveHates = (props) => {
           </div>
         </CardBody>
         <Modal isOpen={modal} toggle={toggle} className="">
-          <ModalHeader toggle={toggle}>{loveHateObject.movie.title}</ModalHeader>
+          <ModalHeader toggle={toggle}>{loveHateObject.movie.title}<span className="releaseDate">{release()}</span></ModalHeader>
           <ModalBody>
             <MovieDetails mdbId={loveHateObject.movie.dbid} />
           </ModalBody>
