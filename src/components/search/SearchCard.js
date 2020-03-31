@@ -226,10 +226,10 @@ const SearchCard = (props) => {
 
   return (
     <>
-      <div>
-        <Button color="danger" onClick={toggle}>HELLO</Button>
+        {/* <Button color="danger" onClick={toggle}>HELLO</Button> */}
+      <div onClick={toggle}>
 
-        <CardImg id="" top src={imageHandler()} alt={`${props.result.title} poster`} className="cardImage" />
+        <CardImg hover id="" top src={imageHandler()} alt={`${props.result.title} poster`} className="cardImage" />
         <CardTitle>{props.result.title}</CardTitle>
         <CardSubtitle>{release()}</CardSubtitle>
         <CardBody >

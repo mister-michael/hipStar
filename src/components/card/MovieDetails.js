@@ -95,7 +95,7 @@ const MovieDetails = props => {
         <>
             <div id={jsonId} className="">
                 <CardImg id="" top src={poster} alt={`${movieFromDb.title} poster`} className="cardImage" />
-                <CardTitle>{movieFromDb.title}</CardTitle>
+                {/* <CardTitle>{movieFromDb.title}</CardTitle> */}
                 {/* <CardSubtitle>{release()}</CardSubtitle> */}
                 <CardBody >
                     <div>{movieFromDb.overview}</div>
