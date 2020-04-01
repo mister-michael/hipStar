@@ -38,6 +38,8 @@ const RecCard = (props) => {
   const [mvid, setMvid] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const [isLoveHate, setIsLoveHate] = useState(true);
+  const [jsonId, setJsonId] = useState([]);
+
 
   const [modal, setModal] = useState(false);
 
@@ -51,7 +53,7 @@ const RecCard = (props) => {
   result.isHated ? buttonText = "love" : buttonText = "hate"
   result.isHated ? buttonClass = "lovedBtn" : buttonClass = "hatedBtn"
 
-  
+
 
   const buttons = () => {
     jAPI.userMovieExpand("loveHates", activeUserId)
@@ -219,7 +221,7 @@ const RecCard = (props) => {
   useEffect(() => {
     setIsLoveHate(true)
     buttons();
-    
+
   }, [])
 
   return (
@@ -230,21 +232,21 @@ const RecCard = (props) => {
           <CardTitle>{props.result.movie.title}</CardTitle>
           {/* <CardSubtitle>{release()}</CardSubtitle> */}
           <CardBody >
-          <div className="buttonRow">
-          <button
-            id={`hate-button--${props.result.id}`}
-            onClick={(e) => handleClick(e)}
-            className={hateBtnState.name}
-            disabled={isHateDisabled}
-          ><span >Hate</span></button>
-          <button
-            id={`love-button--${props.result.id}`}
-            onClick={(e) => handleClick(e)}
-            className={loveBtnState.name}
-            disabled={isLoveDisabled}><span >Love</span></button>{' '}
-          {' '}
-          {forgetJSX()}
-        </div>
+            <div className="buttonRow">
+              <button
+                id={`hate-button--${props.result.id}`}
+                onClick={(e) => handleClick(e)}
+                className={hateBtnState.name}
+                disabled={isHateDisabled}
+              ><span >Hate</span></button>
+              <button
+                id={`love-button--${props.result.id}`}
+                onClick={(e) => handleClick(e)}
+                className={loveBtnState.name}
+                disabled={isLoveDisabled}><span >Love</span></button>{' '}
+              {' '}
+              {forgetJSX()}
+            </div>
           </CardBody>
           <Modal isOpen={modal} toggle={toggle} className="">
             <ModalHeader toggle={toggle}>{props.result.movie.title} <span className="releaseDate">{release()}</span></ModalHeader>
@@ -257,30 +259,34 @@ const RecCard = (props) => {
             </ModalFooter>
           </Modal>
           <Modal isOpen={modal} toggle={toggle} className="modalModel">
-          <ModalHeader toggle={toggle}>{props.result.movie.title}<span className="releaseDate">{release()}</span></ModalHeader>
-          <ModalBody>
-            <MovieDetails mdbId={props.result.movie.dbid} />
-            <Comment 
-            isLovehate={isLoveHate}
-            setIsLoveHate={setIsLoveHate}
-            className="commentContainer"
-            mdbId={props.result.movie.dbid}
-            mvid={props.mvid}
-            setMvid={setMvid}
-            activeUserId={activeUserId}
-            didUserComment={didUserComment}
-            setDidUserComment={setDidUserComment}
-            userCommentId={userCommentId}
-            setUserCommentId={setUserCommentId}
-            refresh={refresh}
-            setRefresh={setRefresh}/>
-          </ModalBody>
-          <ModalFooter>
-            <Button className="closeButtonColor" onClick={toggle}>close</Button>
-          </ModalFooter>
-        </Modal>
+            <ModalHeader toggle={toggle}>{props.result.movie.title}<span className="releaseDate">{release()}</span></ModalHeader>
+            <ModalBody>
+              <MovieDetails
+                isLoveHate={isLoveHate}
+                jsonId={jsonId}
+                setJsonId={setJsonId}
+                mdbId={mdbId} />
+              <Comment
+                isLovehate={isLoveHate}
+                setIsLoveHate={setIsLoveHate}
+                className="commentContainer"
+                mdbId={props.result.movie.dbid}
+                mvid={props.result.movie.id}
+                setMvid={setMvid}
+                activeUserId={activeUserId}
+                didUserComment={didUserComment}
+                setDidUserComment={setDidUserComment}
+                userCommentId={userCommentId}
+                setUserCommentId={setUserCommentId}
+                refresh={refresh}
+                setRefresh={setRefresh} />
+            </ModalBody>
+            <ModalFooter>
+              <Button className="closeButtonColor" onClick={toggle}>close</Button>
+            </ModalFooter>
+          </Modal>
         </div>
-       
+
       </div>
     </>
   )

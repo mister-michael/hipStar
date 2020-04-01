@@ -270,7 +270,7 @@ const SearchCard = (props) => {
                 <Comment
                   className="commentContainer"
                   mdbId={mdbId}
-                  mvid={mvid}
+                  mvid={jsonId}
                   setMvid={setMvid}
                   activeUserId={activeUserId}
                   didUserComment={didUserComment}
