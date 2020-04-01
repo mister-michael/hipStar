@@ -25,8 +25,9 @@ const Comment = (props) => {
                         console.log(comments, "fetched comments")
                         const matchedComments = comments.filter(comment => comment.movieId === mvidHolder);
                         const matchedToActiveUser = matchedComments.filter(comment => comment.userId === props.activeUserId);
+                        console.log(matchedToActiveUser)
                         setComments(matchedComments.reverse())
-                        if (matchedToActiveUser !== undefined) {
+                        if (matchedToActiveUser.length > 0) {
                             props.setDidUserComment(true)
                             props.setUserCommentId(matchedToActiveUser[0].id)
                         }
@@ -81,23 +82,29 @@ const Comment = (props) => {
                 className="profileMarginBottom"
             />
             <div className="scrollBox">
-                {comments.map(res =>
-                    <CommentCard
-                        key={res.id}
-                        commentId={res.id}
-                        movieId={res.movieId}
-                        result={res}
-                        userId={res.userId}
-                        isPink={isPink}
-                        setIsPink={setIsPink}
-                        activeUserId={props.activeUserId}
-                        comment={res.comment}
-                        findMovieIdGetComments={findMovieIdGetComments}
-                        didUserComment={props.didUserComment}
-                        setDidUserComment={props.setDidUserComment}
-                        userCommentId={props.userCommentId}
-                        setUserCommentId={props.setUserCommentId}
-                        {...props} />)}
+                {comments.map(res => {
+                    if (props.didUserComment) {
+                        return (
+                            <CommentCard
+                                key={res.id}
+                                commentId={res.id}
+                                movieId={res.movieId}
+                                result={res}
+                                userId={res.userId}
+                                isPink={isPink}
+                                setIsPink={setIsPink}
+                                activeUserId={props.activeUserId}
+                                comment={res.comment}
+                                findMovieIdGetComments={findMovieIdGetComments}
+                                didUserComment={props.didUserComment}
+                                setDidUserComment={props.setDidUserComment}
+                                userCommentId={props.userCommentId}
+                                setUserCommentId={props.setUserCommentId}
+                                {...props} />)
+                    }
+
+                }
+                )}
             </div>
 
         </div >
