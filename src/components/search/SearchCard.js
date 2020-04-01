@@ -274,6 +274,8 @@ const SearchCard = (props) => {
                   setUserCommentId={setUserCommentId}
                   refresh={refresh}
                   setRefresh={setRefresh}
+                  didUserComment={didUserComment}
+                  setDidUserComment={setDidUserComment}
                 />
               </div>
             </ModalBody>

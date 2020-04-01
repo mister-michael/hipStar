@@ -54,7 +54,7 @@ const Comment = (props) => {
         jAPI.save(reviewObject, "comments")
             .then(() => {
                 props.setRefresh(!props.refresh);
-                props.didUserComment(true)
+                props.setDidUserComment(true)
                 targetInput.value = ""
             }
             );
