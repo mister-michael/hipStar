@@ -39,8 +39,10 @@ const SearchCard = (props) => {
   const [didUserComment, setDidUserComment] = useState(false);
   const [userCommentId, setUserCommentId] = useState([]);
   const [mvid, setMvid] = useState([]);
+  const [loveText, setLoveText] = useState ([]);
+  const [hateText, setHateText] = useState ([]);
 
-  const [isLoveHate, setIsLoveHate] = useState(false)
+  const [isLoveHate, setIsLoveHate] = useState(false);
 
 
   const toggle = () => setModal(!modal);
@@ -54,34 +56,42 @@ const SearchCard = (props) => {
           for (let i = 0; i < movies.length; i++) {
             if (mdbId === movies[i].movie.dbid && movies[i].isHated === true) {
               loveHateFoundId = movies[i].id;
-              setHateBtnState({ name: "hatedBtn" });
-              setLoveBtnState({ name: "unlovedBtn" });
+              setHateBtnState({ name: "profileHatedButton" });
+              setLoveBtnState({ name: "profileUnlovedButton" });
               setLoveHateId(loveHateFoundId);
               setIsLoveDisabled(false);
               setIsHateDisabled(true);
+              setHateText("hated")
+              setLoveText("love")
 
               break
             } else if (mdbId === movies[i].movie.dbid && movies[i].isHated === false) {
               loveHateFoundId = movies[i].id;
-              setHateBtnState({ name: "unhatedBtn" });
-              setLoveBtnState({ name: "lovedBtn" });
+              setHateBtnState({ name: "profileUnhatedButton" });
+              setLoveBtnState({ name: "profileLovedBtn" });
               setLoveHateId(loveHateFoundId);
               setIsLoveDisabled(true);
               setIsHateDisabled(false);
+              setHateText("hate")
+              setLoveText("loved")
 
               break
             } else {
-              setHateBtnState({ name: "unhatedBtn" });
-              setLoveBtnState({ name: "unlovedBtn" });
+              setHateBtnState({ name: "profileUnhatedButton" });
+              setLoveBtnState({ name: "profileUnlovedButton" });
               setIsLoveDisabled(false);
               setIsHateDisabled(false);
+              setHateText("hate")
+              setLoveText("love")
             }
           }
         } else {
-          setHateBtnState({ name: "unhatedBtn" });
-          setLoveBtnState({ name: "unlovedBtn" });
+          setHateBtnState({ name: "profileUnhatedButton" });
+          setLoveBtnState({ name: "profileUnlovedButton" });
           setIsLoveDisabled(false);
           setIsHateDisabled(false);
+          setHateText("hate")
+              setLoveText("love")
         }
       })
   }
@@ -96,18 +106,18 @@ const SearchCard = (props) => {
     let hateClass = ""
     let loveClass = ""
 
-    if (e.target.innerHTML === "Hate") {
+    if (e.target.innerHTML === "hate") {
       patchBool = true;
       loveDisabledBool = false;
       hateDisabledBool = true;
-      hateClass = "hatedBtn";
-      loveClass = "unlovedBtn";
+      hateClass = "profileHatedButton";
+      loveClass = "profileUnlovedButton";
     } else {
       patchBool = false;
       loveDisabledBool = true;
       hateDisabledBool = false;
-      hateClass = "unhatedBtn";
-      loveClass = "lovedBtn";
+      hateClass = "profileUnhatedButton";
+      loveClass = "profileLovedBtn";
     }
 
     mAPI.searchWithId(mdbId)
@@ -198,8 +208,8 @@ const SearchCard = (props) => {
   const handleForget = () => {
     jAPI.delete(loveHateId, "loveHates");
     setLoveHateId(false);
-    setHateBtnState({ name: "unhatedBtn" });
-    setLoveBtnState({ name: "unlovedBtn" });
+    setHateBtnState({ name: "profileUnhatedButton" });
+    setLoveBtnState({ name: "profileUnlovedButton" });
     setIsLoveDisabled(false);
     setIsHateDisabled(false);
     setHasBeenChanged(!hasBeenChanged)
@@ -210,12 +220,13 @@ const SearchCard = (props) => {
     if (loveHateId !== false) {
       return (
         <>
-          <button
+          <Button
+          size="sm"
             id={`hate-button--${props.result.id}`}
             onClick={handleForget}
-            className="forgetBtn">
+            className="profileForgetButton">
             <span >forget</span>
-          </button>{' '}</>)
+          </Button>{' '}</>)
     }
   }
 
@@ -293,17 +304,24 @@ const SearchCard = (props) => {
         </div>
         <CardBody className="buttonRow">
           <div className="buttonRow">
-            <button
+            <Button
+            size="sm"
+            name="hate"
               id={`hate-button--${props.result.id}`}
               onClick={(e) => handleClick(e)}
               className={hateBtnState.name}
               disabled={isHateDisabled}
-            ><span >Hate</span></button>
-            <button
+            >
+              <span >hate</span>
+              
+            </Button>
+            <Button
+            name="love"
+            size="sm"
               id={`love-button--${props.result.id}`}
               onClick={(e) => handleClick(e)}
               className={loveBtnState.name}
-              disabled={isLoveDisabled}><span >Love</span></button>{' '}
+              disabled={isLoveDisabled}><span >{loveText}</span></Button>{' '}
             {' '}
             {forgetJSX()}
           </div>

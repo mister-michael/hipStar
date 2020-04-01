@@ -92,11 +92,13 @@ const LoveHates = (props) => {
         <CardBody >
           <div className="buttonRow">
             <Button
+            
               id={`love-button--${loveHateObject.id}`}
               onClick={handleClick}
               className={buttonClass}
             ><span >{buttonText}</span></Button>{' '}
             <Button
+            size="sm"
               id={`hate-button--${loveHateObject.id}`}
               onClick={handleDelete}
               className="profileForgetButton"
