@@ -13,7 +13,7 @@ const CommentCard = props => {
     const [editedComment, setEditedComment] = useState({ comment: props.comment })
 
     console.log(props.activeUserId)
-    
+
     const didUserComment = props.didUserComment
     const activeUserId = props.activeUserId
     const commentUserId = props.userId
@@ -26,7 +26,11 @@ const CommentCard = props => {
     };
 
     const randomN = (int) => {
-        return Math.ceil(Math.random() * int)
+        if (props.userId === props.activeUserId) {
+            return 4
+        } else {
+            return Math.ceil(Math.random() * int)
+        }
     };
 
     const commentPatch = {
@@ -43,6 +47,7 @@ const CommentCard = props => {
     return (
         <>
             <div className="commentContainer" onClick={toggle}>
+
                 <div className={`usernameBox--${randomN(numberOfStylesInCss)}`}>{props.result.user.username} says...</div>
                 <div className="commentBox">{props.result.comment}</div>
             </div>

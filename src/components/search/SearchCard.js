@@ -10,6 +10,8 @@ import {
 } from 'reactstrap';
 import MovieDetails from "../card/MovieDetails"
 import Comment from "../comment/Comment"
+import CommentForm from "../comment/CommentForm"
+import NewComment from "../comment/NewComment";
 
 const SearchCard = (props) => {
 
@@ -30,8 +32,14 @@ const SearchCard = (props) => {
   const [isHateDisabled, setIsHateDisabled] = useState(true);
   const [hasBeenChanged, setHasBeenChanged] = useState(false);
   const [modal, setModal] = useState(false);
+  const [modal2, setModal2] = useState(false);
+
+  const [didUserComment, setDidUserComment] = useState(false);
+  const [userCommentId, setUserCommentId] = useState([]);
+
 
   const toggle = () => setModal(!modal);
+  const toggle2 = () => setModal2(!modal2);
 
 
   const buttons = () => {
@@ -221,7 +229,9 @@ const SearchCard = (props) => {
     };
   };
 
+  const review = () => {
 
+  }
 
   useEffect(() => {
     buttons();
@@ -241,19 +251,28 @@ const SearchCard = (props) => {
 
           </CardBody>
           <Modal isOpen={modal} toggle={toggle} className="">
-            <ModalHeader  className="modalHeaderBackgroundColor" toggle={toggle}><span className="modalHeaderText">{props.result.title}</span><span className="releaseDateDetails">{`(${release()})`}</span></ModalHeader>
+            <ModalHeader className="modalHeaderBackgroundColor" toggle={toggle}><span className="modalHeaderText">{props.result.title}</span><span className="releaseDateDetails">{`(${release()})`}</span></ModalHeader>
             <ModalBody className="marginBottom detailsMarginTop">
               <MovieDetails mdbId={mdbId} />
               <div>
-                <Comment 
-                className="commentContainer" 
-                mdbId={mdbId} 
-                activeUserId={activeUserId}
+                {/* <div>
+                    <div>Reviews</div>
+                    <button>Review</button>
+                </div> */}
+                <Comment
+                  className="commentContainer"
+                  mdbId={mdbId}
+                  activeUserId={activeUserId}
+                  didUserComment={didUserComment}
+                  setDidUserComment={setDidUserComment}
+                  userCommentId={userCommentId}
+                  setUserCommentId={setUserCommentId}
                 />
               </div>
             </ModalBody>
             <ModalFooter>
-              <Button color="secondary" onClick={toggle}>close</Button>
+                
+                <Button className="closeButtonColor" onClick={toggle}>close</Button>
             </ModalFooter>
           </Modal>
         </div>

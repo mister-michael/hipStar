@@ -28,6 +28,16 @@
     font-weight: bold;
 }
 
+.usernameBox--4 {
+    background-color: rgba(247, 236, 80, 0.899);
+    /* background-color: rgba(58, 58, 55, 0.899);
+    color: rgba(245, 230, 20, 0.899); */
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 9px;
+    font-weight: bold;
+}
+
 .commentBox {
     padding-left: 15px;
     padding-top: 15px;
@@ -41,4 +51,25 @@
     /* line-height:3em; */
     overflow:auto;
     padding:5px;
+}
+
+.buttonMarginBottom {
+    margin-top: 08px;
+    margin-bottom: 30px;
+    margin-left: 10px;
+}
+
+.reviewButtonColor {
+    /* background-color: rgb(65, 65, 54) !important; */
+    background-color: white !important;
+    color: rgba(0, 0, 0, 0.413) !important;
+    box-shadow: 0px 0px 05px  rgba(0, 0, 0, 0.214);
+    border-color: rgba(0, 0, 0, 0.303) !important;
+}
+
+.closeButtonColor {
+    background-color: white !important;
+    color: rgba(0, 0, 0, 0.413) !important;
+    box-shadow: 0px 0px 05px  rgba(0, 0, 0, 0.214);
+    border-color: rgba(0, 0, 0, 0.303) !important;
 }
