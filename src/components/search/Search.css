@@ -93,3 +93,26 @@
   display: flex;
 justify-content: flex-start;
 } */
+
+.modalHeaderText {
+  font-size: xx-large !important;
+}
+
+.releaseDateDetails {
+  font-weight: 250;
+  font-size: x-large;
+  font-style: normal;
+  padding-left: 12px;
+}
+
+.modalHeaderBackgroundColor {
+  background-color: rgba(120, 123, 119, 0.047);
+}
+
+.marginTopSmall {
+  margin-top: 5px;
+}
+
+.marginBottomSmall {
+  margin-bottom: 3px;
+}

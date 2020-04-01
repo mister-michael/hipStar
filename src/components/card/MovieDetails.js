@@ -99,7 +99,7 @@ const MovieDetails = props => {
     return (
         <>
             <div id={jsonId} className="">
-                <CardImg id="" top src={poster} alt={`${movieFromDb.title} poster`} className="cardImage boxShadow" />
+                <CardImg id="" top src={poster} alt={`${movieFromDb.title} poster`} className="cardImage boxShadow marginTopSmall marginBottomSmall" />
                 {/* <CardTitle>{movieFromDb.title}</CardTitle> */}
                 {/* <CardSubtitle>{release()}</CardSubtitle> */}
                 <CardBody className="detailsMarginBottom">

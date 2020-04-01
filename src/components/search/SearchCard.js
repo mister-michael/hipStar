@@ -241,16 +241,19 @@ const SearchCard = (props) => {
 
           </CardBody>
           <Modal isOpen={modal} toggle={toggle} className="">
-            <ModalHeader toggle={toggle}>{props.result.title}<span className="releaseDate">{release()}</span></ModalHeader>
+            <ModalHeader  className="modalHeaderBackgroundColor" toggle={toggle}><span className="modalHeaderText">{props.result.title}</span><span className="releaseDateDetails">{`(${release()})`}</span></ModalHeader>
             <ModalBody className="marginBottom detailsMarginTop">
               <MovieDetails mdbId={mdbId} />
               <div>
-                <Comment className="commentContainer" mdbId={mdbId} />
+                <Comment 
+                className="commentContainer" 
+                mdbId={mdbId} 
+                activeUserId={activeUserId}
+                />
               </div>
             </ModalBody>
             <ModalFooter>
-              <Button color="primary" onClick={toggle}>Do Something</Button>{' '}
-              <Button color="secondary" onClick={toggle}>Cancel</Button>
+              <Button color="secondary" onClick={toggle}>close</Button>
             </ModalFooter>
           </Modal>
         </div>
