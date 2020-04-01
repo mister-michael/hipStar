@@ -74,6 +74,7 @@ const LoveHates = (props) => {
     };
   };
 
+
   useEffect(() => {
     setIsLoveHate(true)
     console.log(isLoveHate)

@@ -43,6 +43,13 @@ const CommentCard = props => {
         props.findMovieIdGetComments();
     };
 
+    const handleDelete = () => {
+        
+        jAPI.delete(props.commentId, "comments")
+        setModal(!modal)
+        props.findMovieIdGetComments();
+    }
+
 
     return (
         <>
@@ -51,7 +58,7 @@ const CommentCard = props => {
                 <div className={`usernameBox--${randomN(numberOfStylesInCss)}`}>{props.result.user.username} says...</div>
                 <div className="commentBox">{props.result.comment}</div>
             </div>
-            <Modal isOpen={modal} toggle={toggle} className="">
+            <Modal isOpen={modal} toggle={toggle} className="editModal">
                 <ModalHeader toggle={toggle}>{props.result.user.username} says...</ModalHeader>
                 <ModalBody className="marginBottom detailsMarginTop">
                     <CommentForm
@@ -61,8 +68,9 @@ const CommentCard = props => {
                     />
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="primary" onClick={handleSubmit}>save</Button>{' '}
-                    <Button color="secondary" onClick={toggle}>cancel</Button>
+                    <Button className="saveButtonColor" onClick={handleSubmit}>save</Button>{' '}
+                    <Button className="reviewButtonColor" onClick={handleDelete}>delete</Button>{' '}
+                    {/* <Button color="secondary" onClick={toggle}>cancel</Button> */}
                 </ModalFooter>
             </Modal>
         </>

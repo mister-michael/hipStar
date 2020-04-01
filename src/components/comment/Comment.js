@@ -56,7 +56,7 @@ const Comment = (props) => {
         console.log(evt.target.value, "evt target value")
         setReview(stateToChange);
         if (evt.target.value === "") {
-         setReviewButtonClass("buttonMarginBottom reviewButtonColor justifyRight")
+            setReviewButtonClass("buttonMarginBottom reviewButtonColor justifyRight")
         } else {
             setReviewButtonClass("buttonMarginBottom reviewButtonColor justifyRight yellowGlow")
         }
@@ -75,6 +75,15 @@ const Comment = (props) => {
             );
     };
 
+    const commentInstructions = () => {
+        if (comments.length !== 0) {
+            return (
+                <div className="commentInstructions">
+                    <span className="YELLOW">your reviews will display in yellow.</span>  click on review to edit.
+                </div>
+            )
+        }
+    }
 
 
 
@@ -100,6 +109,9 @@ const Comment = (props) => {
                 // onKeyUp={e => e.key === "Enter" ? saveReview(e) : null}
                 className="profileMarginBottom"
             />
+
+            {commentInstructions()}
+
             <div className="scrollBox">
                 {comments.map(res => {
                     if (props.didUserComment) {
