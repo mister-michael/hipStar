@@ -36,7 +36,7 @@ const LoveHates = (props) => {
 
 
   loveHateObject.isHated ? buttonText = "LOVE" : buttonText = "HATE"
-  loveHateObject.isHated ? buttonClass = "profileUnlovedButton" : buttonClass = "profileUnhatedButton"
+  loveHateObject.isHated ? buttonClass = "closeButtonColor" : buttonClass = "closeButtonColor"
 
   const handleClick = () => {
 
@@ -92,7 +92,7 @@ const LoveHates = (props) => {
         <CardBody >
           <div className="buttonRow">
             <Button
-            
+            size="sm"
               id={`love-button--${loveHateObject.id}`}
               onClick={handleClick}
               className={buttonClass}
@@ -101,9 +101,9 @@ const LoveHates = (props) => {
             size="sm"
               id={`hate-button--${loveHateObject.id}`}
               onClick={handleDelete}
-              className="profileForgetButton"
+              className="closeButtonColor"
 
-            ><span >Forget</span></Button>{' '}
+            ><span >X</span></Button>{' '}
           </div>
         </CardBody>
         <Modal isOpen={modal} toggle={toggle} className="modalModel">
