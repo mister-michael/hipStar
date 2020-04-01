@@ -12,7 +12,7 @@ const MovieDetails = props => {
 
     const [movieFromDb, setMovieFromDb] = useState([]);
     const [poster, setPoster] = useState([]);
-    const [jsonId, setJsonId] = useState([]);
+    // const [jsonId, setJsonId] = useState([]);
     const [isRated, setIsRated] = useState([]);
     const [loveHateFoundId, setLoveHateFoundId] = useState([])
 
@@ -41,7 +41,7 @@ const MovieDetails = props => {
                         const movieInJson = movies.find(movie => movie.dbid === movieId);
                         console.log(movieInJson, "movieINJson")
                         if (movieInJson !== undefined) {
-                            setJsonId(movieInJson.id)
+                            props.setJsonId(movieInJson.id)
                             setMovieFromDb(movieInJson)
                         } else {
                             console.log()
@@ -57,7 +57,7 @@ const MovieDetails = props => {
                             jAPI.save(movieObject, "movies")
                                 .then(savedMovie => {
                                     console.log(savedMovie, "savedMovie");
-                                    setJsonId(savedMovie.id);
+                                    props.setJsonId(savedMovie.id);
                                     setMovieFromDb(savedMovie);
                                 })
                         }
@@ -98,7 +98,7 @@ const MovieDetails = props => {
 
     return (
         <>
-            <div id={jsonId} className="">
+            <div id={props.jsonId} className="">
                 <div 
                 // className="detailsImageAndOverview"
                 >

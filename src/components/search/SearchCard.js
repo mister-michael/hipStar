@@ -35,7 +35,7 @@ const SearchCard = (props) => {
   const [hasBeenChanged, setHasBeenChanged] = useState(false);
   const [modal, setModal] = useState(false);
   const [modal2, setModal2] = useState(false);
-
+  const [jsonId, setJsonId] = useState([]);
   const [didUserComment, setDidUserComment] = useState(false);
   const [userCommentId, setUserCommentId] = useState([]);
   const [mvid, setMvid] = useState([]);
@@ -258,7 +258,10 @@ const SearchCard = (props) => {
           <Modal isOpen={modal} toggle={toggle} className="">
             <ModalHeader className="modalHeaderBackgroundColor" toggle={toggle}><span className="modalHeaderText">{props.result.title}</span><span className="releaseDateDetails">{`(${release()})`}</span></ModalHeader>
             <ModalBody className="marginBottom detailsMarginTop">
-              <MovieDetails mdbId={mdbId} />
+              <MovieDetails 
+              jsonId={jsonId}
+              setJsonId={setJsonId}
+              mdbId={mdbId} />
               <div>
                 {/* <div>
                     <div>Reviews</div>
