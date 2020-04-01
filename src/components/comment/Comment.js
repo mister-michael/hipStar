@@ -18,7 +18,8 @@ const Comment = (props) => {
         jAPI.get("movies")
             .then(movies => {
                 const matchedMovie = movies.find(movie => movie.dbid === mdbId);
-                const mvidHolder = matchedMovie.id;
+                let mvidHolder = "";
+                matchedMovie ? mvidHolder = matchedMovie.id : mvidHolder =props.mvid
                 props.setMvid(mvidHolder)
                 jAPI.expand("comments", "user")
                     .then(comments => {
@@ -52,7 +53,8 @@ const Comment = (props) => {
     const saveReview = (evt) => {
         jAPI.save(reviewObject, "comments")
             .then(() => {
-                props.setRefresh(!props.refresh)
+                props.setRefresh(!props.refresh);
+                props.didUserComment(true)
                 targetInput.value = ""
             }
             );

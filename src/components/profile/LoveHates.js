@@ -8,12 +8,18 @@ import {
 import "./LoveHate.css";
 import "../search/Search.css";
 import jAPI from "../../modules/apiManager";
-import MovieDetails from "../card/MovieDetails"
+import MovieDetails from "../card/MovieDetails";
+import Comment from "../comment/Comment"
 
 const LoveHates = (props) => {
   // const [footerStyle, setFooterStyle] = useState();
   // const [loveHateButtonClass, setLoveHateButtonClass] = useState("");
+  const [didUserComment, setDidUserComment] = useState(false);
+  const [userCommentId, setUserCommentId] = useState([]);
+  const [mvid, setMvid] = useState([]);
+  const [refresh, setRefresh] = useState(false);
   const [modal, setModal] = useState(false);
+  const [isLoveHate, setIsLoveHate] = useState(true);
 
   const toggle = () => setModal(!modal);
 
@@ -99,6 +105,18 @@ const LoveHates = (props) => {
           <ModalHeader toggle={toggle}>{loveHateObject.movie.title}<span className="releaseDate">{release()}</span></ModalHeader>
           <ModalBody>
             <MovieDetails mdbId={loveHateObject.movie.dbid} />
+            <Comment 
+            isLovehate={isLoveHate}
+            className="commentContainer"
+            mvid={mvid}
+            setMvid={setMvid}
+            activeUserId={activeUserId}
+            didUserComment={didUserComment}
+            setDidUserComment={setDidUserComment}
+            userCommentId={userCommentId}
+            setUserCommentId={setUserCommentId}
+            refresh={refresh}
+            setRefresh={setRefresh}/>
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={toggle}>Do Something</Button>{' '}
