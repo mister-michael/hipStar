@@ -15,6 +15,8 @@ import NewComment from "../comment/NewComment";
 
 const SearchCard = (props) => {
 
+  const [refresh, setRefresh] = useState(false);
+
   const mdbId = props.result.id;
   const activeUserId = props.activeUserId;
 
@@ -36,6 +38,7 @@ const SearchCard = (props) => {
 
   const [didUserComment, setDidUserComment] = useState(false);
   const [userCommentId, setUserCommentId] = useState([]);
+  const [mvid, setMvid] = useState([]);
 
 
   const toggle = () => setModal(!modal);
@@ -262,11 +265,15 @@ const SearchCard = (props) => {
                 <Comment
                   className="commentContainer"
                   mdbId={mdbId}
+                  mvid={mvid}
+                  setMvid={setMvid}
                   activeUserId={activeUserId}
                   didUserComment={didUserComment}
                   setDidUserComment={setDidUserComment}
                   userCommentId={userCommentId}
                   setUserCommentId={setUserCommentId}
+                  refresh={refresh}
+                  setRefresh={setRefresh}
                 />
               </div>
             </ModalBody>

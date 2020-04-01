@@ -61,7 +61,7 @@ const CommentCard = props => {
                     />
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="primary" onClick={handleSubmit}>edit</Button>{' '}
+                    <Button color="primary" onClick={handleSubmit}>save</Button>{' '}
                     <Button color="secondary" onClick={toggle}>cancel</Button>
                 </ModalFooter>
             </Modal>

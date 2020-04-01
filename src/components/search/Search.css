@@ -31,12 +31,37 @@
 }
 
 .forgetBtn {
-  border: solid 2px rgb(66, 142, 235) !important;
-  color:  rgb(66, 142, 235) !important;
+  background-color: white !important;
+  border-color: gray !important;
+  box-shadow: 0px 0px 5px gray;
+  border: solid 0px rgba(75, 82, 91, 0.769) !important;
+  /* color:  rgb(66, 142, 235) !important; */
   margin-right: 1px;
-  margin-left: 1px;
+  margin-left: 10px;
+  font-weight: bold !important;
 }
-
+.profileForgetButton {
+  background-color: white !important;
+  border-color: gray !important;
+  box-shadow: 0px 0px 5px gray;
+  border: solid 0px rgba(75, 82, 91, 0.769) !important;
+  color:  rgb(176, 190, 208) !important;
+  margin-right: 1px;
+  margin-left: 10px;
+  font-weight: bold !important;
+}
+.profileUnhatedButton {
+  background-color: rgb(232, 224, 224) !important;
+  color: rgb(124, 148, 140) !important;
+  border: solid 2px rgba(155, 238, 210, 0.447) !important;
+  box-shadow: 0px 0px 3px gray !important;
+}
+.profileUnlovedButton {
+  background-color: rgba(232, 222, 222, 0.659) !important;
+  color:  rgba(224, 143, 156, 0.808) !important;
+  border: 2px solid rgba(233, 167, 177, 0.808) !important;
+  box-shadow: 0px 0px 5px gray;
+}
 .buttonRow {
   display: flex;
   flex-direction: row;

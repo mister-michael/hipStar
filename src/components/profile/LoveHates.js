@@ -29,8 +29,8 @@ const LoveHates = (props) => {
   const activeUserId = props.userId
 
 
-  loveHateObject.isHated ? buttonText = "love" : buttonText = "hate"
-  loveHateObject.isHated ? buttonClass = "unlovedBtn" : buttonClass = "unhatedBtn"
+  loveHateObject.isHated ? buttonText = "LOVE" : buttonText = "HATE"
+  loveHateObject.isHated ? buttonClass = "profileUnlovedButton" : buttonClass = "profileUnhatedButton"
 
   const handleClick = () => {
 
@@ -82,17 +82,17 @@ const LoveHates = (props) => {
             <CardTitle className="loveHateTitle">{loveHateObject.movie.title}</CardTitle>
         <CardBody >
           <div className="buttonRow">
-            <button
+            <Button
               id={`love-button--${loveHateObject.id}`}
               onClick={handleClick}
               className={buttonClass}
-            ><span >{buttonText}</span></button>{' '}
-            <button
+            ><span >{buttonText}</span></Button>{' '}
+            <Button
               id={`hate-button--${loveHateObject.id}`}
               onClick={handleDelete}
-              className="forgetBtn"
+              className="profileForgetButton"
 
-            ><span >Forget</span></button>{' '}
+            ><span >Forget</span></Button>{' '}
           </div>
         </CardBody>
         <Modal isOpen={modal} toggle={toggle} className="">

@@ -73,3 +73,6 @@
     box-shadow: 0px 0px 05px  rgba(0, 0, 0, 0.214);
     border-color: rgba(0, 0, 0, 0.303) !important;
 }
+.profileMarginBottom {
+    margin-bottom: 27px ;
+}

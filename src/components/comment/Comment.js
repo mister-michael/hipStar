@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
-import {Button} from "reactstrap";
+import { Button, Input } from "reactstrap";
 import jAPI from "../../modules/apiManager";
 import CommentCard from "./CommentCard";
 
 const Comment = (props) => {
 
-    const [mvid, setMvid] = useState([]);
+
     const [comments, setComments] = useState([]);
     const [isPink, setIsPink] = useState(true);
+
+    const [review, setReview] = useState({ review: "" });
 
 
     const mdbId = props.mdbId
@@ -17,12 +19,13 @@ const Comment = (props) => {
             .then(movies => {
                 const matchedMovie = movies.find(movie => movie.dbid === mdbId);
                 const mvidHolder = matchedMovie.id;
+                props.setMvid(mvidHolder)
                 jAPI.expand("comments", "user")
                     .then(comments => {
                         console.log(comments, "fetched comments")
                         const matchedComments = comments.filter(comment => comment.movieId === mvidHolder);
                         const matchedToActiveUser = matchedComments.filter(comment => comment.userId === props.activeUserId);
-                        setComments(matchedComments)
+                        setComments(matchedComments.reverse())
                         if (matchedToActiveUser !== undefined) {
                             props.setDidUserComment(true)
                             props.setUserCommentId(matchedToActiveUser[0].id)
@@ -31,15 +34,52 @@ const Comment = (props) => {
                     });
             });
     };
+    const reviewObject = {
+        userId: props.activeUserId,
+        movieId: props.mvid,
+        comment: review.review
+    }
+
+    const handleChange = (evt) => {
+        const stateToChange = { ...review }
+        stateToChange[evt.target.id] = evt.target.value;
+        setReview(stateToChange);
+    }
+
+    const targetInput = document.getElementById("review")
+
+    const saveReview = (evt) => {
+        jAPI.save(reviewObject, "comments")
+            .then(() => {
+                props.setRefresh(!props.refresh)
+                targetInput.value = ""
+            }
+            );
+    };
+
+
 
 
     useEffect(() => {
         findMovieIdGetComments();
-    }, [])
+    }, [props.refresh])
 
     return (
         <div id="" className="">
-             <Button  className="buttonMarginBottom reviewButtonColor" onClick={""}>review</Button>
+            <Button
+                className="buttonMarginBottom reviewButtonColor"
+                onClick={saveReview}>
+                review
+                </Button>
+            <Input
+                type="textarea"
+                placeholder="hit review to publish review"
+                name="text"
+                id="review"
+                onChange={handleChange}
+                onKeyUp={e => e.key === "Enter" ? saveReview(e) : null}
+                className="profileMarginBottom"
+            />
             <div className="scrollBox">
                 {comments.map(res =>
                     <CommentCard
@@ -59,8 +99,8 @@ const Comment = (props) => {
                         setUserCommentId={props.setUserCommentId}
                         {...props} />)}
             </div>
-           
-        </div>
+
+        </div >
 
     )
 }
