@@ -75,6 +75,8 @@ const LoveHates = (props) => {
   };
 
   useEffect(() => {
+    setIsLoveHate(true)
+    console.log(isLoveHate)
   }, [])
 
   return (
@@ -101,13 +103,15 @@ const LoveHates = (props) => {
             ><span >Forget</span></Button>{' '}
           </div>
         </CardBody>
-        <Modal isOpen={modal} toggle={toggle} className="">
+        <Modal isOpen={modal} toggle={toggle} className="modalModel">
           <ModalHeader toggle={toggle}>{loveHateObject.movie.title}<span className="releaseDate">{release()}</span></ModalHeader>
           <ModalBody>
             <MovieDetails mdbId={loveHateObject.movie.dbid} />
             <Comment 
             isLovehate={isLoveHate}
+            setIsLoveHate={setIsLoveHate}
             className="commentContainer"
+            mdbId={loveHateObject.movie.dbid}
             mvid={mvid}
             setMvid={setMvid}
             activeUserId={activeUserId}
@@ -119,8 +123,7 @@ const LoveHates = (props) => {
             setRefresh={setRefresh}/>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={toggle}>Do Something</Button>{' '}
-            <Button color="secondary" onClick={toggle}>Cancel</Button>
+            <Button className="closeButtonColor" onClick={toggle}>close</Button>
           </ModalFooter>
         </Modal>
       </div>

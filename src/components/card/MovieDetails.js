@@ -23,7 +23,7 @@ const MovieDetails = props => {
     console.log(props.mdbId)
 
 
-   
+
 
     const getMovieJson = () => {
         mAPI.searchWithId(movieId)
@@ -68,9 +68,9 @@ const MovieDetails = props => {
     let posterFunction = (int) => {
         const randomN = Math.ceil(Math.random() * int)
         return require(`../img/image-unavailable--${randomN}.jpg`)
-      };
+    };
 
-      const imageHandler = (movie) => {
+    const imageHandler = (movie) => {
         const posterPath = "poster_path";
         if (movie[posterPath] !== null) {
             return `https://image.tmdb.org/t/p/w500${movie[posterPath]}`;
@@ -99,13 +99,16 @@ const MovieDetails = props => {
     return (
         <>
             <div id={jsonId} className="">
-                <CardImg id="" top src={poster} alt={`${movieFromDb.title} poster`} className="cardImage boxShadow marginTopSmall marginBottomSmall" />
-                {/* <CardTitle>{movieFromDb.title}</CardTitle> */}
-                {/* <CardSubtitle>{release()}</CardSubtitle> */}
-                <CardBody className="detailsMarginBottom">
-                    <div className="overviewText detailsMarginTop">Overview</div>
-                    <div>{movieFromDb.overview}</div>
-                    {/* <div className="buttonRow">
+                <div 
+                // className="detailsImageAndOverview"
+                >
+                    <CardImg id="" top src={poster} alt={`${movieFromDb.title} poster`} className="cardImage boxShadow marginTopSmall marginBottomSmall detailsImage" />
+                    {/* <CardTitle>{movieFromDb.title}</CardTitle> */}
+                    {/* <CardSubtitle>{release()}</CardSubtitle> */}
+                    <CardBody className="detailsMarginBottom">
+                        <div className="overviewText detailsMarginTop">Overview</div>
+                        <div>{movieFromDb.overview}</div>
+                        {/* <div className="buttonRow">
                         <button
                             id={`hate-button--${jsonId}`}
                             onClick={(e) => handleClick(e)}
@@ -121,8 +124,9 @@ const MovieDetails = props => {
                         >Love</button>{' '}
                         {' '}
                         {forgetJSX()} */}
-                    {/* </div> */}
-                </CardBody>
+                        {/* </div> */}
+                    </CardBody>
+                </div>
             </div>
         </>
     )

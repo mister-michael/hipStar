@@ -141,3 +141,13 @@ justify-content: flex-start;
 .marginBottomSmall {
   margin-bottom: 3px;
 }
+
+.modalModel {
+  min-width: 500px !important;
+  max-width: 80% !important;
+  max-height: 90% !important;
+}
+
+.detailsImage {
+  width: 10% !important;
+}

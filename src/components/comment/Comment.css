@@ -47,7 +47,7 @@
 
 .scrollBox {
     width:100%;
-    max-height:500px;
+    max-height:350px;
     /* line-height:3em; */
     overflow:auto;
     padding:5px;
@@ -55,16 +55,25 @@
 
 .buttonMarginBottom {
     margin-top: 08px;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     margin-left: 10px;
 }
 
 .reviewButtonColor {
     /* background-color: rgb(65, 65, 54) !important; */
+
     background-color: white !important;
     color: rgba(0, 0, 0, 0.413) !important;
     box-shadow: 0px 0px 05px  rgba(0, 0, 0, 0.214);
     border-color: rgba(0, 0, 0, 0.303) !important;
+}
+
+.yellowGlow {
+    box-shadow: 0px 0px 10px rgb(157, 157, 37);
+    background-color: white !important;
+    color: rgb(145, 145, 138) !important;
+    box-shadow: 0px 0px 7px  yellow;
+    border-color: rgb(184, 184, 31) !important;
 }
 
 .closeButtonColor {
@@ -75,4 +84,15 @@
 }
 .profileMarginBottom {
     margin-bottom: 27px ;
+}
+
+.reviewButtonContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.justifyRight {
+    justify-content: right;
 }

@@ -11,15 +11,23 @@ const Comment = (props) => {
 
     const [review, setReview] = useState({ review: "" });
 
+    const [reviewButtonClass, setReviewButtonClass] = useState("buttonMarginBottom reviewButtonColor justifyRight")
 
     const mdbId = props.mdbId
+    console.log(mdbId, "mdbid")
+
+    console.log(props.isLoveHate)
 
     const findMovieIdGetComments = () => {
+        // if (mdbId === undefined) {
+        //     props.setIsLoveHate(true)
+        // }
+        // console.log(props.isLoveHate, "props.isLoveHate")
         jAPI.get("movies")
             .then(movies => {
                 const matchedMovie = movies.find(movie => movie.dbid === mdbId);
                 let mvidHolder = "";
-                matchedMovie ? mvidHolder = matchedMovie.id : mvidHolder =props.mvid
+                matchedMovie ? mvidHolder = matchedMovie.id : mvidHolder = props.mvid
                 props.setMvid(mvidHolder)
                 jAPI.expand("comments", "user")
                     .then(comments => {
@@ -45,7 +53,14 @@ const Comment = (props) => {
     const handleChange = (evt) => {
         const stateToChange = { ...review }
         stateToChange[evt.target.id] = evt.target.value;
+        console.log(evt.target.value, "evt target value")
         setReview(stateToChange);
+        if (evt.target.value === "") {
+         setReviewButtonClass("buttonMarginBottom reviewButtonColor justifyRight")
+        } else {
+            setReviewButtonClass("buttonMarginBottom reviewButtonColor justifyRight yellowGlow")
+        }
+
     }
 
     const targetInput = document.getElementById("review")
@@ -69,18 +84,20 @@ const Comment = (props) => {
 
     return (
         <div id="" className="">
-            <Button
-                className="buttonMarginBottom reviewButtonColor"
-                onClick={saveReview}>
-                review
+            <div className="reviewButtonContainer">
+                <Button
+                    className={reviewButtonClass}
+                    onClick={saveReview}>
+                    review
                 </Button>
+            </div>
             <Input
                 type="textarea"
                 placeholder="hit review to publish review"
                 name="text"
                 id="review"
                 onChange={handleChange}
-                onKeyUp={e => e.key === "Enter" ? saveReview(e) : null}
+                // onKeyUp={e => e.key === "Enter" ? saveReview(e) : null}
                 className="profileMarginBottom"
             />
             <div className="scrollBox">

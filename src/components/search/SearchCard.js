@@ -40,6 +40,8 @@ const SearchCard = (props) => {
   const [userCommentId, setUserCommentId] = useState([]);
   const [mvid, setMvid] = useState([]);
 
+  const [isLoveHate, setIsLoveHate] = useState(false)
+
 
   const toggle = () => setModal(!modal);
   const toggle2 = () => setModal2(!modal2);
@@ -276,6 +278,7 @@ const SearchCard = (props) => {
                   setRefresh={setRefresh}
                   didUserComment={didUserComment}
                   setDidUserComment={setDidUserComment}
+                  isLoveHate={isLoveHate}
                 />
               </div>
             </ModalBody>
