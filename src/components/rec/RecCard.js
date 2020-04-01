@@ -248,7 +248,7 @@ const RecCard = (props) => {
               {forgetJSX()}
             </div>
           </CardBody>
-          <Modal isOpen={modal} toggle={toggle} className="">
+          {/* <Modal isOpen={modal} toggle={toggle} className="">
             <ModalHeader toggle={toggle}>{props.result.movie.title} <span className="releaseDate">{release()}</span></ModalHeader>
             <ModalBody>
               <MovieDetails mdbId={mdbId} release={release()} />
@@ -257,7 +257,7 @@ const RecCard = (props) => {
               <Button color="primary" onClick={toggle}>Do Something</Button>{' '}
               <Button color="secondary" onClick={toggle}>Cancel</Button>
             </ModalFooter>
-          </Modal>
+          </Modal> */}
           <Modal isOpen={modal} toggle={toggle} className="modalModel">
             <ModalHeader toggle={toggle}>{props.result.movie.title}<span className="releaseDate">{release()}</span></ModalHeader>
             <ModalBody>

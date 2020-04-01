@@ -255,7 +255,7 @@ const SearchCard = (props) => {
           <CardBody >
 
           </CardBody>
-          <Modal isOpen={modal} toggle={toggle} className="">
+          <Modal isOpen={modal} toggle={toggle} className="modalModel">
             <ModalHeader className="modalHeaderBackgroundColor" toggle={toggle}><span className="modalHeaderText">{props.result.title}</span><span className="releaseDateDetails">{`(${release()})`}</span></ModalHeader>
             <ModalBody className="marginBottom detailsMarginTop">
               <MovieDetails 
