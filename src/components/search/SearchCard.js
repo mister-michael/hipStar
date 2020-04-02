@@ -56,6 +56,7 @@ const SearchCard = (props) => {
           for (let i = 0; i < movies.length; i++) {
             if (mdbId === movies[i].movie.dbid && movies[i].isHated === true) {
               loveHateFoundId = movies[i].id;
+              setMvid(loveHateFoundId);
               setHateBtnState({ name: "profileHatedButton" });
               setLoveBtnState({ name: "closeButtonColor" });
               setLoveHateId(loveHateFoundId);
@@ -63,6 +64,7 @@ const SearchCard = (props) => {
               setIsHateDisabled(true);
               setHateText("hated")
               setLoveText("love")
+              
 
               break
             } else if (mdbId === movies[i].movie.dbid && movies[i].isHated === false) {
@@ -161,6 +163,7 @@ const SearchCard = (props) => {
                             console.log("lh.id", lh, lh.id)
                             loveHateFoundId = lh.id
                             setLoveHateId(loveHateFoundId)
+                            setMvid(lh.movie.id)
                           }
                         })
                       })
@@ -169,6 +172,7 @@ const SearchCard = (props) => {
                     setLoveHateId(loveHateFoundId)
                     const toggleIsHated = { isHated: patchBool }
                     jAPI.patch(toggleIsHated, "loveHates", loveHateFoundId)
+                    .then(movie => setMvid(movie.id))
                   }
                 });
 
@@ -182,6 +186,7 @@ const SearchCard = (props) => {
                     movieId: movieObj.id,
                     isHated: patchBool
                   };
+                  setMvid(movieObj.id )
                   jAPI.save(loveHateObjectToSave, "loveHates");
                   jAPI.userMovieExpand("lovehates", activeUserId)
                     .then(lhs => {

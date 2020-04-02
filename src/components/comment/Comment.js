@@ -35,7 +35,7 @@ const Comment = (props) => {
                         const matchedComments = comments.filter(comment => comment.movieId === mvidHolder);
                         const matchedToActiveUser = matchedComments.filter(comment => comment.userId === props.activeUserId);
                         console.log(matchedToActiveUser)
-                        setComments(matchedComments.reverse())
+                          setComments(matchedComments.reverse())
                         if (matchedToActiveUser.length > 0) {
                             props.setDidUserComment(true)
                             props.setUserCommentId(matchedToActiveUser[0].id)
@@ -44,7 +44,7 @@ const Comment = (props) => {
                     });
             });
     };
-    const reviewObject = {
+    let reviewObject = {
         userId: props.activeUserId,
         movieId: props.mvid,
         comment: review.review
