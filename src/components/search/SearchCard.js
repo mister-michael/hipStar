@@ -261,8 +261,10 @@ const SearchCard = (props) => {
         <div id="searchCardDiv" onClick={toggle}>
 
           <CardImg id="" top src={imageHandler()} alt={`${props.result.title} poster`} className="cardImage" />
+          <div className="cardTitle">
           <CardTitle>{props.result.title}</CardTitle>
           <CardSubtitle>{release()}</CardSubtitle>
+          </div>
           <CardBody >
 
           </CardBody>
@@ -302,8 +304,10 @@ const SearchCard = (props) => {
             </ModalFooter>
           </Modal>
         </div>
-        <CardBody className="buttonRow">
-          <div className="buttonRow">
+        {/* <CardBody className="">
+          
+        </CardBody> */}
+        <div className="buttonRow">
             <Button
             size="sm"
             name="hate"
@@ -325,7 +329,6 @@ const SearchCard = (props) => {
             {' '}
             {forgetJSX()}
           </div>
-        </CardBody>
       </div>
     </>
   )

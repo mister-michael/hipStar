@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Input } from "reactstrap";
+import { Button, Input, CardFooter } from "reactstrap";
 import jAPI from "../../modules/apiManager";
 import CommentCard from "./CommentCard";
 
@@ -93,6 +93,9 @@ const Comment = (props) => {
 
     return (
         <div id="" className="">
+            <CardFooter className="">
+                <span className="reviewHeader">Reviews</span>
+            </CardFooter>
             <div className="reviewButtonContainer">
                 <Button
                     className={reviewButtonClass}

@@ -28,6 +28,7 @@
   
   .buttonRow {
     align-self: flex-end;
+    margin-right: 5px;
   }
   
   /* search result cards */

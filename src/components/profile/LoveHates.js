@@ -88,17 +88,17 @@ const LoveHates = (props) => {
         </div>
         <CardImg id="" top src={loveHateObject.movie.posterPath} alt={`${loveHateObject.movie.title} poster`} className="cardImage" />
         {/* <CardSubtitle>{release()}</CardSubtitle> */}
-            <CardTitle className="loveHateTitle">{loveHateObject.movie.title}</CardTitle>
+        <CardTitle className="loveHateTitle">{loveHateObject.movie.title}</CardTitle>
         <CardBody >
           <div className="buttonRow">
             <Button
-            size="sm"
+              size="sm"
               id={`love-button--${loveHateObject.id}`}
               onClick={handleClick}
               className={buttonClass}
             ><span >{buttonText}</span></Button>{' '}
             <Button
-            size="sm"
+              size="sm"
               id={`hate-button--${loveHateObject.id}`}
               onClick={handleDelete}
               className="closeButtonColor"
@@ -107,25 +107,28 @@ const LoveHates = (props) => {
           </div>
         </CardBody>
         <Modal isOpen={modal} toggle={toggle} className="modalModel">
-          <ModalHeader toggle={toggle}>{loveHateObject.movie.title}<span className="releaseDate">{release()}</span></ModalHeader>
+          <ModalHeader className="" toggle={toggle}>
+            <span className="modalHeaderText" >{loveHateObject.movie.title}</span>
+            <span className="releaseDateDetails">{release()}</span>
+          </ModalHeader>
           <ModalBody>
             <MovieDetails mdbId={loveHateObject.movie.dbid} />
-            <Comment 
-            isLovehate={isLoveHate}
-            setIsLoveHate={setIsLoveHate}
-            className="commentContainer"
-            mdbId={loveHateObject.movie.dbid}
-            mvid={mvid}
-            setMvid={setMvid}
-            activeUserId={activeUserId}
-            didUserComment={didUserComment}
-            setDidUserComment={setDidUserComment}
-            userCommentId={userCommentId}
-            setUserCommentId={setUserCommentId}
-            refresh={refresh}
-            setRefresh={setRefresh}/>
+            <Comment
+              isLovehate={isLoveHate}
+              setIsLoveHate={setIsLoveHate}
+              className="commentContainer"
+              mdbId={loveHateObject.movie.dbid}
+              mvid={mvid}
+              setMvid={setMvid}
+              activeUserId={activeUserId}
+              didUserComment={didUserComment}
+              setDidUserComment={setDidUserComment}
+              userCommentId={userCommentId}
+              setUserCommentId={setUserCommentId}
+              refresh={refresh}
+              setRefresh={setRefresh} />
           </ModalBody>
-          <ModalFooter>
+          <ModalFooter className="">
             <Button className="closeButtonColor" onClick={toggle}>close</Button>
           </ModalFooter>
         </Modal>

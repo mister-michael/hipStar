@@ -197,7 +197,7 @@ const RecCard = (props) => {
             id={`hate-button--${props.result.movie.id}`}
             onClick={handleForget}
             className="closeButtonColor">
-            <span >forget</span>
+            <span >X</span>
           </button>{' '}</>)
     }
   }
@@ -232,7 +232,7 @@ const RecCard = (props) => {
           <CardTitle>{props.result.movie.title}</CardTitle>
           {/* <CardSubtitle>{release()}</CardSubtitle> */}
           <CardBody >
-            
+
           </CardBody>
           {/* <Modal isOpen={modal} toggle={toggle} className="">
             <ModalHeader toggle={toggle}>{props.result.movie.title} <span className="releaseDate">{release()}</span></ModalHeader>
@@ -245,7 +245,10 @@ const RecCard = (props) => {
             </ModalFooter>
           </Modal> */}
           <Modal isOpen={modal} toggle={toggle} className="modalModel">
-            <ModalHeader toggle={toggle}>{props.result.movie.title}<span className="releaseDate">{release()}</span></ModalHeader>
+            <ModalHeader className="" toggle={toggle}>
+              <span className="modalHeaderText">{props.result.movie.title}</span>
+              <span className="releaseDateDetails">{release()}</span>
+            </ModalHeader>
             <ModalBody>
               <MovieDetails
                 isLoveHate={isLoveHate}
@@ -267,29 +270,29 @@ const RecCard = (props) => {
                 refresh={refresh}
                 setRefresh={setRefresh} />
             </ModalBody>
-            <ModalFooter>
+            <ModalFooter className="">
               <Button className="closeButtonColor" onClick={toggle}>close</Button>
             </ModalFooter>
           </Modal>
-          
+
         </div>
         <div className="buttonRow">
-              <Button
-                size="sm"
-                id={`hate-button--${props.result.id}`}
-                onClick={(e) => handleClick(e)}
-                className={hateBtnState.name}
-                disabled={isHateDisabled}
-              ><span >Hate</span></Button>
-              <Button
-                size="sm"
-                id={`love-button--${props.result.id}`}
-                onClick={(e) => handleClick(e)}
-                className={loveBtnState.name}
-                disabled={isLoveDisabled}><span >Love</span></Button>{' '}
-              {' '}
-              {forgetJSX()}
-            </div>
+          <Button
+            size="sm"
+            id={`hate-button--${props.result.id}`}
+            onClick={(e) => handleClick(e)}
+            className={hateBtnState.name}
+            disabled={isHateDisabled}
+          ><span >Hate</span></Button>
+          <Button
+            size="sm"
+            id={`love-button--${props.result.id}`}
+            onClick={(e) => handleClick(e)}
+            className={loveBtnState.name}
+            disabled={isLoveDisabled}><span >Love</span></Button>{' '}
+          {' '}
+          {forgetJSX()}
+        </div>
       </div>
     </>
   )
