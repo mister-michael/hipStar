@@ -251,6 +251,8 @@ const RecCard = (props) => {
             </ModalHeader>
             <ModalBody>
               <MovieDetails
+              setMvid={setMvid}
+              mvid={setMvid}
                 isLoveHate={isLoveHate}
                 jsonId={jsonId}
                 setJsonId={setJsonId}

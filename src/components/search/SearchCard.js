@@ -285,7 +285,7 @@ const SearchCard = (props) => {
                     <div>Reviews</div>
                     <button>Review</button>
                 </div> */}
-                <Comment
+                {/* <Comment
                   className="commentContainer"
                   mdbId={mdbId}
                   mvid={jsonId}
@@ -300,7 +300,7 @@ const SearchCard = (props) => {
                   didUserComment={didUserComment}
                   setDidUserComment={setDidUserComment}
                   isLoveHate={isLoveHate}
-                />
+                /> */}
               </div>
             </ModalBody>
             <ModalFooter>

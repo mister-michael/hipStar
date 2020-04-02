@@ -12,7 +12,9 @@ const CommentCard = props => {
     const [modal, setModal] = useState(false);
     const [editedComment, setEditedComment] = useState({ comment: props.comment })
 
-    console.log(props.activeUserId)
+    console.log(props.result, "RESULT")
+
+    
 
     const didUserComment = props.didUserComment
     const activeUserId = props.activeUserId
