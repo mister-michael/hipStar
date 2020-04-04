@@ -12,6 +12,7 @@ const Comment = (props) => {
     const [review, setReview] = useState({ review: "" });
 
     const [reviewButtonClass, setReviewButtonClass] = useState("buttonMarginBottom reviewButtonColor justifyRight")
+    
 
     const mdbId = props.mdbId
     console.log(mdbId, "mdbid")
@@ -35,10 +36,12 @@ const Comment = (props) => {
                         const matchedComments = comments.filter(comment => comment.movieId === mvidHolder);
                         const matchedToActiveUser = matchedComments.filter(comment => comment.userId === props.activeUserId);
                         console.log(matchedToActiveUser)
-                          setComments(matchedComments.reverse())
+                        setComments(matchedComments.reverse())
+                        props.setCommentRefresh(!props.commentRefresh)
                         if (matchedToActiveUser.length > 0) {
                             props.setDidUserComment(true)
                             props.setUserCommentId(matchedToActiveUser[0].id)
+                            setComments(matchedComments.reverse())
                         }
 
                     });
@@ -79,7 +82,7 @@ const Comment = (props) => {
         if (comments.length !== 0) {
             return (
                 <div className="commentInstructions">
-                    <span className="YELLOW">your reviews will display in yellow.</span>  click on review to edit.
+                    <span className="YELLOW">your reviews will display in yellow.</span>  click to edit.
                 </div>
             )
         }
@@ -117,7 +120,7 @@ const Comment = (props) => {
 
             <div className="scrollBox">
                 {comments.map(res => {
-                    if (props.didUserComment) {
+                    // if (props.didUserComment) {
                         return (
                             <CommentCard
                                 key={res.id}
@@ -135,7 +138,7 @@ const Comment = (props) => {
                                 userCommentId={props.userCommentId}
                                 setUserCommentId={props.setUserCommentId}
                                 {...props} />)
-                    }
+                    // }
 
                 }
                 )}

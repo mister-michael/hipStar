@@ -20,6 +20,7 @@ const LoveHates = (props) => {
   const [refresh, setRefresh] = useState(false);
   const [modal, setModal] = useState(false);
   const [isLoveHate, setIsLoveHate] = useState(true);
+  const [commentRefresh, setCommentRefresh] = useState(false)
 
   const toggle = () => setModal(!modal);
 
@@ -112,7 +113,9 @@ const LoveHates = (props) => {
               userCommentId={userCommentId}
               setUserCommentId={setUserCommentId}
               refresh={refresh}
-              setRefresh={setRefresh} />
+              setRefresh={setRefresh}
+              commentRefresh={commentRefresh}
+              setCommentRefresh={setCommentRefresh} />
           </ModalBody>
           <ModalFooter className="">
             <Button className="closeButtonColor" onClick={toggle}>close</Button>

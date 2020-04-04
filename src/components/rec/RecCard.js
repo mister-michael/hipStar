@@ -39,6 +39,7 @@ const RecCard = (props) => {
   const [refresh, setRefresh] = useState(false);
   const [isLoveHate, setIsLoveHate] = useState(true);
   const [jsonId, setJsonId] = useState([]);
+  const [commentRefresh, setCommentRefresh] = useState([]);
 
 
   const [modal, setModal] = useState(false);
@@ -270,7 +271,10 @@ const RecCard = (props) => {
                 userCommentId={userCommentId}
                 setUserCommentId={setUserCommentId}
                 refresh={refresh}
-                setRefresh={setRefresh} />
+                setRefresh={setRefresh}
+                commentRefresh={commentRefresh}
+                setCommentRefresh={setCommentRefresh}
+                 />
             </ModalBody>
             <ModalFooter className="">
               <Button className="closeButtonColor" onClick={toggle}>close</Button>

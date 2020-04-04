@@ -21,9 +21,6 @@ const MovieDetails = props => {
     const movieId = parseInt(props.mdbId)
     console.log(props.mdbId)
 
-
-
-
     const getMovieJson = () => {
         mAPI.searchWithId(movieId)
             .then(movieFromTmdb => {

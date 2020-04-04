@@ -14,8 +14,6 @@ const CommentCard = props => {
 
     console.log(props.result, "RESULT")
 
-    
-
     const didUserComment = props.didUserComment
     const activeUserId = props.activeUserId
     const commentUserId = props.userId
