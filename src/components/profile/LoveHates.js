@@ -90,21 +90,7 @@ const LoveHates = (props) => {
         {/* <CardSubtitle>{release()}</CardSubtitle> */}
         <CardTitle className="loveHateTitle">{loveHateObject.movie.title}</CardTitle>
         <CardBody >
-          <div className="buttonRow">
-            <Button
-              size="sm"
-              id={`love-button--${loveHateObject.id}`}
-              onClick={handleClick}
-              className={buttonClass}
-            ><span >{buttonText}</span></Button>{' '}
-            <Button
-              size="sm"
-              id={`hate-button--${loveHateObject.id}`}
-              onClick={handleDelete}
-              className="closeButtonColor"
-
-            ><span >X</span></Button>{' '}
-          </div>
+          
         </CardBody>
         <Modal isOpen={modal} toggle={toggle} className="modalModel">
           <ModalHeader className="" toggle={toggle}>
@@ -132,6 +118,21 @@ const LoveHates = (props) => {
             <Button className="closeButtonColor" onClick={toggle}>close</Button>
           </ModalFooter>
         </Modal>
+        <div className="buttonRow">
+            <Button
+              size="sm"
+              id={`love-button--${loveHateObject.id}`}
+              onClick={handleClick}
+              className={buttonClass}
+            ><span >{buttonText}</span></Button>{' '}
+            <Button
+              size="sm"
+              id={`hate-button--${loveHateObject.id}`}
+              onClick={handleDelete}
+              className="closeButtonColor"
+
+            ><span >X</span></Button>{' '}
+          </div>
       </div>
     </>
   )
