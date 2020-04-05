@@ -22,16 +22,17 @@ const NavBar = props => {
   return (
     <>
       {props.hasUser ? (
-        <Navbar color="light" light expand="md" className="headlineShadow navBarText">
-
-          <NavbarToggler onClick={toggle} />
-          <Collapse isOpen={isOpen} navbar>
+        <Navbar color="light" light expand="md" className="headlineShadow navBarText ">
+          <div className="navToglleDiv">
+            <NavbarToggler onClick={toggle} className="navToggler" />
+          </div>
+          <Collapse isOpen={isOpen} className="" navbar>
             <Nav className="mr-auto" navbar>
-              <NavItem>
+              {/* <NavItem>
                 <Link className="nav-link" style={{ textDecoration: 'none', color: '#160D58' }} to="/home">
                   home
             </Link>
-              </NavItem>
+              </NavItem> */}
               <NavItem>
                 <Link className="nav-link" style={{ textDecoration: 'none', color: '#160D58' }} to="/profile">
                   profile
@@ -53,7 +54,10 @@ const NavBar = props => {
             </Link>
               </NavItem>
             </Nav>
-            <NavbarBrand href="/hpstr">H ! P S T @ R</NavbarBrand>
+            <NavbarBrand
+              // href="/hpstr"
+              href="home"
+            >H ! P S T @ R</NavbarBrand>
           </Collapse>
         </Navbar>
       ) : null}
