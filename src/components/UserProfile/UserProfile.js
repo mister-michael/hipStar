@@ -1,8 +1,6 @@
-import React from "react";
-
 import React, { useState, useEffect } from "react"
 import jAPI from "../../modules/apiManager"
-import LoveHates from "./LoveHates"
+import LoveHates from "../profile/LoveHates"
 import RecList from "../rec/RecList"
 import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import classnames from 'classnames';
@@ -11,6 +9,7 @@ import classnames from 'classnames';
 const UserProfile = props => {
 
   const userId = props.userId
+  const activeUserId = props.activeUserId
 
   const [userObject, setUserObject] = useState([])
   const [loveState, setLoveState] = useState([])
@@ -88,7 +87,17 @@ const UserProfile = props => {
             <div className="marginTop">
               <div id={`hate--${userObject.id}`} className="cardGroup">
 
-                {hateState.map(res => <LoveHates key={res.id} loveHateObject={res} getUserMovies={getUserMovies} getUserObject={getUserObject} userId={activeUserId} recUpdated={recUpdated} setRecUpdated={setRecUpdated} {...props} />)}
+                {hateState.map(res => 
+                <LoveHates 
+                key={res.id} 
+                loveHateObject={res} 
+                getUserMovies={getUserMovies} 
+                getUserObject={getUserObject} 
+                userId={userId} 
+                recUpdated={recUpdated} 
+                setRecUpdated={setRecUpdated}
+                activeUserId={activeUserId} 
+                {...props} />)}
               </div>
             </div>
           </TabPane>
@@ -98,7 +107,17 @@ const UserProfile = props => {
             <div className="marginTop">
               <div id={`love--${userObject.id}`} className="cardGroup">
 
-                {loveState.map(res => <LoveHates key={res.id} loveHateObject={res} getUserMovies={getUserMovies} getUserObject={getUserObject} userId={activeUserId} recUpdated={recUpdated} setRecUpdated={setRecUpdated} {...props} />)}
+                {loveState.map(res => 
+                <LoveHates 
+                key={res.id} 
+                loveHateObject={res} 
+                getUserMovies={getUserMovies} 
+                getUserObject={getUserObject} 
+                userId={userId}
+                ecUpdated={recUpdated} 
+                setRecUpdated={setRecUpdated} 
+                activeUserId={activeUserId} 
+                {...props} />)}
               </div>
             </div>
           </TabPane>

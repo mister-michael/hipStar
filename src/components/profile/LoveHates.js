@@ -10,6 +10,7 @@ import "../search/Search.css";
 import jAPI from "../../modules/apiManager";
 import MovieDetails from "../card/MovieDetails";
 import Comment from "../comment/Comment"
+import { act } from "react-dom/test-utils";
 
 const LoveHates = (props) => {
   // const [footerStyle, setFooterStyle] = useState();
@@ -23,6 +24,7 @@ const LoveHates = (props) => {
   const [commentRefresh, setCommentRefresh] = useState(false)
 
   const toggle = () => setModal(!modal);
+  const [disabled, setDisabled] = useState(false);
 
 
   const loveHateObject = props.loveHateObject
@@ -33,7 +35,8 @@ const LoveHates = (props) => {
   let buttonText = ""
   let buttonClass = ""
 
-  const activeUserId = props.userId
+  const userId = props.userId
+  const activeUserId = props.activeUserId
 
 
   loveHateObject.isHated ? buttonText = "LOVE" : buttonText = "HATE"
@@ -56,16 +59,16 @@ const LoveHates = (props) => {
     console.log("ishated", isHatedObj);
     // jAPI.update(isHatedObj, "loveHates");
     jAPI.patch(isHatedObj, "loveHates", loveHateId)
-    props.getUserObject(activeUserId);
+    props.getUserObject(userId);
     props.getUserMovies();
   }
 
   const handleDelete = () => {
-    // if (window.confirm("delete this movie from your profile")) {
-    jAPI.delete(loveHateId, "loveHates");
-    props.getUserObject(activeUserId);
-    props.getUserMovies();
-    // }
+    if (activeUserId === userId) {
+      jAPI.delete(loveHateId, "loveHates");
+      props.getUserObject(userId);
+      props.getUserMovies();
+    }
   };
 
   const release = () => {
@@ -74,6 +77,30 @@ const LoveHates = (props) => {
       return loveHateObject.movie.releaseDate.split("-")[0];
     };
   };
+
+  const btnFunction = () => {
+    if (activeUserId === userId) {
+      return (
+        <>
+          <div className="buttonRow">
+            <Button
+              size="sm"
+              id={`love-button--${loveHateObject.id}`}
+              onClick={handleClick}
+              className={buttonClass}
+            ><span >{buttonText}</span></Button>{' '}
+            <Button
+              size="sm"
+              id={`hate-button--${loveHateObject.id}`}
+              onClick={handleDelete}
+              className="closeButtonColor"
+
+            ><span >X</span></Button>{' '}
+          </div>
+        </>
+      )
+    }
+  }
 
 
   useEffect(() => {
@@ -91,7 +118,7 @@ const LoveHates = (props) => {
         {/* <CardSubtitle>{release()}</CardSubtitle> */}
         <CardTitle className="loveHateTitle">{loveHateObject.movie.title}</CardTitle>
         <CardBody >
-          
+
         </CardBody>
         <Modal isOpen={modal} toggle={toggle} className="modalModel">
           <ModalHeader className="" toggle={toggle}>
@@ -107,7 +134,7 @@ const LoveHates = (props) => {
               mdbId={loveHateObject.movie.dbid}
               mvid={mvid}
               setMvid={setMvid}
-              activeUserId={activeUserId}
+              activeUserId={userId}
               didUserComment={didUserComment}
               setDidUserComment={setDidUserComment}
               userCommentId={userCommentId}
@@ -121,21 +148,7 @@ const LoveHates = (props) => {
             <Button className="closeButtonColor" onClick={toggle}>close</Button>
           </ModalFooter>
         </Modal>
-        <div className="buttonRow">
-            <Button
-              size="sm"
-              id={`love-button--${loveHateObject.id}`}
-              onClick={handleClick}
-              className={buttonClass}
-            ><span >{buttonText}</span></Button>{' '}
-            <Button
-              size="sm"
-              id={`hate-button--${loveHateObject.id}`}
-              onClick={handleDelete}
-              className="closeButtonColor"
-
-            ><span >X</span></Button>{' '}
-          </div>
+        {btnFunction()}
       </div>
     </>
   )

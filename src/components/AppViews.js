@@ -8,6 +8,7 @@ import Search from "./search/Search"
 import RecList from "./rec/RecList"
 import Hpstr from "./hpstr/Hpstr"
 import MovieDetails from "./card/MovieDetails"
+import UserProfile from "./UserProfile/UserProfile"
 
 const AppViews = (props) => {
   const activeUserId = parseInt(sessionStorage.getItem("userId"))
@@ -67,12 +68,13 @@ const AppViews = (props) => {
       />
       <Route
         exact
-        path="/:movieId(\d+)"
+        path="/:userId(\d+)"
         render={props => {
           if (hasUser) {
             return (
-              <MovieDetails
-                movieId={parseInt(props.match.params.movieId)}
+              <UserProfile
+                userId={parseInt(props.match.params.userId)}
+                activeUserid={activeUserId}
                 {...props}
               />
             );

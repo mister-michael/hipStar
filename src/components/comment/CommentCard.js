@@ -5,6 +5,7 @@ import {
     CardSubtitle, CardBody, Popover, PopoverBody, PopoverHeader,
     Modal, ModalHeader, ModalBody, ModalFooter
 } from 'reactstrap';
+import {Link} from "react-router-dom"
 import CommentForm from "./CommentForm"
 import jAPI from "../../modules/apiManager";
 
@@ -44,7 +45,7 @@ const CommentCard = props => {
     };
 
     const handleDelete = () => {
-        
+
         jAPI.delete(props.commentId, "comments")
         setModal(!modal)
         props.findMovieIdGetComments();
@@ -54,9 +55,10 @@ const CommentCard = props => {
     return (
         <>
             <div className="commentContainer" onClick={toggle}>
-
-                <div className={`usernameBox--${randomN(numberOfStylesInCss)}`}>{props.result.user.username} says...</div>
-                <div className="commentBox">{props.result.comment}</div>
+                <Link to={`/${commentUserId}`}>
+                    <div className={`usernameBox--${randomN(numberOfStylesInCss)}`}>{props.result.user.username} says...</div>
+                </Link>
+                    <div className="commentBox">{props.result.comment}</div>
             </div>
             <Modal isOpen={modal} toggle={toggle} className="editModal">
                 <ModalHeader toggle={toggle}>{props.result.user.username} says...</ModalHeader>
