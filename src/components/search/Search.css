@@ -106,9 +106,13 @@
 
 /* search bar  */
 .movieSearchInput {
-  padding-left: 1em;
+  padding-left: .07em;
   padding-top: .5em;
   min-width: 200px !important;
+  min-height: 45px !important;
+  font-style: italic;
+  color: black;
+  font-size: medium;
 }
 
 .movieCard {
@@ -182,6 +186,15 @@ justify-content: flex-start;
   width: 10% !important;
 }
 
-.searchInput {
+/* .searchInput {
   min-width: 100px !important;
+} */
+
+.searchInstructions {
+  font-size: large;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-style: italic;
+  margin-left: 30px;
+  color: white;
+  font-weight: bold;
 }

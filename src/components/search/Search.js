@@ -42,12 +42,13 @@ const Search = (props) => {
       <div className="movieSearchInput">
       <input
         id="searchInput"
-        className="greenBorder"
+        className="greenBorder movieSearchInput"
         type="text"
-        placeholder=""
+        placeholder="movie title"
         onChange={handleFieldChange}
         onKeyUp={evt => evt.key === "Enter" ? handleSearch(evt) : null}
       />
+      {/* <inline className="searchInstructions">enter a movie title</inline> */}
       </div>
       </div>
       {/* <button
