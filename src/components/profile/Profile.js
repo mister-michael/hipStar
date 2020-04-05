@@ -14,6 +14,7 @@ const Profile = props => {
   const [loveState, setLoveState] = useState([])
   const [hateState, setHateState] = useState([])
   const [recUpdated, setRecUpdated] = useState(false)
+  const [isActiveUser, setIsActiveUser] = useState(true);
 
   const getUserObject = (id) => {
     return jAPI.getWithId("users", id)
@@ -86,7 +87,18 @@ const Profile = props => {
             <div className="marginTop">
               <div id={`hate--${userObject.id}`} className="cardGroup">
 
-                {hateState.map(res => <LoveHates key={res.id} loveHateObject={res} getUserMovies={getUserMovies} getUserObject={getUserObject} userId={activeUserId} recUpdated={recUpdated} setRecUpdated={setRecUpdated} {...props} />)}
+                {hateState.map(res =>
+                  <LoveHates
+                    key={res.id}
+                    loveHateObject={res}
+                    getUserMovies={getUserMovies}
+                    getUserObject={getUserObject}
+                    userId={activeUserId}
+                    recUpdated={recUpdated}
+                    setRecUpdated={setRecUpdated}
+                    isActiveUser={isActiveUser}
+                    setIsActiveUser={setIsActiveUser}
+                    {...props} />)}
               </div>
             </div>
           </TabPane>
@@ -96,7 +108,17 @@ const Profile = props => {
             <div className="marginTop">
               <div id={`love--${userObject.id}`} className="cardGroup">
 
-                {loveState.map(res => <LoveHates key={res.id} loveHateObject={res} getUserMovies={getUserMovies} getUserObject={getUserObject} userId={activeUserId} recUpdated={recUpdated} setRecUpdated={setRecUpdated} {...props} />)}
+                {loveState.map(res =>
+                  <LoveHates key={res.id}
+                    loveHateObject={res}
+                    getUserMovies={getUserMovies}
+                    getUserObject={getUserObject}
+                    userId={activeUserId}
+                    recUpdated={recUpdated}
+                    setRecUpdated={setRecUpdated}
+                    isActiveUser={isActiveUser}
+                    setIsActiveUser={setIsActiveUser}
+                    {...props} />)}
               </div>
             </div>
           </TabPane>

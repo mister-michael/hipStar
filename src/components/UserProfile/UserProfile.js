@@ -9,12 +9,13 @@ import classnames from 'classnames';
 const UserProfile = props => {
 
   const userId = props.userId
-  const activeUserId = props.activeUserId
+  const activeUserId = parseInt(sessionStorage.getItem("userId"))
 
   const [userObject, setUserObject] = useState([])
   const [loveState, setLoveState] = useState([])
   const [hateState, setHateState] = useState([])
   const [recUpdated, setRecUpdated] = useState(false)
+  const [isActiveUser, setIsActiveUser] = useState(false);
 
   const getUserObject = (id) => {
     return jAPI.getWithId("users", id)
@@ -97,6 +98,8 @@ const UserProfile = props => {
                 recUpdated={recUpdated} 
                 setRecUpdated={setRecUpdated}
                 activeUserId={activeUserId} 
+                isActiveUser={isActiveUser}
+                setIsActiveUser={setIsActiveUser}
                 {...props} />)}
               </div>
             </div>
@@ -114,9 +117,11 @@ const UserProfile = props => {
                 getUserMovies={getUserMovies} 
                 getUserObject={getUserObject} 
                 userId={userId}
-                ecUpdated={recUpdated} 
+                recUpdated={recUpdated} 
                 setRecUpdated={setRecUpdated} 
                 activeUserId={activeUserId} 
+                isActiveUser={isActiveUser}
+                setIsActiveUser={setIsActiveUser}
                 {...props} />)}
               </div>
             </div>

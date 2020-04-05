@@ -10,6 +10,9 @@ import CommentForm from "./CommentForm"
 import jAPI from "../../modules/apiManager";
 
 const CommentCard = props => {
+    console.log(props.userId, "props.userId")
+    console.log(props.activeUserId, "props.activeUserId")
+
     const [modal, setModal] = useState(false);
     const [editedComment, setEditedComment] = useState({ comment: props.comment })
 
@@ -51,11 +54,18 @@ const CommentCard = props => {
         props.findMovieIdGetComments();
     }
 
+    const linkFunction = () => {
+        if (activeUserId === commentUserId) {
+            return `/profile`
+        } else {
+            return `/${commentUserId}`
+        }
+    }
 
     return (
         <>
             <div className="commentContainer" onClick={toggle}>
-                <Link to={`/${commentUserId}`}>
+                <Link to={linkFunction}>
                     <div className={`usernameBox--${randomN(numberOfStylesInCss)}`}>{props.result.user.username} says...</div>
                 </Link>
                     <div className="commentBox">{props.result.comment}</div>

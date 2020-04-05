@@ -36,7 +36,7 @@ const LoveHates = (props) => {
   let buttonClass = ""
 
   const userId = props.userId
-  const activeUserId = props.activeUserId
+  const activeUserId = parseInt(sessionStorage.getItem("userId"))
 
 
   loveHateObject.isHated ? buttonText = "LOVE" : buttonText = "HATE"
@@ -134,7 +134,7 @@ const LoveHates = (props) => {
               mdbId={loveHateObject.movie.dbid}
               mvid={mvid}
               setMvid={setMvid}
-              activeUserId={userId}
+              activeUserId={activeUserId}
               didUserComment={didUserComment}
               setDidUserComment={setDidUserComment}
               userCommentId={userCommentId}
