@@ -65,7 +65,7 @@ const CommentCard = props => {
     return (
         <>
             <div className="commentContainer" onClick={toggle}>
-                <Link to={linkFunction}>
+                <Link to={linkFunction} className="linkText">
                     <div className={`usernameBox--${randomN(numberOfStylesInCss)}`}>{props.result.user.username} says...</div>
                 </Link>
                     <div className="commentBox">{props.result.comment}</div>

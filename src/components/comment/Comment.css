@@ -134,3 +134,7 @@
     justify-content: flex-start;
     color: rgb(66, 63, 63);
 }
+
+.linkText {
+    color: black !important;
+}
