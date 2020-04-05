@@ -42,11 +42,11 @@
 }
 
 .headlineGreen {
-    background-color: rgba(59, 249, 192, 0.426);
+    background-color: rgba(59, 249, 192, 0.426) !important;
 }
 
 .headlineRed {
-    background-color: rgba(235, 91, 75, 0.426);
+    background-color: rgba(235, 91, 75, 0.426) !important;
 }
 
 .headlineBlue {

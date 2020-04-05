@@ -21,7 +21,7 @@ const RegisterForm = props => {
     };
 
     const handleRegister = evt => {
-        evt.preventDefault();
+        // evt.preventDefault();
 
         const emailArr = credentials.email.split("")
         const emailArrFind = emailArr.find(char => char === "@")
@@ -67,24 +67,30 @@ const RegisterForm = props => {
 
     return (<>
         <div className="register" >
-            <CardHeader > < h2 > Sign Up </h2></CardHeader >
+            <CardHeader className="headlineRed" > < h2 > Sign Up </h2></CardHeader >
 
             <Card className="registerCard" >
                 <InputGroup size="sm" >
-                    <InputGroupAddon addonType="prepend">
+                    <InputGroupAddon addonType="prepend" className="registerUsername">
                         username </InputGroupAddon>
                     <Input onChange={handleFieldChange}
+                        onKeyUp={evt => evt.key === "Enter" ? handleRegister() : null}
                         type="username"
                         id="username"
-                        placeholder="full name" />
+                        className="registerUsername"
+                        placeholder="" />
                 </InputGroup> <br />
                 <InputGroup size="sm" >
-                    <InputGroupAddon addonType="" >
-                        e m a i l </InputGroupAddon> <Input addonType="prepend"
+                    <InputGroupAddon addonType="prepend" className="registerEmail">
+                        email
+                        </InputGroupAddon>
+                    <Input
+                        addonType="prepend"
                         onChange={handleFieldChange}
+                        onKeyUp={evt => evt.key === "Enter" ? handleRegister() : null}
                         type="email"
                         id="email"
-                        placeholder="email address" />
+                        placeholder="" />
                 </InputGroup> <br />
                 {/* <InputGroup size="sm" >
                     <InputGroupAddon addonType="prepend">
@@ -96,10 +102,10 @@ const RegisterForm = props => {
 
                 </InputGroup> */}
 
-                <button className="registerSubmitBtn"
+                {/* <button className="registerSubmitBtn"
                     type="button"
                     onClick={handleRegister} >
-                    <span className="fitInBtn">GO! </span></button>
+                    <span className="fitInBtn">GO! </span></button> */}
 
                 <CardFooter >
                     < div className="rightAlign smallText" >

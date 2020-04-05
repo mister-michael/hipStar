@@ -57,11 +57,12 @@ const Login = props => {
     }, []);
 
     return (<>
-        <div className="loginCard" >
-            <Card >
-                <CardHeader > hipStar </CardHeader> <CardBody >
-                    <CardTitle > sign in with {symbol.placeholder} </CardTitle>
-                    <InputGroup >
+        <div className="loginContainer" >
+            <Card className="loginCard boxShadow">
+                <CardHeader className="headlineGreen blackText" > h ! p S t @ r </CardHeader> 
+                <CardBody >
+                    {/* <CardTitle className="signInInstructions"> sign in with {symbol.placeholder} </CardTitle> */}
+                    <InputGroup className="marginTopSmall">
                         <InputGroupAddon addonType="prepend" >
                             <InputGroupButtonDropdown addonType="append"
                                 isOpen={dropdownOpen}
@@ -89,14 +90,15 @@ const Login = props => {
                     <span > </span>
                     <CardTitle >
                         < span > </span>
-                        <Link to="/register"
-                            style={
-                                { textDecoration: 'none' }}
-                            className="signLink" >
-                            Don 't Have an Account? </Link>
+                        
                     </CardTitle>
                 </CardBody>
-                <CardFooter >
+                <CardFooter className="flex">
+                <Link to="/register"
+                            style={
+                                { textDecoration: 'none' }}
+                            className="registerLink" >
+                            Don 't Have an Account? </Link>
                 </CardFooter>
             </Card>
         </div> </>
