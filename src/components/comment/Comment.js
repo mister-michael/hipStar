@@ -95,7 +95,7 @@ const Comment = (props) => {
     }, [props.refresh])
 
     return (
-        <div id="" className="">
+        <div id="" className="reviewDiv">
             <CardFooter className="">
                 <span className="reviewHeader">Reviews</span>
             </CardFooter>
