@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import mAPI from "../../modules/movieManager"
 import SearchCard from "./SearchCard"
 import "./Search.css"
-import {CardGroup} from "reactstrap"
+import { CardGroup } from "reactstrap"
 
 const Search = (props) => {
 
@@ -29,7 +29,7 @@ const Search = (props) => {
         console.log(searchResults)
       })
 
-      // searchInput.value = ""
+    // searchInput.value = ""
   }
 
   useEffect(() => {
@@ -37,29 +37,31 @@ const Search = (props) => {
 
   return (
     <>
-    <div className="headline headlineRed headlineTextBlack">search
+        <div className="headline headlineRed headlineTextBlack">search
       {/* <label htmlFor="searchInput">Search</label> */}
-      <div className="movieSearchInput">
-      <input
-        id="searchInput"
-        className="greenBorder movieSearchInput"
-        type="text"
-        placeholder="movie title"
-        onChange={handleFieldChange}
-        onKeyUp={evt => evt.key === "Enter" ? handleSearch(evt) : null}
-      />
-      {/* <inline className="searchInstructions">enter a movie title</inline> */}
-      </div>
-      </div>
-      {/* <button
+          <div className="movieSearchInput">
+            <input
+              id="searchInput"
+              className="greenBorder movieSearchInput"
+              type="text"
+              placeholder="movie title"
+              onChange={handleFieldChange}
+              onKeyUp={evt => evt.key === "Enter" ? handleSearch(evt) : null}
+            />
+            {/* <inline className="searchInstructions">enter a movie title</inline> */}
+          </div>
+        </div>
+        {/* <button
         id="searchBtn"
         type="button"
         onClick={handleSearch}>
-        Submit</button> */}
-      <div id="searchResults" className="cardGroup marginTop">
-        {results.map(res => <SearchCard className="" loveHateId={loveHateId} setLoveHateId={setLoveHateId} keyword={keyword} setKeyword={setKeyword} handleSearch={handleSearch} key={res.id} result={res} searchInput={searchInput} userId={props.activeUserId} {...props} />)}
+      Submit</button> */}
+      <div className="resultsPage">
+        <div id="searchResults" className="cardGroup marginTop">
+          {results.map(res => <SearchCard className="" loveHateId={loveHateId} setLoveHateId={setLoveHateId} keyword={keyword} setKeyword={setKeyword} handleSearch={handleSearch} key={res.id} result={res} searchInput={searchInput} userId={props.activeUserId} {...props} />)}
+        </div>
       </div>
-      
+
 
     </>
   )

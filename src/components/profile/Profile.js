@@ -52,7 +52,7 @@ const Profile = props => {
 
   return (
     <>
-      <div>
+      <div className="">
         <Nav tabs>
           <NavItem>
             <NavLink
@@ -80,12 +80,13 @@ const Profile = props => {
           </NavItem> */}
         </Nav>
         <TabContent activeTab={activeTab}>
-          <TabPane tabId="1">
+          <TabPane tabId="1" >
 
             <h2 className="headline headlineRed headlineTextBlack">{userObject.username}</h2>
             <h2 className="headline headlineGreen headlineTextWhite">HATES</h2>
             <div className="marginTop">
-              <div id={`hate--${userObject.id}`} className="cardGroup">
+              <div id={`hate--${userObject.id}`} 
+              className="cardGroup profileResultsPage">
 
                 {hateState.map(res =>
                   <LoveHates

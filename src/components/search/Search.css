@@ -198,3 +198,9 @@ justify-content: flex-start;
   color: white;
   font-weight: bold;
 }
+
+.resultsPage {
+  display: flexbox;
+  justify-content: center;
+  padding: 0px 10px;
+}

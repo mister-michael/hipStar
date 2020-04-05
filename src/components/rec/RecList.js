@@ -115,7 +115,7 @@ const RecList = (props) => {
       <>
           <h2 className="headline headlineGreen headlineTextBlack">Movies You Might'nt Hate</h2>
           <div className="headline headlineRed headlineTextWhite">From User: {topMatch.username}</div>
-        <div className="marginTop">
+        <div className="marginTop resultsPage">
           <div className="cardGroup">
             {recommendations.map(res => <RecCard changed={changed} setChanged={setChanged} activeUserId={activeUserId} key={res.id} result={res} recUpdated={props.recUpdated} setRecUpdated={props.setRecUpdated} recEngine={recEngine} mvid={res.movie.id}
             // getUserMovies={props.getUserMovies} getUserObject={props.getUserObject} 
