@@ -36,13 +36,10 @@ const SearchCard = (props) => {
   const [modal, setModal] = useState(false);
   const [modal2, setModal2] = useState(false);
   const [jsonId, setJsonId] = useState([]);
-  const [didUserComment, setDidUserComment] = useState(false);
-  const [userCommentId, setUserCommentId] = useState([]);
   const [mvid, setMvid] = useState([]);
-  const [loveText, setLoveText] = useState ([]);
-  const [hateText, setHateText] = useState ([]);
+  const [loveText, setLoveText] = useState([]);
+  const [hateText, setHateText] = useState([]);
 
-  const [isLoveHate, setIsLoveHate] = useState(false);
 
 
   const toggle = () => setModal(!modal);
@@ -62,9 +59,9 @@ const SearchCard = (props) => {
               setLoveHateId(loveHateFoundId);
               setIsLoveDisabled(false);
               setIsHateDisabled(true);
-              setHateText("hated")
-              setLoveText("love")
-              
+              setHateText("hated");
+              setLoveText("love");
+
 
               break
             } else if (mdbId === movies[i].movie.dbid && movies[i].isHated === false) {
@@ -74,8 +71,8 @@ const SearchCard = (props) => {
               setLoveHateId(loveHateFoundId);
               setIsLoveDisabled(true);
               setIsHateDisabled(false);
-              setHateText("hate")
-              setLoveText("loved")
+              setHateText("hate");
+              setLoveText("loved");
 
               break
             } else {
@@ -83,8 +80,8 @@ const SearchCard = (props) => {
               setLoveBtnState({ name: "closeButtonColor" });
               setIsLoveDisabled(false);
               setIsHateDisabled(false);
-              setHateText("hate")
-              setLoveText("love")
+              setHateText("hate");
+              setLoveText("love");
             }
           }
         } else {
@@ -92,8 +89,8 @@ const SearchCard = (props) => {
           setLoveBtnState({ name: "closeButtonColor" });
           setIsLoveDisabled(false);
           setIsHateDisabled(false);
-          setHateText("hate")
-              setLoveText("love")
+          setHateText("hate");
+          setLoveText("love");
         }
       })
   }
@@ -101,7 +98,6 @@ const SearchCard = (props) => {
 
   const handleClick = (e) => {
 
-    console.log(e.target.innerHTML)
     let patchBool = ""
     let loveDisabledBool = ""
     let hateDisabledBool = ""
@@ -152,7 +148,6 @@ const SearchCard = (props) => {
                 .then(loveHatesFetch => {
 
                   const loveHateFound = loveHatesFetch.find(object => object.userId === activeUserId && object.movieId === movieInJson.id);
-                  console.log("lovehatefound", loveHateFound)
                   if (loveHateFound === undefined) {
 
                     jAPI.save(loveHateObject, "loveHates")
@@ -160,19 +155,18 @@ const SearchCard = (props) => {
                       .then(lhs => {
                         lhs.filter(lh => {
                           if (lh.movie.dbid === mdbId && lh.userId === activeUserId) {
-                            console.log("lh.id", lh, lh.id)
-                            loveHateFoundId = lh.id
-                            setLoveHateId(loveHateFoundId)
-                            setMvid(lh.movie.id)
+                            loveHateFoundId = lh.id;
+                            setLoveHateId(loveHateFoundId);
+                            setMvid(lh.movie.id);
                           }
                         })
                       })
                   } else {
-                    loveHateFoundId = loveHateFound.id
-                    setLoveHateId(loveHateFoundId)
-                    const toggleIsHated = { isHated: patchBool }
+                    loveHateFoundId = loveHateFound.id;
+                    setLoveHateId(loveHateFoundId);
+                    const toggleIsHated = { isHated: patchBool };
                     jAPI.patch(toggleIsHated, "loveHates", loveHateFoundId)
-                    .then(movie => setMvid(movie.id))
+                      .then(movie => setMvid(movie.id));
                   }
                 });
 
@@ -186,15 +180,14 @@ const SearchCard = (props) => {
                     movieId: movieObj.id,
                     isHated: patchBool
                   };
-                  setMvid(movieObj.id )
+                  setMvid(movieObj.id)
                   jAPI.save(loveHateObjectToSave, "loveHates");
                   jAPI.userMovieExpand("lovehates", activeUserId)
                     .then(lhs => {
                       lhs.filter(lh => {
                         if (lh.movie.dbid === mdbId && lh.userId === activeUserId) {
-                          loveHateFoundId = lh.id
-                          console.log("145 lhfound lh.id", loveHateFoundId, lh.id)
-                          setLoveHateId(loveHateFoundId)
+                          loveHateFoundId = lh.id;
+                          setLoveHateId(loveHateFoundId);
                         }
                       })
                     })
@@ -206,7 +199,7 @@ const SearchCard = (props) => {
         setLoveBtnState({ name: loveClass });
         setIsLoveDisabled(loveDisabledBool);
         setIsHateDisabled(hateDisabledBool);
-        setHasBeenChanged(!hasBeenChanged)
+        setHasBeenChanged(!hasBeenChanged);
       })
   };
 
@@ -217,7 +210,7 @@ const SearchCard = (props) => {
     setLoveBtnState({ name: "closeButtonColor" });
     setIsLoveDisabled(false);
     setIsHateDisabled(false);
-    setHasBeenChanged(!hasBeenChanged)
+    setHasBeenChanged(!hasBeenChanged);
     props.setKeyword(props.keyword);
   };
 
@@ -226,14 +219,14 @@ const SearchCard = (props) => {
       return (
         <>
           <Button
-          size="sm"
+            size="sm"
             id={`hate-button--${props.result.id}`}
             onClick={handleForget}
             className="closeButtonColor">
             <span >X</span>
           </Button>{' '}</>)
     }
-  }
+  };
 
   const release = () => {
     const releaseDate = "release_date";
@@ -250,13 +243,9 @@ const SearchCard = (props) => {
     };
   };
 
-  const review = () => {
-
-  }
 
   useEffect(() => {
     buttons();
-
   }, []);
 
   return (
@@ -267,8 +256,8 @@ const SearchCard = (props) => {
 
           <CardImg id="" top src={imageHandler()} alt={`${props.result.title} poster`} className="cardImage" />
           <div className="cardTitle">
-          <CardTitle>{props.result.title}</CardTitle>
-          <CardSubtitle>{release()}</CardSubtitle>
+            <CardTitle>{props.result.title}</CardTitle>
+            <CardSubtitle>{release()}</CardSubtitle>
           </div>
           <CardBody >
 
@@ -276,67 +265,43 @@ const SearchCard = (props) => {
           <Modal isOpen={modal} toggle={toggle} className="modalModel">
             <ModalHeader className="modalHeaderBackgroundColor" toggle={toggle}><span className="modalHeaderText">{props.result.title}</span><span className="releaseDateDetails">{`(${release()})`}</span></ModalHeader>
             <ModalBody className="marginBottom detailsMarginTop">
-              <MovieDetails 
-              jsonId={jsonId}
-              setJsonId={setJsonId}
-              mdbId={mdbId} />
+              <MovieDetails
+                jsonId={jsonId}
+                setJsonId={setJsonId}
+                mdbId={mdbId} />
               <div>
-                {/* <div>
-                    <div>Reviews</div>
-                    <button>Review</button>
-                </div> */}
-                {/* <Comment
-                  className="commentContainer"
-                  mdbId={mdbId}
-                  mvid={jsonId}
-                  setMvid={setMvid}
-                  activeUserId={activeUserId}
-                  didUserComment={didUserComment}
-                  setDidUserComment={setDidUserComment}
-                  userCommentId={userCommentId}
-                  setUserCommentId={setUserCommentId}
-                  refresh={refresh}
-                  setRefresh={setRefresh}
-                  didUserComment={didUserComment}
-                  setDidUserComment={setDidUserComment}
-                  isLoveHate={isLoveHate}
-                /> */}
               </div>
             </ModalBody>
             <ModalFooter>
-                
-                <Button className="closeButtonColor" onClick={toggle}>close</Button>
+
+              <Button className="closeButtonColor" onClick={toggle}>close</Button>
             </ModalFooter>
           </Modal>
         </div>
-        {/* <CardBody className="">
-          
-        </CardBody> */}
         <div className="buttonRow">
-            <Button
+          <Button
             size="sm"
             name="hate"
-              id={`hate-button--${props.result.id}`}
-              onClick={(e) => handleClick(e)}
-              className={hateBtnState.name}
-              disabled={isHateDisabled}
-            >
-              <span >hate</span>
-              
-            </Button>
-            <Button
+            id={`hate-button--${props.result.id}`}
+            onClick={(e) => handleClick(e)}
+            className={hateBtnState.name}
+            disabled={isHateDisabled}
+          >
+            <span >hate</span>
+          </Button>
+          <Button
             name="love"
             size="sm"
-              id={`love-button--${props.result.id}`}
-              onClick={(e) => handleClick(e)}
-              className={loveBtnState.name}
-              disabled={isLoveDisabled}><span >{loveText}</span></Button>{' '}
-            {' '}
-            {forgetJSX()}
-          </div>
+            id={`love-button--${props.result.id}`}
+            onClick={(e) => handleClick(e)}
+            className={loveBtnState.name}
+            disabled={isLoveDisabled}><span >{loveText}</span></Button>{' '}
+          {' '}
+          {forgetJSX()}
+        </div>
       </div>
     </>
   )
-}
+};
 
-export default SearchCard
+export default SearchCard;

@@ -1,9 +1,7 @@
 const apiURL = "http://localhost:5002/";
 
 const jAPI = {
-    checkEmail(email) {
-        return fetch(apiURL + `users?email=${email}`).then(entries => entries.json());
-    },
+
     getWithId(str, id) {
         return fetch(apiURL + str + "/" + id).then(entries => entries.json());
     },
@@ -16,10 +14,6 @@ const jAPI = {
     movieExpand(entity) {
         console.log(apiURL + entity + "?_expand=movie", "MOVIE EXPAND")
         return fetch(apiURL + entity + "?_expand=movie").then(entries => entries.json())
-    },
-    movieAndUserExpand(entity) {
-        console.log(apiURL + entity + "?_expand=movie&_expand=user", "MOVIE USER EXPAND")
-        return fetch(apiURL + entity + "?_expand=movie&_expand=user").then(entries => entries.json())
     },
     save(objToSave, str) {
         return fetch(apiURL + str, {
@@ -34,18 +28,6 @@ const jAPI = {
     delete(objToDeleteId, str) {
         return fetch(`${apiURL}${str}/${objToDeleteId}`, {
             method: "DELETE"
-        });
-    },
-    edit(objToEditId, str) {
-        return fetch(apiURL + str + "/" + objToEditId).then(entry => entry.json());
-    },
-    update(objToEdit, str) {
-        return fetch(`${apiURL}${str}/${objToEdit.id}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(objToEdit)
         });
     },
     expand(str, toExpand) {
@@ -63,6 +45,7 @@ const jAPI = {
             body: JSON.stringify(objToEdit)
         });
     },
-}
+};
+
 export default jAPI;
 

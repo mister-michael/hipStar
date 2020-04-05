@@ -9,38 +9,35 @@ const RecList = (props) => {
 
   const activeUserId = props.activeUserId
 
-  const [activeHate, setActiveHate] = useState([]);
-  const [activeLove, setActiveLove] = useState([]);
-  const [recommendations, setRecommendations] = useState([])
-  const [topMatch, setTopMatch] = useState([])
-  const [changed, setChanged] = useState(false)
-  
+  const [recommendations, setRecommendations] = useState([]);
+  const [topMatch, setTopMatch] = useState([]);
+  const [changed, setChanged] = useState(false);
 
   const recEngine = () => {
 
     return jAPI.userMovieExpand("loveHates", activeUserId)
       .then(userLoveHates => {
-        const userHates = userLoveHates.filter(element => element.isHated === true)
+        const userHates = userLoveHates.filter(element => element.isHated === true);
         jAPI.movieExpand("loveHates")
           .then(overallLoveHates => {
             const overallHates = overallLoveHates.filter(olh => olh.userId !== activeUserId && olh.isHated === true);
-            const sameSameArr = []
+            const sameSameArr = [];
             userHates.forEach(userHate => {
               for (let i = 0; i < overallHates.length; i++) {
                 if (userHate.movieId === overallHates[i].movieId) {
-                  sameSameArr.push(overallHates[i])
+                  sameSameArr.push(overallHates[i]);
                 }
               }
-            })
+            });
 
-            const userIdArry = sameSameArr.map(object => object.userId)
-            const userIdSet = [...new Set(userIdArry)]
-            const userTallyArr = []
+            const userIdArry = sameSameArr.map(object => object.userId);
+            const userIdSet = [...new Set(userIdArry)];
+            const userTallyArr = [];
 
             userIdSet.forEach(element => {
               const tallyObject = { userId: element, tally: 0 }
-              userTallyArr.push(tallyObject)
-            })
+              userTallyArr.push(tallyObject);
+            });;
 
             sameSameArr.forEach(sameSame => {
               for (let i = 0; i < userIdSet.length; i++) {
@@ -50,7 +47,7 @@ const RecList = (props) => {
                   // console.log(userTallyArr[tallyIndex], "uta[tallyIndex]")
                 }
               }
-            })
+            });
 
             const tallyToSort = userTallyArr
             tallyToSort.sort(function compare(a, b) {
@@ -63,68 +60,65 @@ const RecList = (props) => {
               return 0;
             })
 
-            let topMatchedUser = ""
-            tallyToSort.length > 0 ? topMatchedUser = tallyToSort[0].userId : topMatchedUser = 1
+            let topMatchedUser = "";
+            tallyToSort.length > 0 ? topMatchedUser = tallyToSort[0].userId : topMatchedUser = 1;
 
-            console.log("topMatch", topMatchedUser)
+            console.log("topMatch", topMatchedUser);
 
             jAPI.userMovieExpand("loveHates", topMatchedUser)
               .then(topMatchLoveHates => {
-                console.log(topMatchLoveHates, "topMatchLoveHates")
-                const loveArr = []
-                const hateArr = []
+                console.log(topMatchLoveHates, "topMatchLoveHates");
+                const loveArr = [];
+                const hateArr = [];
                 topMatchLoveHates.forEach(lh => {
 
-                  lh.isHated ? hateArr.push(lh) : loveArr.push(lh)
+                  lh.isHated ? hateArr.push(lh) : loveArr.push(lh);
 
                 })
-                console.log(userLoveHates, "userLoveHates")
+                console.log(userLoveHates, "userLoveHates");
 
-                const loveArrPruned = loveArr.filter(lovedMovie => userLoveHates.filter(rated => lovedMovie.movieId !== rated.movieId))
-                const loveArrToPrune = []
+                const loveArrPruned = loveArr.filter(lovedMovie => userLoveHates.filter(rated => lovedMovie.movieId !== rated.movieId));
+                const loveArrToPrune = [];
                 loveArr.map(lovedMovie => {
                   let count = 0
                   for (let i = 0; i < userLoveHates.length; i++) {
                     if (userLoveHates[i].movieId !== lovedMovie.movieId) { count++ }
-
                   }
                   if (count === userLoveHates.length) {
                     console.log("if statement")
                     loveArrToPrune.push(lovedMovie)
                   }
-                })
+                });
 
                 jAPI.getWithId("users", topMatchedUser)
-                  .then(matchedUser => setTopMatch(matchedUser))
-                console.log(loveArrToPrune)
-                setRecommendations(loveArrToPrune)
-              })
-          })
-      })
-  }
+                  .then(matchedUser => setTopMatch(matchedUser));
+                console.log(loveArrToPrune);
+                setRecommendations(loveArrToPrune);
+              });
+          });
+      });
+  };
 
   useEffect(() => {
-      recEngine();
-    
+    recEngine();
   }, []);
 
   if (recommendations.length === 0) {
-    return (null)
+    return (null);
   } else {
     return (
       <>
-          <h2 className="headline headlineGreen headlineTextBlack">Movies You Might'nt Hate</h2>
-          <div className="headline headlineRed headlineTextWhite">From User: {topMatch.username}</div>
+        <h2 className="headline headlineGreen headlineTextBlack">Movies You Might'nt Hate</h2>
+        <div className="headline headlineRed headlineTextWhite">From User: {topMatch.username}</div>
         <div className="marginTop resultsPage">
           <div className="cardGroup">
             {recommendations.map(res => <RecCard changed={changed} setChanged={setChanged} activeUserId={activeUserId} key={res.id} result={res} recUpdated={props.recUpdated} setRecUpdated={props.setRecUpdated} recEngine={recEngine} mvid={res.movie.id}
-            // getUserMovies={props.getUserMovies} getUserObject={props.getUserObject} 
-            {...props} />)}
+              {...props} />)}
           </div>
         </div>
       </>
-    )
-  }
-}
+    );
+  };
+};
 
-export default RecList
+export default RecList;

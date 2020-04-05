@@ -1,49 +1,33 @@
 import React, { useState, useEffect } from "react";
+import {CardImg, CardBody} from 'reactstrap';
 import mAPI from "../../modules/movieManager"
 import jAPI from "../../modules/apiManager"
-import {
-    Card, Button, CardImg, CardTitle, CardText, CardGroup,
-    CardSubtitle, CardBody, Popover, PopoverBody, PopoverHeader,
-    Modal, ModalHeader, ModalBody, ModalFooter
-} from 'reactstrap';
 import "./Card.css"
 
 const MovieDetails = props => {
 
     const [movieFromDb, setMovieFromDb] = useState([]);
     const [poster, setPoster] = useState([]);
-    const [isRated, setIsRated] = useState([]);
-    const [loveHateFoundId, setLoveHateFoundId] = useState([])
-
-    // let poster = "https://harperlibrary.typepad.com/.a/6a0105368f4fef970b01b8d23c71b5970c-800wi";
-
-    const activeUserId = parseInt(sessionStorage.getItem("userId"))
-    const movieId = parseInt(props.mdbId)
-    console.log(props.mdbId)
+    const movieId = parseInt(props.mdbId);
 
     const getMovieJson = () => {
         mAPI.searchWithId(movieId)
             .then(movieFromTmdb => {
-                console.log(movieFromTmdb)
-                setMovieFromDb(movieFromTmdb)
+                setMovieFromDb(movieFromTmdb);
                 if (movieFromTmdb.poster_path !== null) {
-                    setPoster(imageHandler(movieFromTmdb))
+                    setPoster(imageHandler(movieFromTmdb));
                 } else {
-                    setPoster(imageHandler(movieFromTmdb))
+                    setPoster(imageHandler(movieFromTmdb));
                 }
                 jAPI.get("movies")
                     .then(movies => {
-
                         const movieInJson = movies.find(movie => movie.dbid === movieId || movie.id === props.mvid);
-                        console.log(movieInJson, "movieINJson")
                         if (movieInJson !== undefined) {
-                            console.log("movieInJson.id", movieInJson.id)
-                            if (props.isLoveHate === true){
-                            props.setJsonId(movieInJson.id)
+                            if (props.isLoveHate === true) {
+                            props.setJsonId(movieInJson.id);
                         }
-                            setMovieFromDb(movieInJson)
+                            setMovieFromDb(movieInJson);
                         } else {
-                            console.log()
                             const movieObject = {
                                 dbid: movieFromTmdb.id,
                                 title: movieFromTmdb.title,
@@ -55,8 +39,6 @@ const MovieDetails = props => {
                             };
                             jAPI.save(movieObject, "movies")
                                 .then(savedMovie => {
-                                    console.log(savedMovie, "savedMovie");
-                                    console.log("props2")
                                     props.setJsonId(savedMovie.id);
                                     setMovieFromDb(savedMovie);
                                 })
@@ -66,8 +48,8 @@ const MovieDetails = props => {
     };
 
     let posterFunction = (int) => {
-        const randomN = Math.ceil(Math.random() * int)
-        return require(`../img/image-unavailable--${randomN}.jpg`)
+        const randomN = Math.ceil(Math.random() * int);
+        return require(`../img/image-unavailable--${randomN}.jpg`);
     };
 
     const imageHandler = (movie) => {
@@ -79,58 +61,23 @@ const MovieDetails = props => {
         };
     };
 
-
-
-    const {
-        buttonLabel,
-        className
-    } = props;
-
-    const [modal, setModal] = useState(false);
-
-    const toggle = () => setModal(!modal);
-
     useEffect(() => {
         getMovieJson();
-
-        console.log("isRated =", isRated)
-    }, [])
+    }, []);
 
     return (
         <>
-            <div id={props.jsonId} className="">
-                <div 
-                // className="detailsImageAndOverview"
-                >
+            <div id={props.jsonId}>
+                <div>
                     <CardImg id="" top src={poster} alt={`${movieFromDb.title} poster`} className="cardImage boxShadow marginTopSmall marginBottomSmall detailsImage" />
-                    {/* <CardTitle>{movieFromDb.title}</CardTitle> */}
-                    {/* <CardSubtitle>{release()}</CardSubtitle> */}
                     <CardBody className="detailsMarginBottom">
                         <div className="overviewText detailsMarginTop">Overview</div>
                         <div>{movieFromDb.overview}</div>
-                        {/* <div className="buttonRow">
-                        <button
-                            id={`hate-button--${jsonId}`}
-                            onClick={(e) => handleClick(e)}
-                        className={hateBtnState.name}
-                        disabled={isHateDisabled}
-                        >
-                            Hate</button>
-                        <button
-                            id={`love-button--${jsonId}`}
-                            onClick={(e) => handleClick(e)}
-                        className={loveBtnState.name}
-                        disabled={isLoveDisabled}
-                        >Love</button>{' '}
-                        {' '}
-                        {forgetJSX()} */}
-                        {/* </div> */}
                     </CardBody>
                 </div>
             </div>
         </>
     )
-
-}
+};
 
 export default MovieDetails

@@ -12,34 +12,29 @@ const RegisterForm = props => {
         logoutTime: ""
     });
 
-
     const handleFieldChange = evt => {
         const stateToChange = { ...credentials };
         stateToChange[evt.target.id] = evt.target.value;
         setCredentials(stateToChange);
-
     };
 
-    const handleRegister = evt => {
-        // evt.preventDefault();
+    const handleRegister = () => {
 
-        const emailArr = credentials.email.split("")
-        const emailArrFind = emailArr.find(char => char === "@")
+        const emailArr = credentials.email.split("");
+        const emailArrFind = emailArr.find(char => char === "@");
 
-        const nameArr = credentials.username.split("")
-        const nameArrFind = nameArr.find(char => char === " ")
+        const nameArr = credentials.username.split("");
+        const nameArrFind = nameArr.find(char => char === " ");
 
         if (nameArrFind !== undefined) {
-            window.alert("username can not contain spaces")
+            window.alert("username can not contain spaces");
         } else if (emailArrFind === undefined) {
-            window.alert("please enter a valid email address")
+            window.alert("please enter a valid email address");
         } else if (nameArr.length > 16) {
-            window.alert("username can not be more than 16 characters")
+            window.alert("username can not be more than 16 characters");
 
         } else {
-
             jAPI.get("users").then(users => {
-
                 const name = users.find(user => user.username.toLowerCase() === credentials.username.toLowerCase());
                 const email = users.find(user => user.email.toLowerCase() === credentials.email.toLowerCase());
 
@@ -54,11 +49,12 @@ const RegisterForm = props => {
                         props.setUser(credentials);
                         props.history.push("/home");
                     });
+
                 } else if (email !== undefined) {
-                    console.log(email)
                     window.alert("email already exists");
+
                 } else if (name !== undefined) {
-                    window.alert("username already exists")
+                    window.alert("username already exists");
                 }
             });
         }
@@ -68,7 +64,6 @@ const RegisterForm = props => {
     return (<>
         <div className="register" >
             <CardHeader className="headlineRed" > < h2 > Sign Up </h2></CardHeader >
-
             <Card className="registerCard" >
                 <InputGroup size="sm" >
                     <InputGroupAddon addonType="prepend" className="registerUsername">
@@ -92,21 +87,6 @@ const RegisterForm = props => {
                         id="email"
                         placeholder="" />
                 </InputGroup> <br />
-                {/* <InputGroup size="sm" >
-                    <InputGroupAddon addonType="prepend">
-                        image url </InputGroupAddon> <Input addonType="prepend"
-                        onChange={handleFieldChange}
-                        type="imgUrl"
-                        id="imgUrl"
-                        placeholder="image url" />
-
-                </InputGroup> */}
-
-                {/* <button className="registerSubmitBtn"
-                    type="button"
-                    onClick={handleRegister} >
-                    <span className="fitInBtn">GO! </span></button> */}
-
                 <CardFooter >
                     < div className="rightAlign smallText" >
                         <Link to="/login" className="signLink" style={{ textDecoration: 'none' }} >

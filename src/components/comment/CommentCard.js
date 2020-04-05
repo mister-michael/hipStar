@@ -1,27 +1,19 @@
 import React, { useEffect, useState } from "react";
-import "./Comment.css"
-import {
-    Card, Button, CardImg, CardTitle, CardText, CardGroup,
-    CardSubtitle, CardBody, Popover, PopoverBody, PopoverHeader,
-    Modal, ModalHeader, ModalBody, ModalFooter
-} from 'reactstrap';
-import {Link} from "react-router-dom"
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Link } from "react-router-dom"
 import CommentForm from "./CommentForm"
 import jAPI from "../../modules/apiManager";
+import "./Comment.css"
 
 const CommentCard = props => {
-    console.log(props.userId, "props.userId")
-    console.log(props.activeUserId, "props.activeUserId")
 
     const [modal, setModal] = useState(false);
-    const [editedComment, setEditedComment] = useState({ comment: props.comment })
+    const [editedComment, setEditedComment] = useState({ comment: props.comment });
 
-    console.log(props.result, "RESULT")
-
-    const didUserComment = props.didUserComment
-    const activeUserId = props.activeUserId
-    const commentUserId = props.userId
-    const numberOfStylesInCss = 3
+    const didUserComment = props.didUserComment;
+    const activeUserId = props.activeUserId;
+    const commentUserId = props.userId;
+    const numberOfStylesInCss = 3;
 
     const toggle = () => {
         if (activeUserId == commentUserId) {
@@ -39,7 +31,7 @@ const CommentCard = props => {
 
     const commentPatch = {
         comment: editedComment.comment
-    }
+    };
 
     const handleSubmit = () => {
         jAPI.patch(commentPatch, "comments", props.commentId)
@@ -48,11 +40,10 @@ const CommentCard = props => {
     };
 
     const handleDelete = () => {
-
         jAPI.delete(props.commentId, "comments")
         setModal(!modal)
         props.findMovieIdGetComments();
-    }
+    };
 
     const linkFunction = () => {
         if (activeUserId === commentUserId) {
@@ -60,7 +51,7 @@ const CommentCard = props => {
         } else {
             return `/${commentUserId}`
         }
-    }
+    };
 
     return (
         <>
@@ -68,7 +59,7 @@ const CommentCard = props => {
                 <Link to={linkFunction} className="linkText">
                     <div className={`usernameBox--${randomN(numberOfStylesInCss)}`}>{props.result.user.username} says...</div>
                 </Link>
-                    <div className="commentBox">{props.result.comment}</div>
+                <div className="commentBox">{props.result.comment}</div>
             </div>
             <Modal isOpen={modal} toggle={toggle} className="editModal">
                 <ModalHeader toggle={toggle}>{props.result.user.username} says...</ModalHeader>
@@ -87,6 +78,6 @@ const CommentCard = props => {
             </Modal>
         </>
     )
-}
+};
 
 export default CommentCard

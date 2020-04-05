@@ -7,13 +7,12 @@ import Profile from "./profile/Profile"
 import Search from "./search/Search"
 import RecList from "./rec/RecList"
 import Hpstr from "./hpstr/Hpstr"
-import MovieDetails from "./card/MovieDetails"
 import UserProfile from "./UserProfile/UserProfile"
 
 const AppViews = (props) => {
-  const activeUserId = parseInt(sessionStorage.getItem("userId"))
-  const setUser = props.setUser
-  const hasUser = props.hasUser
+  const activeUserId = parseInt(sessionStorage.getItem("userId"));
+  const setUser = props.setUser;
+  const hasUser = props.hasUser;
 
   return (
     <React.Fragment>
@@ -85,6 +84,6 @@ const AppViews = (props) => {
       />
     </React.Fragment>
   )
-}
+};
 
-export default AppViews
+export default AppViews;

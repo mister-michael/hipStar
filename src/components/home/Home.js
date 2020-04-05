@@ -4,25 +4,24 @@ import jAPI from "../../modules/apiManager";
 
 const Home = props => {
 
-    const [mostHatedMovies, setMostHatedMovies] = useState([])
+    const [mostHatedMovies, setMostHatedMovies] = useState([]);
 
     const getMostHatedMovies = () => {
         jAPI.get("lovehates")
             .then(loveHates => {
-                const hatedMovies = loveHates.filter(lh => lh.isHated === true)
-                const movieIds = hatedMovies.map(element => element.movieId)
-                const uniqueMovieIds = [...new Set(movieIds)]
-                const movieTallyArr = []
+                const hatedMovies = loveHates.filter(lh => lh.isHated === true);
+                const movieIds = hatedMovies.map(element => element.movieId);
+                const uniqueMovieIds = [...new Set(movieIds)];
+                const movieTallyArr = [];
                 uniqueMovieIds.forEach(element => {
-                    const tallyObject = { movieId: element, tally: 0 }
-                    movieTallyArr.push(tallyObject)
+                    const tallyObject = { movieId: element, tally: 0 };
+                    movieTallyArr.push(tallyObject);
                 })
                 loveHates.forEach(lh => {
                     for (let i = 0; i < uniqueMovieIds.length; i++) {
                         if (lh.movieId === uniqueMovieIds[i]) {
-                            const tallyIndex = movieTallyArr.findIndex(element => element.movieId === lh.movieId)
-                            movieTallyArr[tallyIndex].tally += 1
-                            console.log(movieTallyArr[tallyIndex], "uta[tallyIndex]")
+                            const tallyIndex = movieTallyArr.findIndex(element => element.movieId === lh.movieId);
+                            movieTallyArr[tallyIndex].tally += 1;
                         }
                     }
                 })
@@ -36,7 +35,7 @@ const Home = props => {
                     }
                     return 0;
                 })
-                const topMatch = tallyToSort[0].movieId
+                const topMatch = tallyToSort[0].movieId;
 
                 jAPI.getWithId("movies", topMatch)
                     .then(movie => setMostHatedMovies(movie))
@@ -45,12 +44,12 @@ const Home = props => {
 
     useEffect(() => {
         getMostHatedMovies();
-    }, [])
+    }, []);
 
     return (
         <>
-                <div className="headline headlineRed headlineTextBlack">h!pst@r's most hated</div>
-                <div className="headline headlineGreen headlineTextWhite">{mostHatedMovies.title}</div>
+            <div className="headline headlineRed headlineTextBlack">h!pst@r's most hated</div>
+            <div className="headline headlineGreen headlineTextWhite">{mostHatedMovies.title}</div>
             <div className="marginTop">
                 <div className="andysContainer">
                     <div className="andysDiv">
@@ -65,7 +64,7 @@ const Home = props => {
                 </div>
             </div>
         </>
-    )
-}
+    );
+};
 
-export default Home
+export default Home;

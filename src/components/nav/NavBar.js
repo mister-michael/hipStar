@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom"
-import { withRouter } from "react-router-dom"
-import "./NavBar.css"
-import {
-  Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem
-} from 'reactstrap';
+import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem } from 'reactstrap';
+import { Link, withRouter } from "react-router-dom";
+import "./NavBar.css";
 
 const NavBar = props => {
 
@@ -62,7 +59,7 @@ const NavBar = props => {
         </Navbar>
       ) : null}
     </>
-  )
-}
+  );
+};
 
-export default withRouter(NavBar)
+export default withRouter(NavBar);

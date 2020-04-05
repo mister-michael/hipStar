@@ -1,22 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom"
-import jAPI from "../../modules/apiManager"
-import "./LoginRegister.css"
-import {
-    Card,
-    Button,
-    CardHeader,
-    CardFooter,
-    CardBody,
-    CardTitle,
-    InputGroup,
-    InputGroupAddon,
-    Input,
-    InputGroupButtonDropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem
-} from 'reactstrap';
+import {Card, Button, CardHeader,CardFooter,CardBody,InputGroup,InputGroupAddon,Input,InputGroupButtonDropdown,DropdownToggle,DropdownMenu,DropdownItem} from 'reactstrap';
+import { Link } from "react-router-dom";
+import jAPI from "../../modules/apiManager";
+import "./LoginRegister.css";
 
 const Login = props => {
     const [credentials, setCredentials] = useState({ input: "" });
@@ -59,9 +45,8 @@ const Login = props => {
     return (<>
         <div className="loginContainer" >
             <Card className="loginCard boxShadow">
-                <CardHeader className="headlineGreen blackText" > h ! p S t @ r </CardHeader> 
+                <CardHeader className="headlineGreen blackText" > h ! p S t @ r </CardHeader>
                 <CardBody >
-                    {/* <CardTitle className="signInInstructions"> sign in with {symbol.placeholder} </CardTitle> */}
                     <InputGroup className="marginTopSmall">
                         <InputGroupAddon addonType="prepend" >
                             <InputGroupButtonDropdown addonType="append"
@@ -87,21 +72,15 @@ const Login = props => {
                             <Button onClick={handleLogin} > sign in </Button>
                         </InputGroupAddon>
                     </InputGroup>
-                    <span > </span>
-                    <CardTitle >
-                        < span > </span>
-                        
-                    </CardTitle>
                 </CardBody>
                 <CardFooter className="flex">
-                <Link to="/register"
-                            style={
-                                { textDecoration: 'none' }}
-                            className="registerLink" >
-                            Don 't Have an Account? </Link>
+                    <Link to="/register" style={{ textDecoration: 'none' }} className="registerLink" >
+                        Don 't Have an Account?
+                            </Link>
                 </CardFooter>
             </Card>
-        </div> </>
+        </div>
+    </>
     );
 };
 

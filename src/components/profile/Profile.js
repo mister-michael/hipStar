@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from "react"
 import jAPI from "../../modules/apiManager"
 import LoveHates from "./LoveHates"
-import RecList from "../rec/RecList"
-import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
+import { TabContent, TabPane, Nav, NavItem, NavLink} from 'reactstrap';
 import classnames from 'classnames';
 
 
 const Profile = props => {
 
-  const activeUserId = props.userId
+  const activeUserId = props.userId;
 
-  const [userObject, setUserObject] = useState([])
-  const [loveState, setLoveState] = useState([])
-  const [hateState, setHateState] = useState([])
-  const [recUpdated, setRecUpdated] = useState(false)
+  const [userObject, setUserObject] = useState([]);
+  const [loveState, setLoveState] = useState([]);
+  const [hateState, setHateState] = useState([]);
+  const [recUpdated, setRecUpdated] = useState(false);
   const [isActiveUser, setIsActiveUser] = useState(true);
 
   const getUserObject = (id) => {
@@ -24,31 +23,31 @@ const Profile = props => {
   const getUserMovies = () => {
     return jAPI.userMovieExpand("loveHates", activeUserId)
       .then(loveHates => {
-        const loveArr = []
-        const hateArr = []
+        const loveArr = [];
+        const hateArr = [];
         loveHates.forEach(lh => {
 
           if (lh.isHated !== true) {
-            loveArr.push(lh)
+            loveArr.push(lh);
           } else {
-            hateArr.push(lh)
+            hateArr.push(lh);
           }
         })
-        setLoveState(loveArr)
-        setHateState(hateArr)
-      })
-  }
+        setLoveState(loveArr);
+        setHateState(hateArr);
+      });
+  };
 
   const [activeTab, setActiveTab] = useState('1');
 
   const toggle = tab => {
     if (activeTab !== tab) setActiveTab(tab);
-  }
+  };
 
   useEffect(() => {
     getUserObject(activeUserId);
     getUserMovies();
-  }, [recUpdated])
+  }, [recUpdated]);
 
   return (
     <>
@@ -70,24 +69,14 @@ const Profile = props => {
               LOVES
           </NavLink>
           </NavItem>
-          {/* <NavItem>
-            <NavLink
-              className={classnames({ active: activeTab === '3' })}
-              onClick={() => { toggle('3'); }}
-            >
-              RECS
-          </NavLink>
-          </NavItem> */}
         </Nav>
         <TabContent activeTab={activeTab}>
           <TabPane tabId="1" >
-
             <h2 className="headline headlineRed headlineTextBlack">{userObject.username}</h2>
             <h2 className="headline headlineGreen headlineTextWhite">HATES</h2>
             <div className="marginTop">
               <div id={`hate--${userObject.id}`} 
               className="cardGroup profileResultsPage">
-
                 {hateState.map(res =>
                   <LoveHates
                     key={res.id}
@@ -108,7 +97,6 @@ const Profile = props => {
             <h2 className="headline headlineRed headlineTextWhite">LOVES</h2>
             <div className="marginTop">
               <div id={`love--${userObject.id}`} className="cardGroup">
-
                 {loveState.map(res =>
                   <LoveHates key={res.id}
                     loveHateObject={res}
@@ -123,17 +111,10 @@ const Profile = props => {
               </div>
             </div>
           </TabPane>
-          {/* <TabPane tabId="3">
-            <div>
-              <RecList activeUserId={activeUserId} getUserMovies={getUserMovies} getUserObject={getUserObject}  recUpdated={recUpdated} setRecUpdated={setRecUpdated}></RecList>
-            </div>
-          </TabPane> */}
         </TabContent>
       </div>
-
-
     </>
   )
-}
+};
 
 export default Profile

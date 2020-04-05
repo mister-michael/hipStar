@@ -3,17 +3,13 @@ import { FormGroup, Label, Input } from "reactstrap"
 
 const NewComment = props => {
 
-    const [comment, setComment] = useState({comment: ""})
+    const [comment] = useState({comment: ""});
 
     const handleChange = (evt) => {
-        const stateToChange = { ...comment }
+        const stateToChange = { ...comment };
         stateToChange[evt.target.id] = evt.target.value;
         props.setEditedComment(stateToChange);
-    }
-
-    useEffect(() => {
-
-    }, [])
+    };
 
     return (
         <FormGroup>
@@ -24,7 +20,7 @@ const NewComment = props => {
                 onChange={handleChange}
                 value="" />
         </FormGroup>
-    )
-}
+    );
+};
 
 export default NewComment;

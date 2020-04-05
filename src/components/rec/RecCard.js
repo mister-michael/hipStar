@@ -1,33 +1,21 @@
 import React, { useEffect, useState } from "react";
-import {
-  Card as div, Button, CardImg, CardTitle, CardText, CardGroup,
-  CardSubtitle, CardBody,
-  Popover, PopoverBody, PopoverHeader,
-  Modal, ModalHeader, ModalBody, ModalFooter
-} from 'reactstrap';
-// import "./Rec.css"
-import "../search/Search.css"
+import { Card as div, Button, CardImg, CardTitle, CardBody, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import jAPI from "../../modules/apiManager"
 import mAPI from "../../modules/movieManager"
 import MovieDetails from "../card/MovieDetails"
-import "./Rec.css"
 import Comment from "../comment/Comment"
+import "./Rec.css"
+import "../search/Search.css"
 
 const RecCard = (props) => {
-  // const [footerStyle, setFooterStyle] = useState();
-  // const [loveHateButtonClass, setLoveHateButtonClass] = useState("");
   const movie = props.result.movie;
   const mdbId = movie.dbid;
-  // console.log(mdbId)
   const activeUserId = props.activeUserId;
-
-  // console.log(movie)
   let poster = "https://harperlibrary.typepad.com/.a/6a0105368f4fef970b01b8d23c71b5970c-800wi";
-
-  let loveHateFoundId = ""
+  let loveHateFoundId = "";
+  const result = props.result;
 
   const [loveHateId, setLoveHateId] = useState(false);
-
   const [loveBtnState, setLoveBtnState] = useState({ name: "" });
   const [hateBtnState, setHateBtnState] = useState({ name: "" });
   const [isLoveDisabled, setIsLoveDisabled] = useState(true);
@@ -41,20 +29,13 @@ const RecCard = (props) => {
   const [jsonId, setJsonId] = useState([]);
   const [commentRefresh, setCommentRefresh] = useState([]);
 
-
   const [modal, setModal] = useState(false);
-
   const toggle = () => setModal(!modal);
 
-  const result = props.result
-  const loveHateObjId = props.result.id
-
-  let buttonText = ""
-  let buttonClass = ""
-  result.isHated ? buttonText = "love" : buttonText = "hate"
-  result.isHated ? buttonClass = "profileLovedButton" : buttonClass = "profileHatedButton"
-
-
+  let buttonText = "";
+  let buttonClass = "";
+  result.isHated ? buttonText = "love" : buttonText = "hate";
+  result.isHated ? buttonClass = "profileLovedButton" : buttonClass = "profileHatedButton";
 
   const buttons = () => {
     jAPI.userMovieExpand("loveHates", activeUserId)
@@ -92,13 +73,12 @@ const RecCard = (props) => {
           setIsLoveDisabled(false);
           setIsHateDisabled(false);
         }
-      })
-  }
+      });
+  };
 
 
   const handleClick = (e) => {
 
-    console.log(e.target.innerHTML, "eeeee.target.innerhtml")
     let patchBool = ""
     let loveDisabledBool = ""
     let hateDisabledBool = ""
@@ -111,7 +91,9 @@ const RecCard = (props) => {
       hateDisabledBool = true;
       hateClass = "profileHatedButton";
       loveClass = "closeButtonColor";
+
     } else if (e.target.innerHTML === "Love") {
+
       patchBool = false;
       loveDisabledBool = true;
       hateDisabledBool = false;
@@ -137,7 +119,7 @@ const RecCard = (props) => {
               .then(loveHatesFetch => {
 
                 const loveHateFound = loveHatesFetch.find(object => object.userId === activeUserId && object.movieId === movieInJson.id);
-                console.log("lovehatefound", loveHateFound)
+
                 if (loveHateFound === undefined) {
 
                   jAPI.save(loveHateObject, "loveHates")
@@ -145,35 +127,28 @@ const RecCard = (props) => {
                     .then(lhs => {
                       lhs.filter(lh => {
                         if (lh.movie.dbid === mdbId && lh.userId === activeUserId) {
-                          console.log("lh.id", lh, lh.id)
-                          loveHateFoundId = lh.id
-                          setLoveHateId(loveHateFoundId)
+                          loveHateFoundId = lh.id;
+                          setLoveHateId(loveHateFoundId);
                         }
-                      })
-                    })
+                      });
+                    });
                 } else {
-                  loveHateFoundId = loveHateFound.id
-                  setLoveHateId(loveHateFoundId)
-                  const toggleIsHated = { isHated: patchBool }
-                  jAPI.patch(toggleIsHated, "loveHates", loveHateFoundId)
-
-                  // props.getUserObject(activeUserId);
-                  // props.getUserMovies();
+                  loveHateFoundId = loveHateFound.id;
+                  setLoveHateId(loveHateFoundId);
+                  const toggleIsHated = { isHated: patchBool };
+                  jAPI.patch(toggleIsHated, "loveHates", loveHateFoundId);
                 }
               });
 
 
-          })
+          });
         setLoveHateId(loveHateFoundId);
         setHateBtnState({ name: hateClass });
         setLoveBtnState({ name: loveClass });
         setIsLoveDisabled(loveDisabledBool);
         setIsHateDisabled(hateDisabledBool);
         setHasBeenChanged(!hasBeenChanged);
-        // props.getUserObject(activeUserId)
-        // props.getUserMovies();
-        // props.setChanged(!props.changed)
-      })
+      });
   };
 
   const handleForget = () => {
@@ -183,11 +158,7 @@ const RecCard = (props) => {
     setLoveBtnState({ name: "closeButtonColor" });
     setIsLoveDisabled(false);
     setIsHateDisabled(false);
-    setHasBeenChanged(!hasBeenChanged)
-    // props.setRecUpdated(!props.recUpdated)
-    // props.getUserMovies();
-    // props.recEngine();
-    // props.setChanged(!props.changed)
+    setHasBeenChanged(!hasBeenChanged);
   };
 
   const forgetJSX = () => {
@@ -220,10 +191,10 @@ const RecCard = (props) => {
 
 
   useEffect(() => {
-    setIsLoveHate(true)
+    setIsLoveHate(true);
     buttons();
 
-  }, [])
+  }, []);
 
   return (
     <>
@@ -233,18 +204,7 @@ const RecCard = (props) => {
           <CardTitle>{props.result.movie.title}</CardTitle>
           {/* <CardSubtitle>{release()}</CardSubtitle> */}
           <CardBody >
-
           </CardBody>
-          {/* <Modal isOpen={modal} toggle={toggle} className="">
-            <ModalHeader toggle={toggle}>{props.result.movie.title} <span className="releaseDate">{release()}</span></ModalHeader>
-            <ModalBody>
-              <MovieDetails mdbId={mdbId} release={release()} />
-            </ModalBody>
-            <ModalFooter>
-              <Button color="primary" onClick={toggle}>Do Something</Button>{' '}
-              <Button color="secondary" onClick={toggle}>Cancel</Button>
-            </ModalFooter>
-          </Modal> */}
           <Modal isOpen={modal} toggle={toggle} className="modalModel">
             <ModalHeader className="" toggle={toggle}>
               <span className="modalHeaderText">{props.result.movie.title}</span>
@@ -252,8 +212,8 @@ const RecCard = (props) => {
             </ModalHeader>
             <ModalBody>
               <MovieDetails
-              setMvid={setMvid}
-              mvid={setMvid}
+                setMvid={setMvid}
+                mvid={setMvid}
                 isLoveHate={isLoveHate}
                 jsonId={jsonId}
                 setJsonId={setJsonId}
@@ -274,13 +234,12 @@ const RecCard = (props) => {
                 setRefresh={setRefresh}
                 commentRefresh={commentRefresh}
                 setCommentRefresh={setCommentRefresh}
-                 />
+              />
             </ModalBody>
             <ModalFooter className="">
               <Button className="closeButtonColor" onClick={toggle}>close</Button>
             </ModalFooter>
           </Modal>
-
         </div>
         <div className="buttonRow">
           <Button
@@ -302,6 +261,6 @@ const RecCard = (props) => {
       </div>
     </>
   )
-}
+};
 
 export default RecCard;
