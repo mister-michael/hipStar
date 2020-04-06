@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom"
 import jAPI from "../../modules/apiManager";
 import RecCard from "./RecCard";
 import LoveHates from "../profile/LoveHates"
@@ -12,6 +13,8 @@ const RecList = (props) => {
   const [recommendations, setRecommendations] = useState([]);
   const [topMatch, setTopMatch] = useState([]);
   const [changed, setChanged] = useState(false);
+
+  let topMatchedUser = "";
 
   const recEngine = () => {
 
@@ -60,7 +63,7 @@ const RecList = (props) => {
               return 0;
             })
 
-            let topMatchedUser = "";
+
             tallyToSort.length > 0 ? topMatchedUser = tallyToSort[0].userId : topMatchedUser = 1;
 
             console.log("topMatch", topMatchedUser);
@@ -109,7 +112,11 @@ const RecList = (props) => {
     return (
       <>
         <h2 className="headline headlineGreen headlineTextBlack">Movies You Might'nt Hate</h2>
-        <div className="headline headlineRed headlineTextWhite">From User: {topMatch.username}</div>
+        <div className="headline headlineRed headlineTextWhite">From User:
+        <Link to={`/${topMatch.id}`} className="linkText">
+            {topMatch.username}
+          </Link>
+        </div>
         <div className="marginTop resultsPage">
           <div className="cardGroup">
             {recommendations.map(res => <RecCard changed={changed} setChanged={setChanged} activeUserId={activeUserId} key={res.id} result={res} recUpdated={props.recUpdated} setRecUpdated={props.setRecUpdated} recEngine={recEngine} mvid={res.movie.id}

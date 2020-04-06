@@ -177,8 +177,8 @@ justify-content: flex-start;
 
 .modalModel {
   min-width: 358px !important;
-  width: 80% !important;
-  max-width: 1000px !important;
+  width: 60% !important;
+  max-width: 800px !important;
   max-height: 90% !important;
 }
 

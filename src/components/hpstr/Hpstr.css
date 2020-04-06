@@ -34,7 +34,7 @@
 .headlineTextBlack {
     /* text-shadow: 2px 2px 2px rgba(222, 222, 222, 0.947), 1px 2px 3px rgba(50, 48, 48, 0.612), 1px 1px 0px rgba(82, 82, 82, 0.358); */
     letter-spacing: .13em;
-    box-shadow: 0px 1px 10px 5px rgba(0, 0, 0, 0.324);
+    box-shadow: 0px 1px 10px 5px rgba(202, 119, 119, 0.728);
     font-size: xx-large;
     /* font-weight: bolder; */
     text-transform: lowercase;
@@ -45,12 +45,26 @@
     background-color: rgba(59, 249, 192, 0.426) !important;
 }
 
+.whiteText {
+    color: white;
+    letter-spacing: .13em;
+    /* box-shadow: 0px 1px 10px 5px rgba(0, 0, 0, 0.324); */
+    font-size: xx-large;
+}
+.headlineYellow {
+    /* background-color: rgb(24, 24, 23); */
+    background-color: rgba(150, 154, 149, 0.858);
+}
 .headlineRed {
     background-color: rgba(235, 91, 75, 0.426) !important;
 }
 
 .headlineBlue {
     background-color: rgba(52, 146, 245, 0.543);
+}
+
+.headlinePurple {
+    background-color: rgba(252, 255, 59, 0.926);
 }
 
 .profileHeadline {
