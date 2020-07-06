@@ -1,8 +1,13 @@
 # h!pstar
-    h!pstar is a movie rating and recommendation app which connects users and recommends movies by a metric of mutual distaste.
+h!pstar is a movie rating and recommendation app which connects users and recommends movies by a metric of mutual distaste.
 
 ## Table of Contents
-    *[chapter1] (#chapter1)
+    *[Search Database] (#search-the-movie-database)
+    *[User Profile] (#user-profile)
+    *[Recommendation Page] (#recommendation-page)
+    *[Future Plans] (#future-plans)
+    *[Technology Used] (#technology-used)
+    *[Install Instructions] (#install-instructions)
 
 ## The User Experience
 
@@ -12,32 +17,32 @@ With help from an external API (The Movie Database), a user can search for a mov
 
 ![Search Results](/src/readMeImg/search-image.png)
 
-    Clicking on a search results card will open a modal which gives the user more detailed description of the film.
+Clicking on a search results card will open a modal which gives the user more detailed description of the film.
 
 ![Search Modal](/src/readMeImg/search-modal-image.png)
 
 ### User Profile
 
-    After a user has rated movies, the Loved and Hated movies will show up under the "Loves" and "Hates" tabs on the user's profile page. From here users can re-rate movies or remove a rating. When these affordances are utilized, the movie will be moved to the corosponding tab on the profile or removed form the profile entirely.
+After a user has rated movies, the Loved and Hated movies will show up under the "Loves" and "Hates" tabs on the user's profile page. From here users can re-rate movies or remove a rating. When these affordances are utilized, the movie will be moved to the corosponding tab on the profile or removed form the profile entirely.
 
 ![Profile Page](src/readMeImg/profile-image.png)
 
-    From the Profile Page, when a user clicks on a movie card, they are presented with a modal displaying a description of the film, reviews of the movie made by users of the site, and an affordance for the active user to add their own review.
+From the Profile Page, when a user clicks on a movie card, they are presented with a modal displaying a description of the film, reviews of the movie made by users of the site, and an affordance for the active user to add their own review.
 
-    When a user clicks on one of their own reviews they an affordance to edit or delete the review is displayed. When the user clicks on another reviewers username they are directed to that user's profile page.
+When a user clicks on one of their own reviews they an affordance to edit or delete the review is displayed. When the user clicks on another reviewers username they are directed to that user's profile page.
 
-![Movie Modal](src/readMeImg/comments-image.png)
+<!-- ![Movie Modal](src/readMeImg/comments-image.png) -->
 ![Edit Modal](src/readMeImg/Edit-modal.png)
 
 ### Recomendation Page
 
-    After a user has rated a movie as "Hated," they are delivered a list of recommended movies on the Recs page. The active user's list of hated movies is compared to all other user's hated movies list and is matched with the user whose Hated Movie List has the most in common. The active user is presented with movies from the matched user's Loved Movie List which the active user has not yet rated.
+After a user has rated a movie as "Hated," they are delivered a list of recommended movies on the Recs page. The active user's list of hated movies is compared to all other user's hated movies list and is matched with the user whose Hated Movie List has the most in common. The active user is presented with movies from the matched user's Loved Movie List which the active user has not yet rated.
 
 ![Recs Page](src/readMeImg/recs-image.png)
 
 ### Future Plans
 
-    This was a front-end project at Nashville Software School, made before I had a concpetion of what back-end meant. I soon came to realize that my ultimate conception of a movie recommendation project was that of a back-end project. A future iteration of this app will be build with Django ORM with Rest Framework. Recommendations will be based on more advanced data relationships.
+This was a front-end project at Nashville Software School, made before I had a concpetion of what back-end meant. I soon came to realize that my ultimate conception of a movie recommendation project was that of a back-end project. A future iteration of this app will be build with Django ORM with Rest Framework. Recommendations will be based on more advanced data relationships.
 
 ## Technologies Used
     React.js
@@ -47,6 +52,71 @@ With help from an external API (The Movie Database), a user can search for a mov
     CSS
 
 ## Install Instructions
+
+### Clone the Project
+Enter the following command in your terminal to clone the project to your computer.
+```sh
+    git clone git@github.com:mister-michael/hipStar.git
+```
+### The Movie Database API
+
+To use the site you will need access to [The Movie Database API](https://www.themoviedb.org/documentation/api). Sign up for an account and request a API key in your Profile and Settings by clicking on the Avatar on the top right of the screen.
+
+When you recieve your key you will need to add it to the project. Create a file called "apiKey.js" in the "src" folder. 
+
+```sh
+    cd hipstar/src
+    touch apiKey.js
+    cd ..
+```
+
+Open the "apiKey.js" file and declare the value of the apiKey variable as your key as shown below. You can copy the template code below.
+
+    const apiKey = "paste your key inside the quotation marks"
+    
+    export default apiKey
+
+
+### NPM Install
+Install the NPM dependencies from the root directory (hipstar)
+```sh
+    npm install
+    npm install react-router-dom
+    npm install reactstrap react react-dom
+```
+
+### Json Server
+Move to the api directory
+```sh
+    cd api
+    touch database.json
+    ls
+```
+
+Copy the contents of the database.json.example file into your newly created database.json file.
+
+Then run your JSON server.
+```sh
+    json-server -p 5002 -w database.json
+```
+
+### NPM Start
+
+After installing dependencies, adding your TMDb key and creating your databse.json file, start the server
+```sh
+    npm start
+```
+
+Now that the server is running, you can visit the site
+```sh
+    http://localhost:3000/
+```
+
+
+
+
+
+
 
 
 
