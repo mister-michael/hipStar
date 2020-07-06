@@ -8,7 +8,7 @@
 
 ### Search The Movie Database
 
-    With help from an external API (The Movie Database), a user can search for a movie and see the results of their search. From the search results page, a user can rate the movie as "Loved" or "Hated," and can remove existing ratings from films.  
+With help from an external API (The Movie Database), a user can search for a movie and see the results of their search. From the search results page, a user can rate the movie as "Loved" or "Hated," and can remove existing ratings from films.  
 
 ![Search Results](/src/readMeImg/search-image.png)
 
