@@ -1,3 +1,66 @@
+# h!pstar
+    h!pstar is a movie rating and recommendation app which connects users and recommends movies by a metric of mutual distaste.
+
+## Table of Contents
+    *[chapter1] (#chapter1)
+
+## The User Experience
+
+### Search The Movie Database
+
+    With help from an external API (The Movie Database), a user can search for a movie and see the results of their search. From the search results page, a user can rate the movie as "Loved" or "Hated," and can remove existing ratings from films.  
+
+![Search Results](/src/readMeImg/search-image.png)
+
+    Clicking on a search results card will open a modal which gives the user more detailed description of the film.
+
+![Search Modal](/src/readMeImg/search-modal-image.png)
+
+### User Profile
+
+    After a user has rated movies, the Loved and Hated movies will show up under the "Loves" and "Hates" tabs on the user's profile page. From here users can re-rate movies or remove a rating. When these affordances are utilized, the movie will be moved to the corosponding tab on the profile or removed form the profile entirely.
+
+![Profile Page](src/readMeImg/profile-image.png)
+
+    From the Profile Page, when a user clicks on a movie card, they are presented with a modal displaying a description of the film, reviews of the movie made by users of the site, and an affordance for the active user to add their own review.
+
+    When a user clicks on one of their own reviews they an affordance to edit or delete the review is displayed. When the user clicks on another reviewers username they are directed to that user's profile page.
+
+![Movie Modal](src/readMeImg/comments-image.png)
+![Edit Modal](src/readMeImg/Edit-modal.png)
+
+### Recomendation Page
+
+    After a user has rated a movie as "Hated," they are delivered a list of recommended movies on the Recs page. The active user's list of hated movies is compared to all other user's hated movies list and is matched with the user whose Hated Movie List has the most in common. The active user is presented with movies from the matched user's Loved Movie List which the active user has not yet rated.
+
+![Recs Page](src/readMeImg/recs-image.png)
+
+### Future Plans
+
+    This was a front-end project at Nashville Software School, made before I had a concpetion of what back-end meant. I soon came to realize that my ultimate conception of a movie recommendation project was that of a back-end project. A future iteration of this app will be build with Django ORM with Rest Framework. Recommendations will be based on more advanced data relationships.
+
+## Technologies Used
+    React.js
+    Reactstrap
+    The Movie Database (external API)
+    HTML
+    CSS
+
+## Install Instructions
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
