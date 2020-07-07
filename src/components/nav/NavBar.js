@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom"
-import { withRouter } from "react-router-dom"
-import "./NavBar.css"
-import {
-  Collapse, Navbar, NavbarToggler,  NavbarBrand, Nav, NavItem
-} from 'reactstrap';
+import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem } from 'reactstrap';
+import { Link, withRouter } from "react-router-dom";
+import "./NavBar.css";
 
 const NavBar = props => {
 
@@ -21,40 +18,41 @@ const NavBar = props => {
 
   return (
     <>
-    {props.hasUser ? (
-      <Navbar color="light" light expand="md">
-        <NavbarBrand href="/">H P S T R</NavbarBrand>
-        <NavbarToggler onClick={toggle} />
-        <Collapse isOpen={isOpen} navbar>
-          <Nav className="mr-auto" navbar>
-            <NavItem>
-              <Link className="nav-link" style={{ textDecoration: 'none', color: '#160D58' }} to="/profile">
-                profile
+      {props.hasUser ? (
+        <Navbar color="light" light expand="md" className="headlineShadow navBarText ">
+          <div className="navToglleDiv">
+            <NavbarToggler onClick={toggle} className="navToggler" />
+          </div>
+          <Collapse isOpen={isOpen} className="" navbar>
+            <Nav className="mr-auto" navbar>
+              <NavItem>
+                <Link className="nav-link" style={{ textDecoration: 'none', color: '#160D58' }} to="/profile">
+                  profile
             </Link>
-            </NavItem>
-            <NavItem>
-              <Link className="nav-link" style={{ textDecoration: 'none', color: '#160D58' }} to="/search">
-                search
+              </NavItem>
+              <NavItem>
+                <Link className="nav-link" style={{ textDecoration: 'none', color: '#160D58' }} to="/recommendations">
+                  recs
             </Link>
-            </NavItem>
-            <NavItem><Link className="nav-link" style={{ textDecoration: 'none', color: '#160D58' }} to="/recommendations">
-              recs
-            </Link></NavItem>
-            <NavItem><Link className="nav-link" style={{ textDecoration: 'none', color: '#160D58' }} to="/recommendations">
-              friends
-            </Link></NavItem>
-            <NavItem></NavItem>
-            <NavItem>
-              <Link className="nav-link" style={{ textDecoration: 'none', color: '#160D58' }} to="/login" onClick={handleLogout}>
-                logout
+              </NavItem>
+              <NavItem>
+                <Link className="nav-link" style={{ textDecoration: 'none', color: '#160D58' }} to="/search">
+                  search
             </Link>
-            </NavItem>
-          </Nav>
-        </Collapse>
-      </Navbar>
-    ) : null}
+              </NavItem>
+              <NavItem>
+                <Link className="nav-link" style={{ textDecoration: 'none', color: '#160D58' }} to="/login" onClick={handleLogout}>
+                  logout
+            </Link>
+              </NavItem>
+            </Nav>
+            <NavbarBrand
+            >H ! P S T @ R</NavbarBrand>
+          </Collapse>
+        </Navbar>
+      ) : null}
     </>
-  )
-}
+  );
+};
 
-export default withRouter(NavBar)
+export default withRouter(NavBar);
