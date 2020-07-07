@@ -2,7 +2,7 @@
 h!pstar is a movie rating and recommendation app which connects users and recommends movies by a metric of mutual distaste.
 
 ## Table of Contents
-*[Search Database] (#search-the-movie-database)
+    * [Search Database] (#search-the-movie-database)
 *[User Profile] (#user-profile)
 *[Recommendation Page] (#recommendation-page)
 *[Future Plans] (#future-plans)
