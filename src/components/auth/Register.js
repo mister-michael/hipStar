@@ -40,15 +40,15 @@ const RegisterForm = props => {
 
                 if (email === undefined && name === undefined) {
 
-                    jAPI.save(credentials, "users");
+                    jAPI.save(credentials, "users")
+                        .then(() =>
 
-                    jAPI.get("users").then(users => {
-
-                        const newUser = users.find(newUser => newUser.email.toLowerCase() === credentials.email.toLowerCase());
-                        sessionStorage.setItem("userId", newUser.id);
-                        props.setUser(credentials);
-                        props.history.push("/home");
-                    });
+                            jAPI.get("users").then(users => {
+                                const newUser = users.find(newUser => newUser.email.toLowerCase() === credentials.email.toLowerCase());
+                                sessionStorage.setItem("userId", newUser.id);
+                                props.setUser(credentials);
+                                props.history.push("/search");
+                            }));
 
                 } else if (email !== undefined) {
                     window.alert("email already exists");
