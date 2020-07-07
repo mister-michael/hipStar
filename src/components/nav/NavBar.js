@@ -25,11 +25,6 @@ const NavBar = props => {
           </div>
           <Collapse isOpen={isOpen} className="" navbar>
             <Nav className="mr-auto" navbar>
-              {/* <NavItem>
-                <Link className="nav-link" style={{ textDecoration: 'none', color: '#160D58' }} to="/home">
-                  home
-            </Link>
-              </NavItem> */}
               <NavItem>
                 <Link className="nav-link" style={{ textDecoration: 'none', color: '#160D58' }} to="/profile">
                   profile
@@ -52,8 +47,6 @@ const NavBar = props => {
               </NavItem>
             </Nav>
             <NavbarBrand
-              // href="/hpstr"
-              href="home"
             >H ! P S T @ R</NavbarBrand>
           </Collapse>
         </Navbar>

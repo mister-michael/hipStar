@@ -47,7 +47,6 @@ const RecList = (props) => {
                 if (sameSame.userId === userIdSet[i]) {
                   const tallyIndex = userTallyArr.findIndex(element => element.userId === sameSame.userId)
                   userTallyArr[tallyIndex].tally += 1
-                  // console.log(userTallyArr[tallyIndex], "uta[tallyIndex]")
                 }
               }
             });
@@ -66,11 +65,9 @@ const RecList = (props) => {
 
             tallyToSort.length > 0 ? topMatchedUser = tallyToSort[0].userId : topMatchedUser = 1;
 
-            console.log("topMatch", topMatchedUser);
 
             jAPI.userMovieExpand("loveHates", topMatchedUser)
               .then(topMatchLoveHates => {
-                console.log(topMatchLoveHates, "topMatchLoveHates");
                 const loveArr = [];
                 const hateArr = [];
                 topMatchLoveHates.forEach(lh => {
@@ -78,7 +75,6 @@ const RecList = (props) => {
                   lh.isHated ? hateArr.push(lh) : loveArr.push(lh);
 
                 })
-                console.log(userLoveHates, "userLoveHates");
 
                 const loveArrPruned = loveArr.filter(lovedMovie => userLoveHates.filter(rated => lovedMovie.movieId !== rated.movieId));
                 const loveArrToPrune = [];
@@ -88,14 +84,12 @@ const RecList = (props) => {
                     if (userLoveHates[i].movieId !== lovedMovie.movieId) { count++ }
                   }
                   if (count === userLoveHates.length) {
-                    console.log("if statement")
                     loveArrToPrune.push(lovedMovie)
                   }
                 });
 
                 jAPI.getWithId("users", topMatchedUser)
                   .then(matchedUser => setTopMatch(matchedUser));
-                console.log(loveArrToPrune);
                 setRecommendations(loveArrToPrune);
               });
           });
@@ -107,7 +101,7 @@ const RecList = (props) => {
   }, []);
 
   if (recommendations.length === 0) {
-    return (null);
+    return (<h2>Waiting for more users and ratings to give you a sweet Recommendation!</h2>);
   } else {
     return (
       <>

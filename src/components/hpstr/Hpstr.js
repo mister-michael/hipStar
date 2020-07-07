@@ -16,8 +16,6 @@ const Hpstr = () => {
             })
     }
 
-    console.log(movieObject);
-
     useEffect(() => {
         fetchMovie();
     }, []);

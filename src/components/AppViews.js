@@ -20,42 +20,42 @@ const AppViews = (props) => {
         exact
         path="/login"
         render={props => {
-          if (hasUser) {return <Redirect to="/home" /> } else {return <Login setUser={setUser} hasUser={hasUser} {...props} />};
+          if (hasUser) { return <Redirect to="/home" /> } else { return <Login setUser={setUser} hasUser={hasUser} {...props} /> };
         }}
       />
       <Route
         exact
         path="/register"
         render={props => {
-          if(hasUser) {return <Redirect to="/home" /> } else {return <Register setUser={setUser} hasUser={hasUser} {...props} />}
+          if (hasUser) { return <Redirect to="/home" /> } else { return <Register setUser={setUser} hasUser={hasUser} {...props} /> }
         }}
       />
       <Route
         exact
         path="/home"
         render={props => {
-         if (hasUser) {return <Home setUser={setUser} hasUser={hasUser} {...props} />} else { return <Redirect to="/login" /> }
+          if (hasUser) { return <Home setUser={setUser} hasUser={hasUser} {...props} /> } else { return <Redirect to="/login" /> }
         }}
       />
       <Route
         exact
         path="/HPSTR"
         render={props => {
-         if (hasUser) {return <Hpstr setUser={setUser} hasUser={hasUser} {...props} />} else { return <Redirect to="/login" /> }
+          if (hasUser) { return <Hpstr setUser={setUser} hasUser={hasUser} {...props} /> } else { return <Redirect to="/login" /> }
         }}
       />
       <Route
         exact
         path="/profile"
         render={props => {
-          if (hasUser) { return <Profile userId={activeUserId}/> } else { return <Redirect to="/login" /> }
+          if (hasUser) { return <Profile userId={activeUserId} /> } else { return <Redirect to="/login" /> }
         }}
       />
       <Route
         exact
         path="/recommendations"
         render={props => {
-          if (hasUser) { return <RecList activeUserId={activeUserId}/> } else { return <Redirect to="/login" /> }
+          if (hasUser) { return <RecList activeUserId={activeUserId} /> } else { return <Redirect to="/login" /> }
         }}
       />
       <Route
@@ -68,7 +68,6 @@ const AppViews = (props) => {
       <Route
         exact
         path="/"
-        // path="/:userId(\d+)"
         render={props => {
           if (hasUser) {
             return (
