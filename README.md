@@ -8,7 +8,7 @@ h!pstar is a movie rating and recommendation app which connects users and recomm
   * [Future Plans](#future-plans)
   * [Technology Used](#technology-used)
   * [Install Instructions](#install-instructions)
-  * [Appreciations and Contact](#appreciations-and-contacts)
+  * [Appreciations](#appreciations)
 
 ## The User Experience
 
@@ -24,13 +24,13 @@ Clicking on a search results card will open a modal which gives the user more de
 
 ### User Profile
 
-After a user has rated movies, the Loved and Hated movies will show up under the "Loves" and "Hates" tabs on the user's profile page. From here users can re-rate movies or remove a rating. When these affordances are utilized, the movie will be moved to the corresponding tab on the profile or removed form the profile entirely.
+After a user has rated movies, the Loved and Hated movies will show up under the "Loves" and "Hates" tabs on the user's profile page. From here users can re-rate movies or remove a rating. When these affordances are utilized, the movie will be moved to the corresponding tab on the profile or removed from the profile entirely.
 
 ![Profile Page](src/readMeImg/profile-image.png)
 
 From the Profile Page, when a user clicks on a movie card, they are presented with a modal displaying a description of the film, reviews of the movie made by users of the site, and an affordance for the active user to add their own review.
 
-When a user clicks on one of their own reviews they an affordance to edit or delete the review is displayed. When the user clicks on another reviewers username they are directed to that user's profile page.
+When a user clicks on one of their own reviews they are provided an affordance to edit or delete the review is displayed. When the user clicks on another reviewer's username they are directed to that user's profile page.
 
 ![Movie Modal](src/readMeImg/comments-image.png)
 ![Edit Modal](src/readMeImg/Edit-modal.png)
@@ -43,7 +43,7 @@ After a user has rated a movie as "Hated," they are delivered a list of recommen
 
 ### Future Plans
 
-This was a front-end project at Nashville Software School, made before I had a concpetion of what back-end meant. I soon came to realize that my ultimate conception of a movie recommendation project was that of a back-end project. A future iteration of this app will be build with Django ORM with Rest Framework. Recommendations will be based on more advanced data relationships.
+This was a front-end project at Nashville Software School, made before I had a conception of what back-end meant. I soon came to realize that my ultimate conception of a movie recommendation project was that of a back-end project. A future iteration of this app will be build with Django ORM with Rest Framework. Recommendations will be based on more advanced data relationships.
 
 
 
@@ -119,7 +119,7 @@ Now that the server is running, you can visit the site
 ```
 
 
-## Appreciations and Contacts
+## Appreciations
 
 Thank you for taking the time to view my work. This was my first big project after three months of coding, and I had so much fun making it. I couldn't have done it without the guidance of my instructors [Andy Collins](https://github.com/askingalot), [Kristen Norris](https://github.com/krnorris65) and [Bryan Nilsen](https://github.com/BryanNilsen) at the Nashville Software School.
 
